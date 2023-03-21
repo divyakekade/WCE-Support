@@ -23,6 +23,6 @@ MaterialColor buildMaterialColor(Color color) {
 const Color primaryColor = Color(0xff1793A4); 
 const Color card_background = Color(0xffF5F5F5);
 const Color heading_color = Color(0xff01353D);
-
+const Color grey_color = Color(0xffE0E0E0);
 //constanly repeated styles for the widgets here
 //like add style for button used commonly here 
