@@ -50,29 +50,28 @@ class ProductCard extends StatelessWidget implements PreferredSizeWidget {
               ),
 
             ),
-            SizedBox(width: imgh/10),
+            SizedBox(width: 10),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(2.0),
                 child: Column(
                   children: [
-                    SizedBox(height: hc/10),
-                    Expanded(
-                      flex: 2,
-                      child: Text(productname,
-                         style: TextStyle(
-                           fontSize: heightc,
-                           color: heading_color,
-                           fontWeight: FontWeight.bold,
-                         ),
-                      ),
-                    ),
-                    Expanded(
-                        flex: 2,
-                        child: SizedBox(height: hc/4)),
-                Expanded(
-                  flex: 2,
-                  child:ElevatedButton(
+                    SizedBox(height: heightc/2),
+                     Container(
+                       margin: EdgeInsets.all(heightc/3),
+                       padding: EdgeInsets.all(heightc/3),
+                       child: Text(productname,
+                           style: TextStyle(
+                             fontSize: heightc,
+                             color: heading_color,
+                             fontWeight: FontWeight.bold,
+                           ),
+                        ),
+                     ),
+                    SizedBox(height: heightc/2),
+                Container(
+                  margin: EdgeInsets.only(top: heightc, bottom: heightc/3),
+                  child: ElevatedButton(
                       onPressed: () {
                         print("name");
                       },
@@ -89,9 +88,9 @@ class ProductCard extends StatelessWidget implements PreferredSizeWidget {
                             borderRadius: BorderRadius.all(Radius.circular(15.0))),
                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
                       ),
-                  ),
                     ),
-                    SizedBox(height: hc/10),
+                ),
+
                   ],
                 ),
               ),

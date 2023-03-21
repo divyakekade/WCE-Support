@@ -45,7 +45,7 @@ class _BuyproductState extends State<BuyProducts> {
                       ],
                     ),
                     child: Text(
-                      "Pick up Your Choise",
+                      "Pick Up Your Choise",
                       style: TextStyle(
                         fontSize: heightc,
                         fontWeight: FontWeight.bold,

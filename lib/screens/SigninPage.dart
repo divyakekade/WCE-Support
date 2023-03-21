@@ -23,8 +23,8 @@ class _RegisterPageState extends State<SigninPage>{
   Widget build(BuildContext context){
     double width10 = MediaQuery.of(context).size.width * 0.025;
     double heightc = MediaQuery.of(context).size.width * 0.053;
-    double hc = MediaQuery.of(context).size.height * 0.45;
-    double wc = MediaQuery.of(context).size.width * 0.9;
+    // double hc = MediaQuery.of(context).size.height * 0.45;
+    // double wc = MediaQuery.of(context).size.width * 0.9;
     return Scaffold(
 
       body: SafeArea(
@@ -68,8 +68,7 @@ class _RegisterPageState extends State<SigninPage>{
                   ),
 
                   Container(
-                    height: hc*1.2,
-                    width: wc,
+
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     margin: EdgeInsets.symmetric(horizontal: width10),
                     decoration: BoxDecoration(
@@ -90,7 +89,7 @@ class _RegisterPageState extends State<SigninPage>{
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            height: heightc,
+                            height: width10*2,
                           ),
                           TextField(
                                 decoration: InputDecoration(
@@ -100,7 +99,7 @@ class _RegisterPageState extends State<SigninPage>{
                                 ),
                               ),
 
-                          SizedBox(height: width10*3,),
+                          SizedBox(height: width10*2,),
                           //prn
                           TextField(
                             decoration: InputDecoration(
@@ -110,7 +109,7 @@ class _RegisterPageState extends State<SigninPage>{
                             ),
                           ),
 
-                          SizedBox(height: width10*3,),
+                          SizedBox(height: width10*2,),
                           //password
                          TextField(
 
@@ -153,7 +152,7 @@ class _RegisterPageState extends State<SigninPage>{
                                   fontSize: heightc/1.2,
                                 ),
                               ),
-                              SizedBox(height: heightc/1.5,),
+                              SizedBox(height: width10),
                               GestureDetector(
                                   onTap: widget.showLoginPage,
                                   child: Text("Login",
@@ -164,6 +163,9 @@ class _RegisterPageState extends State<SigninPage>{
                                     ),
                                   )
                               ),
+                          SizedBox(
+                            height: width10,
+                          ),
                         ],
 
 

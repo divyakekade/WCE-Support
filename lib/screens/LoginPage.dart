@@ -25,8 +25,8 @@ class _LoginPageState extends State<LoginPage>{
 
     double width10 = MediaQuery.of(context).size.width * 0.025;
     double heightc = MediaQuery.of(context).size.width * 0.053;
-    double hc = MediaQuery.of(context).size.height * 0.45;
-    double wc = MediaQuery.of(context).size.width * 0.9;
+    // double hc = MediaQuery.of(context).size.height * 0.45;
+    // double wc = MediaQuery.of(context).size.width * 0.9;
     return Scaffold(
 
       body: SafeArea(
@@ -71,8 +71,7 @@ class _LoginPageState extends State<LoginPage>{
     Container(
     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
     margin: EdgeInsets.symmetric(horizontal: width10),
-    height: hc,
-    width: wc,
+
     decoration: BoxDecoration(
     color: grey_color,
 
@@ -91,7 +90,7 @@ class _LoginPageState extends State<LoginPage>{
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
     SizedBox(
-    height: width10,
+    height: width10*2,
     ),
     TextField(
     decoration: InputDecoration(
@@ -101,7 +100,7 @@ class _LoginPageState extends State<LoginPage>{
     ),
     ),
 
-    SizedBox(height: width10*3,),
+    SizedBox(height: width10*2,),
     //password
     TextField(
 
@@ -143,7 +142,7 @@ class _LoginPageState extends State<LoginPage>{
                         fontSize: heightc/1.2,
                       ),
                     ),
-                SizedBox(height: heightc/1.5,),
+                SizedBox(height: width10),
                     GestureDetector(
                         onTap: widget.showRegisterPage,
                         child: Text("SignUp",
@@ -155,8 +154,10 @@ class _LoginPageState extends State<LoginPage>{
                         )
 
                 ),
-
-              ],
+                SizedBox(
+                  height: width10,
+                ),
+                        ],
             ),
           ),
         ),
