@@ -32,12 +32,8 @@ class _PutGrievanceState extends State<PutGrievance> {
     return Scaffold(
       body:  Column(
           children: [
-            PhysicalModel(
-
-            color: Color.fromRGBO(159, 157, 157, 1),
-            shadowColor: Color.fromRGBO(159, 157, 157, 1),
-            elevation: -2,
-            child:Container(
+            
+            Container(
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.013,
                   vertical: MediaQuery.of(context).size.height * 0.01),
@@ -69,7 +65,7 @@ class _PutGrievanceState extends State<PutGrievance> {
                       )
                     ] ),
               ),
-            )),
+            ),
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.039,
