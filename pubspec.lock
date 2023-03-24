@@ -9,6 +9,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  blur:
+    dependency: transitive
+    description:
+      name: blur
+      sha256: fd23f1247faee4a7d1a3efb6b7c3cea134f3b939d72e5f8d45233deb0776259f
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -62,6 +70,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_inset_box_shadow:
+    dependency: "direct main"
+    description:
+      name: flutter_inset_box_shadow
+      sha256: "0b1930ed5f4ad84b11b41dda907fbc5d4c12929a4c51455c626e5937b47ffb93"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -123,6 +139,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.8.2"
+  shadow:
+    dependency: "direct main"
+    description:
+      name: shadow
+      sha256: a1a8d091f198c2632b643443e573f27d5852b7a5d7ba754f7674216a595b6271
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.0"
+  shadows:
+    dependency: "direct main"
+    description:
+      name: shadows
+      sha256: "7b93af1749b4d77a9228b0f93cbbcb3722f9cb52a0bbb86c1206c23d0ddbdb13"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.9.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -186,3 +218,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=2.18.6 <3.0.0"
+  flutter: ">=2.5.0"

@@ -1,8 +1,9 @@
 import 'dart:ffi';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
+// import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import '../constants/ColorsAndStyles.dart';
-
+import 'package:shadows/shadows.dart';
 class PutGrievance extends StatefulWidget {
   const PutGrievance({super.key});
 
@@ -12,28 +13,46 @@ class PutGrievance extends StatefulWidget {
 
 class _PutGrievanceState extends State<PutGrievance> {
   String subject = "";
-  String selectedOption = "One";
-  List<String> sectionList = <String>['One', 'Two', 'Three', 'Four'];
+  String selectedOption = "Hostel Supervisor";
+  List<String> sectionList = <String>["Hostel Supervisor","Hostel Chief Rector" ,"Exam Cell" ,"Your Department"];
+  List list = [
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'ten'
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
+      body:  Column(
           children: [
-            Container(
+            PhysicalModel(
+
+            color: Color.fromRGBO(159, 157, 157, 1),
+            shadowColor: Color.fromRGBO(159, 157, 157, 1),
+            elevation: -2,
+            child:Container(
               margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width*0.013,
-                vertical: MediaQuery.of(context).size.height * 0.01),
-              padding:  EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width*0.038,
-                 vertical: MediaQuery.of(context).size.height * 0.008),
+                  horizontal: MediaQuery.of(context).size.width * 0.013,
+                  vertical: MediaQuery.of(context).size.height * 0.01),
+              padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.038,
+                  vertical: MediaQuery.of(context).size.height * 0.008),
               decoration: BoxDecoration(
                   color: card_background,
                   borderRadius: BorderRadius.circular(28),
-                  boxShadow: const [
+                  boxShadow: const  [
+                    
                     BoxShadow(
-                        color: Color.fromARGB(255, 159, 157, 157),
+                        color: Color.fromRGBO(159, 157, 157, 1),
                         offset: Offset(2, 4),
+                        
                         blurRadius: 4)
                   ]),
               child: Text(
@@ -41,13 +60,20 @@ class _PutGrievanceState extends State<PutGrievance> {
                 style: TextStyle(
                     fontSize: MediaQuery.of(context).size.height * 0.028,
                     fontWeight: FontWeight.w500,
-                    color: heading_color),
+                    color: heading_color,
+                    shadows:const  [
+                      Shadow(
+                        offset: Offset(2,2),
+                        color: Color.fromRGBO(159, 157, 157, 1),
+                        blurRadius: 10
+                      )
+                    ] ),
               ),
-            ),
+            )),
             Container(
-              margin:  EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.039, 
-                vertical: MediaQuery.of(context).size.height * 0.014),
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.039,
+                  vertical: MediaQuery.of(context).size.height * 0.014),
               child: TextFormField(
                 onChanged: (sub) {
                   setState(() {
@@ -57,21 +83,22 @@ class _PutGrievanceState extends State<PutGrievance> {
                 },
                 decoration: const InputDecoration(
                     // contentPadding: EdgeInsets.all(4),
+                    
                     labelText: "subject",
                     border: OutlineInputBorder(
                         // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        borderSide: BorderSide(color: Colors.black, width: 0.3)),
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 0.3)),
                     focusedBorder: OutlineInputBorder(
                         // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                        borderSide: BorderSide(color: Colors.black, width: 0.3))),
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 0.3))),
               ),
             ),
             Container(
-              margin:  EdgeInsets.symmetric(
-                
-                horizontal: MediaQuery.of(context).size.width * 0.039,
-                  vertical: MediaQuery.of(context).size.height * 0.014
-              ),
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.039,
+                  vertical: MediaQuery.of(context).size.height * 0.014),
               child: SizedBox(
                   child: TextFormField(
                 minLines: 1,
@@ -83,71 +110,78 @@ class _PutGrievanceState extends State<PutGrievance> {
                   });
                   print(subject);
                 },
-    
+
                 decoration: const InputDecoration(
                     // contentPadding: EdgeInsets.all(4),
                     labelText: "write your grievence here",
                     border: OutlineInputBorder(
                         // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        borderSide: BorderSide(color: Colors.black, width: 0.3)),
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 0.3)),
                     focusedBorder: OutlineInputBorder(
                         // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                        borderSide: BorderSide(color: Colors.black, width: 0.3))),
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 0.3))),
               )),
             ),
             Container(
-              margin:  EdgeInsets.symmetric(
+              margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.039,
-                  vertical: MediaQuery.of(context).size.height *0.008        
-                       ),
-              child:  Align(
+                  vertical: MediaQuery.of(context).size.height * 0.008),
+              child: Align(
                 alignment: Alignment.topLeft,
                 child: Text('Add image as a proof if any',
-                    style: TextStyle(color: heading_color, fontSize: MediaQuery.of(context).size.height*0.018)),
+                    style: TextStyle(
+                        color: heading_color,
+                        fontSize: MediaQuery.of(context).size.height * 0.018)),
               ),
             ),
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.039,
-                  vertical: MediaQuery.of(context).size.height * 0.014              ),
+                  vertical: MediaQuery.of(context).size.height * 0.014),
               child: Align(
                   alignment: Alignment.topLeft,
                   child: ElevatedButton(
                       onPressed: null,
+                      
                       style: ButtonStyle(
+                        elevation: MaterialStatePropertyAll(5),
                           minimumSize:
                               MaterialStateProperty.all(ui.Size(150, 45)),
                           backgroundColor:
                               MaterialStateProperty.all<Color>(imagebutton),
                           foregroundColor:
                               MaterialStateProperty.all<Color>(Colors.black)),
-                      child:  Text(
+                      child: Text(
                         "Add Image",
-                        style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.05),
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.05),
                       ))),
             ),
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.039,
-                  vertical: MediaQuery.of(context).size.height * 0.005   ),
-              child:  Align(
+                  vertical: MediaQuery.of(context).size.height * 0.005),
+              child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
                   'Choose department for your grievance',
-                  style: TextStyle(color: heading_color, 
-                  fontSize: MediaQuery.of(context).size.height * 0.018),
+                  style: TextStyle(
+                      color: heading_color,
+                      fontSize: MediaQuery.of(context).size.height * 0.018),
                 ),
               ),
             ),
             Container(
                 // width: 300,
                 margin: EdgeInsets.symmetric(
-                     horizontal: MediaQuery.of(context).size.width * 0.039,
-                  vertical: MediaQuery.of(context).size.height * 0.018),
+                    horizontal: MediaQuery.of(context).size.width * 0.039,
+                    vertical: MediaQuery.of(context).size.height * 0.018),
                 child: DropdownButtonFormField(
                   decoration: const InputDecoration(
                       // contentPadding: EdgeInsets.all(4),
-    
+
                       border: OutlineInputBorder(
                           // borderRadius: BorderRadius.all(Radius.circular(7)),
                           borderSide:
@@ -171,7 +205,7 @@ class _PutGrievanceState extends State<PutGrievance> {
                 )),
             Container(
               margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width*0.035,
+                horizontal: MediaQuery.of(context).size.width * 0.035,
               ),
               child: Align(
                 alignment: Alignment.topRight,
@@ -182,6 +216,7 @@ class _PutGrievanceState extends State<PutGrievance> {
                     style: TextStyle(fontSize: 20),
                   ),
                   style: ButtonStyle(
+                      elevation: MaterialStateProperty.all(5),
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
@@ -197,90 +232,97 @@ class _PutGrievanceState extends State<PutGrievance> {
             ),
             Container(
               margin: EdgeInsets.symmetric(
-    
-                 horizontal: MediaQuery.of(context).size.width * 0.039,
-                  vertical: MediaQuery.of(context).size.height * 0.014
-              ),
-              child:  Align(
+                  horizontal: MediaQuery.of(context).size.width * 0.039,
+                  vertical: MediaQuery.of(context).size.height * 0.014),
+              child: Align(
                 alignment: Alignment.topLeft,
                 child: Text(
                   'Your Past Grievances',
                   style: TextStyle(
                       color: heading_color,
-                      fontSize: MediaQuery.of(context).size.width*0.05,
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
                       fontWeight: FontWeight.w500),
                 ),
               ),
             ),
             const Divider(height: 1, thickness: 2, color: Colors.grey),
-            Container(
-              margin: EdgeInsets.symmetric(
-                 horizontal: MediaQuery.of(context).size.width * 0.039,
-                  vertical: MediaQuery.of(context).size.height * 0.018
-                ),
-              padding: EdgeInsets.symmetric(
-                 horizontal: MediaQuery.of(context).size.width * 0.035,
-                  vertical: MediaQuery.of(context).size.height * 0.009
-              ),
-              decoration: const BoxDecoration(
-                            color: cardColor,
-    
-                boxShadow:[
-                   BoxShadow(
-                    color: Color.fromRGBO(159,157,157,1),
-                  offset: Offset(2, 4),
-                  blurRadius: 4
-                )
-                ]
-              ),
-              child: Column(children: [
-                Row(
-                  children: [
-                    Text(
-                      "subject:-",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: MediaQuery.of(context).size.height*0.023
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "Description:-",
-                      style: TextStyle(
-                       fontSize: MediaQuery.of(context).size.height * 0.017
-    
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton(
-                        onPressed: null,
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all<Color>(primaryColor),
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0),
-                              ),
-                            )
-                        ),
-                      
-                        child: Text("Give Feedback"))
-                  ],
-                )
-              ]),
-            )
+            Expanded(
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: list.length,
+                    itemBuilder: (context, index) {
+                      dynamic l = list[index];
+                      return Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.039,
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.018),
+                        padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.035,
+                            vertical:
+                                MediaQuery.of(context).size.height * 0.009),
+                        decoration:
+                            const BoxDecoration(color: cardColor, boxShadow: [
+                          BoxShadow(
+                              color: Color.fromRGBO(159, 157, 157, 1),
+                              offset: Offset(2, 4),
+                              blurRadius: 4)
+                        ]),
+                        child: Column(children: [
+                          Row(
+                            children: [
+                              Text(
+                                "subject:-",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.023),
+                              )
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Description:-",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.017),
+                              )
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                  onPressed: null,
+                                  style: ButtonStyle(
+                                  elevation: MaterialStateProperty.all(5),
+
+                                      backgroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              primaryColor),
+                                      foregroundColor:
+                                          MaterialStateProperty.all<Color>(
+                                              Colors.white),
+                                      shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                      )),
+                                  child: Text("Give Feedback"))
+                            ],
+                          )
+                        ]),
+                      );
+                    }))
           ],
         ),
-      ),
+      
     );
   }
 }

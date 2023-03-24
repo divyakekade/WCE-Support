@@ -25,5 +25,6 @@ const Color card_background = Color(0xffF5F5F5);
 const Color heading_color = Color(0xff01353D);
 const Color imagebutton = Color(0xffAACAD1);
 const Color cardColor = Color.fromARGB(255, 230, 230, 230);
+const Color grey_color = Color(0xffE0E0E0);
 //constanly repeated styles for the widgets here
 //like add style for button used commonly here 

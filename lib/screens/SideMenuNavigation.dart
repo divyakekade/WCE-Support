@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wce_support/screens/HomePage.dart';
+import 'package:wce_support/screens/BuyProducts.dart';
 import 'package:wce_support/screens/PutGrievance.dart';
 import 'package:wce_support/screens/ViewGrievances.dart';
 import 'package:wce_support/widgets/SidebarHeader.dart';
@@ -21,7 +22,7 @@ class _SideMenuNavigationState extends State<SideMenuNavigation> {
     if (currentPage == "home") {
       container = const HomePage();
     } else if (currentPage == "buy_products") {
-      container = const HomePage(); //need to change 
+      container = const BuyProducts(); //need to change
     } else if (currentPage == "sell_products") {
       container = const HomePage(); //need to change 
     } else if (currentPage == "view_grievances") {
