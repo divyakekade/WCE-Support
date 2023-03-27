@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http ;
 
 class LoginPage extends StatefulWidget {
   final VoidCallback showRegisterPage;
@@ -24,27 +24,27 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  Future<void> login() async {
+    final url = Uri.parse("http://192.168.43.89:5000/user/login");
+    print(_emailController.text);
+    try {
+      var res2 = await http.post(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8'
+      }, body: <String, String>{
+        'password': "2020btecs0042",
+        'username': "2020BTECS00042"
+      });
+      print(json.decode(res2.body));
+    } catch (error) {
+      print(error);
+    }
+  }
+
   Widget build(BuildContext context) {
     double width10 = MediaQuery.of(context).size.width * 0.025;
     double heightc = MediaQuery.of(context).size.width * 0.053;
     // double hc = MediaQuery.of(context).size.height * 0.45;
     // double wc = MediaQuery.of(context).size.width * 0.9;
-    Future<void> login() async {
-      final url = Uri.parse("http://192.168.43.89:5000/user/login");
-      print(_emailController.text);
-      try {
-        var res2 = await http.post(url, headers: <String, String>{
-          'Context-Type': 'application/json;charSet=UTF-8'
-        }, body: <String, String>{
-          'password': "2020btecs0042",
-          'username': "2020BTECS00042"
-        });
-        print(json.decode(res2.body));
-      } catch (error) {
-        print(error);
-      }
-    }
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -58,9 +58,11 @@ class _LoginPageState extends State<LoginPage> {
                   height: width10,
                 ),
                 Container(
-                  margin: EdgeInsets.all(20),
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 80),
+                  margin: EdgeInsets.all(heightc),
+                  padding: EdgeInsets.symmetric(
+                      vertical: heightc / 2, horizontal: width10 * 8),
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 5,
@@ -85,7 +87,8 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                      vertical: heightc / 2, horizontal: width10 * 2),
                   margin: EdgeInsets.symmetric(horizontal: width10),
                   decoration: BoxDecoration(
                     color: grey_color,
@@ -142,8 +145,7 @@ class _LoginPageState extends State<LoginPage> {
                             shape: const RoundedRectangleBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15.0))),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 5),
+                            //  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
                           ),
                         ),
                         SizedBox(
@@ -152,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                         //not a member? register now
 
                         Text(
-                          "Not Registered?",
+                          "Account doesn't exist?",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: heightc / 1.2,

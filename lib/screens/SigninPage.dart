@@ -1,8 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:provider/provider.dart';
-import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:http/http.dart' as http;
@@ -151,7 +147,9 @@ class _RegisterPageState extends State<SigninPage> {
 
                         //button
                         ElevatedButton(
-                          onPressed: signup,
+                          onPressed: () {
+                            print("Signed Up");
+                          },
                           child: Text(
                             "Sign Up",
                             style: TextStyle(
