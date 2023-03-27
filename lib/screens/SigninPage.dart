@@ -27,7 +27,7 @@ class _RegisterPageState extends State<SigninPage> {
       //     .signUp('sahil.thakur@walchandsangli.ac.in','2020BTECS00042','2020btecs00042');
       print("reach");
       const id = 1;
-      final url = Uri.parse("http://10.40.7.176:5000/${id}");
+      final url = Uri.parse("https://expensive-train-ray.cyclic.app/${id}");
       // try {
       //   var res = await http.get(url);
       //   var data = json.decode(res.body);
