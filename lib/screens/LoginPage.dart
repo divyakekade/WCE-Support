@@ -41,9 +41,10 @@ class _LoginPageState extends State<LoginPage>{
                   height: width10,
                 ),
                 Container(
-                  margin: EdgeInsets.all(20),
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 80),
+                  margin: EdgeInsets.all(heightc),
+                  padding: EdgeInsets.symmetric(vertical: heightc/2, horizontal: width10*8),
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
                         blurRadius: 5,
@@ -69,7 +70,7 @@ class _LoginPageState extends State<LoginPage>{
                   ),
                 ),
     Container(
-    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+    padding: EdgeInsets.symmetric(vertical: heightc/2, horizontal: width10*2),
     margin: EdgeInsets.symmetric(horizontal: width10),
 
     decoration: BoxDecoration(
@@ -128,7 +129,7 @@ class _LoginPageState extends State<LoginPage>{
                 textStyle: TextStyle(fontSize: heightc),
                 shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
+              //  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
               ),
 
             ),
@@ -136,7 +137,7 @@ class _LoginPageState extends State<LoginPage>{
                 //not a member? register now
 
 
-                    Text("Not Registered?",
+                    Text("Account doesn't exist?",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: heightc/1.2,

@@ -13,13 +13,13 @@ class ProductCard extends StatelessWidget implements PreferredSizeWidget {
   final String productname;
 
   Widget build(BuildContext context) {
-    double heightc = MediaQuery.of(context).size.width * 0.05;
-    double imgh = MediaQuery.of(context).size.width * 0.35;
+    double widthc = MediaQuery.of(context).size.width * 0.05;
+    double imgh = MediaQuery.of(context).size.height * 0.16;
     double hc = MediaQuery.of(context).size.height * 0.20;
       return Container(
         height: hc,
-        margin: EdgeInsets.all(15),
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        margin: EdgeInsets.all(widthc),
+        padding: EdgeInsets.symmetric(horizontal: widthc),
         decoration: BoxDecoration(
           color: grey_color,
 
@@ -38,63 +38,61 @@ class ProductCard extends StatelessWidget implements PreferredSizeWidget {
           children: [
             //iamge
             Container(
-              width: imgh,
               height: imgh,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(8.0)),
 
               ),
-              margin: const EdgeInsets.all(2),
+
               child: const Image(
                 image: AssetImage('assets/lem.jpg'),
               ),
 
             ),
-            SizedBox(width: 10),
+            SizedBox(width: widthc),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: Column(
-                  children: [
-                    SizedBox(height: heightc/2),
-                     Container(
-                       margin: EdgeInsets.all(heightc/3),
-                       padding: EdgeInsets.all(heightc/3),
-                       child: Text(productname,
-                           style: TextStyle(
-                             fontSize: heightc,
-                             color: heading_color,
-                             fontWeight: FontWeight.bold,
-                           ),
-                        ),
-                     ),
-                    SizedBox(height: heightc/2),
-                Container(
-                  margin: EdgeInsets.only(top: heightc, bottom: heightc/3),
-                  child: ElevatedButton(
-                      onPressed: () {
-                        print("name");
-                      },
-                      child: Text(
-                        "View Details",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: primaryColor,
-                        textStyle: TextStyle(fontSize: heightc),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(15.0))),
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
-                      ),
-                    ),
-                ),
 
-                  ],
+                child: Container(
+                  height: imgh,
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Text(productname,
+                             style: TextStyle(
+                               fontSize: imgh/7,/////////////////
+                               color: heading_color,
+                               fontWeight: FontWeight.bold,
+                             ),
+                          ),
+                       ),
+                    SizedBox(height: imgh/2.5,),
+                    Container(
+
+                    child: ElevatedButton(
+                        onPressed: () {
+                          print("name");
+                        },
+                        child: Text(
+                          "View Details",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primaryColor,
+                          textStyle: TextStyle(fontSize: imgh/7),/////////////
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(15.0))),
+                        //  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
+                        ),
+                      ),
+                  ),
+
+                    ],
+                  ),
                 ),
               ),
-            ),
+
           ],
         )
       );

@@ -20,16 +20,15 @@ class _BuyproductState extends State<BuyProducts> {
     double width10 = MediaQuery.of(context).size.width * 0.025;
     return MaterialApp(
       home: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
+          body:  Column(
 
               children: [
                 Center(
                   child: Container(
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: width10*3),
+                    margin: EdgeInsets.all(heightc),
+                    padding: EdgeInsets.symmetric(vertical: heightc/2, horizontal: width10*4),
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
                       boxShadow: [
                         BoxShadow(
                           blurRadius: 5,
@@ -69,7 +68,6 @@ class _BuyproductState extends State<BuyProducts> {
                 ],
             ),
           ),
-      ),
       debugShowCheckedModeBanner: false,
     );
   }
