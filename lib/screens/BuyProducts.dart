@@ -4,6 +4,7 @@ import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/widgets/ProductCard.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:wce_support/widgets/Heading.dart';
 class BuyProducts extends StatefulWidget {
   const BuyProducts({super.key});
 
@@ -23,37 +24,7 @@ class _BuyproductState extends State<BuyProducts> {
           body:  Column(
 
               children: [
-                Center(
-                  child: Container(
-                    margin: EdgeInsets.all(heightc),
-                    padding: EdgeInsets.symmetric(vertical: heightc/2, horizontal: width10*4),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5,
-                          color: grey_color,
-                        ),
-                        BoxShadow(
-                          offset: Offset(5, 2),
-                          blurRadius: 5,
-                          spreadRadius: 2,
-                          color: Colors.black38,
-                          inset: true,
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      "Pick Up Your Choise",
-                      style: TextStyle(
-                        fontSize: heightc,
-                        fontWeight: FontWeight.bold,
-                        color: heading_color,
-                      ),
-
-                    ),
-                  ),
-                ),
+                 Heading(HeadingText: "Pick Up Your Choice"),
                  Expanded(
                    child: ListView(
                      children: [

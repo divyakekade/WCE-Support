@@ -1,7 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SingleGrievance.dart';
-
+import 'package:wce_support/widgets/Heading.dart';
 class ViewGrievances extends StatefulWidget {
   const ViewGrievances({super.key});
 
@@ -28,41 +30,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
-            margin: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.02,
-                horizontal: MediaQuery.of(context).size.width * 0.04),
-            padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.005,
-                horizontal: MediaQuery.of(context).size.width * 0.04),
-            decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(
-                  color: Color.fromRGBO(159, 157, 157, 1),
-                  offset: Offset(2, 4),
-                  blurRadius: 4,
-                )
-              ],
-              color: card_background,
-              borderRadius: BorderRadius.circular(10),
-              // border: Border.all(color: Colors.black, width: 1)
-            ),
-            child: Text(
-              'View Grievances',
-              style: TextStyle(
-                shadows: const [
-                  Shadow(
-                    offset: Offset(2.0, 2.0),
-                    blurRadius: 8.0,
-                    color: Color.fromRGBO(159, 157, 157, 1),
-                  )
-                ],
-                color: heading_color,
-                fontWeight: FontWeight.w500,
-                fontSize: MediaQuery.of(context).size.width * 0.055,
-              ),
-            ),
-          ),
+           Heading(HeadingText: "View Grievances"),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.035),

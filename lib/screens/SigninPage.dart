@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-
+import 'package:wce_support/widgets/Heading.dart';
 
 class SigninPage extends StatefulWidget{
   final VoidCallback showLoginPage;
@@ -13,12 +13,17 @@ class SigninPage extends StatefulWidget{
   State<SigninPage> createState() => _RegisterPageState();
 }
 class _RegisterPageState extends State<SigninPage>{
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _prnController = TextEditingController();
 
-
-
-
-
-
+  @override
+  void dispose(){
+    _emailController.dispose();
+    _passwordController.dispose();
+    _prnController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context){
     double width10 = MediaQuery.of(context).size.width * 0.025;
@@ -38,35 +43,8 @@ class _RegisterPageState extends State<SigninPage>{
                   SizedBox(
                     height: width10,
                   ),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: width10*4),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5,
-                          color: grey_color,
-                        ),
-                        BoxShadow(
-                          offset: Offset(5, 2),
-                          blurRadius: 5,
-                          spreadRadius: 2,
-                          color: Colors.black38,
-                          inset: true,
-                        ),
-                      ],
-                    ),
-                    child: Text(
-                      "Create Account",
-                      style: TextStyle(
-                        fontSize: heightc,
-                        fontWeight: FontWeight.bold,
-                        color: heading_color,
-                      ),
-
-                    ),
-                  ),
-
+                 ///////////
+                 Heading(HeadingText: "Create Account"),
                   Container(
 
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -92,6 +70,7 @@ class _RegisterPageState extends State<SigninPage>{
                             height: width10*2,
                           ),
                           TextField(
+                            controller: _emailController,
                                 decoration: InputDecoration(
 
                                   hintText: 'email',
@@ -102,6 +81,7 @@ class _RegisterPageState extends State<SigninPage>{
                           SizedBox(height: width10*2,),
                           //prn
                           TextField(
+                            controller: _prnController,
                             decoration: InputDecoration(
 
                               hintText: 'prn',
@@ -112,7 +92,7 @@ class _RegisterPageState extends State<SigninPage>{
                           SizedBox(height: width10*2,),
                           //password
                          TextField(
-
+                           controller: _passwordController,
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   border: UnderlineInputBorder(),
@@ -125,7 +105,7 @@ class _RegisterPageState extends State<SigninPage>{
                           //button
                           ElevatedButton(
                             onPressed: () {
-                              print("Signed Up");
+                              print(_prnController);
                             },
                             child: Text(
                               "Sign Up",
@@ -146,9 +126,9 @@ class _RegisterPageState extends State<SigninPage>{
                           // a member? login now
 
 
-                              Text("Allready registered?",
+                              Text("Account already exists?",
                                 style: TextStyle(
-                                  fontWeight: FontWeight.bold,
+                                 // fontWeight: FontWeight.bold,
                                   fontSize: heightc/1.2,
                                 ),
                               ),

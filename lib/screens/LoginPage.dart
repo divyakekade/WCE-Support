@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-
+import 'package:wce_support/widgets/Heading.dart';
 class LoginPage extends StatefulWidget{
   final VoidCallback showRegisterPage;
   const LoginPage({Key? key, required this.showRegisterPage}): super(key: key);
@@ -40,35 +40,8 @@ class _LoginPageState extends State<LoginPage>{
                 SizedBox(
                   height: width10,
                 ),
-                Container(
-                  margin: EdgeInsets.all(heightc),
-                  padding: EdgeInsets.symmetric(vertical: heightc/2, horizontal: width10*8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 5,
-                        color: grey_color,
-                      ),
-                      BoxShadow(
-                        offset: Offset(5, 2),
-                        blurRadius: 5,
-                        spreadRadius: 2,
-                        color: Colors.black38,
-                        inset: true,
-                      ),
-                    ],
-                  ),
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      fontSize: heightc,
-                      fontWeight: FontWeight.bold,
-                      color: heading_color,
-                    ),
-
-                  ),
-                ),
+               //////////////
+                Heading(HeadingText: "Login"),
     Container(
     padding: EdgeInsets.symmetric(vertical: heightc/2, horizontal: width10*2),
     margin: EdgeInsets.symmetric(horizontal: width10),
@@ -94,6 +67,7 @@ class _LoginPageState extends State<LoginPage>{
     height: width10*2,
     ),
     TextField(
+      controller: _emailController,
     decoration: InputDecoration(
 
     hintText: 'email',
@@ -104,7 +78,7 @@ class _LoginPageState extends State<LoginPage>{
     SizedBox(height: width10*2,),
     //password
     TextField(
-
+      controller: _passwordController,
     obscureText: true,
     decoration: InputDecoration(
     border: UnderlineInputBorder(),
@@ -139,7 +113,7 @@ class _LoginPageState extends State<LoginPage>{
 
                     Text("Account doesn't exist?",
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                      //  fontWeight: FontWeight.bold,
                         fontSize: heightc/1.2,
                       ),
                     ),

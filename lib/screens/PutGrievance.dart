@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import '../constants/ColorsAndStyles.dart';
 import 'package:shadows/shadows.dart';
+import 'package:wce_support/widgets/Heading.dart';
 class PutGrievance extends StatefulWidget {
   const PutGrievance({super.key});
 
@@ -33,39 +34,7 @@ class _PutGrievanceState extends State<PutGrievance> {
       body:  Column(
           children: [
             
-            Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.013,
-                  vertical: MediaQuery.of(context).size.height * 0.01),
-              padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.038,
-                  vertical: MediaQuery.of(context).size.height * 0.008),
-              decoration: BoxDecoration(
-                  color: card_background,
-                  borderRadius: BorderRadius.circular(28),
-                  boxShadow: const  [
-                    
-                    BoxShadow(
-                        color: Color.fromRGBO(159, 157, 157, 1),
-                        offset: Offset(2, 4),
-                        
-                        blurRadius: 4)
-                  ]),
-              child: Text(
-                "Put Your Grievance",
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.height * 0.028,
-                    fontWeight: FontWeight.w500,
-                    color: heading_color,
-                    shadows:const  [
-                      Shadow(
-                        offset: Offset(2,2),
-                        color: Color.fromRGBO(159, 157, 157, 1),
-                        blurRadius: 10
-                      )
-                    ] ),
-              ),
-            ),
+            Heading(HeadingText: "Put Your Grievance"),
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.039,
