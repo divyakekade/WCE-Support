@@ -47,6 +47,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
     }
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: const Appbar(),
         drawer: Drawer(
           child: SingleChildScrollView(
