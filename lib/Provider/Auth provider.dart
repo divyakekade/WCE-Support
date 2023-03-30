@@ -2,35 +2,35 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:wce_support/Exceptions/httpexception.dart';
 
 class Auth with ChangeNotifier {
   String? token;
   String? user_id;
 
-  Future<void> signUp(String email, String prn, String password) async {
-    final url = Uri.parse(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCipx5QCsrJKccemptp_3xUiYImffeSOEQ");
-
+  Future<void> login(String username, String password) async {
+    final url = Uri.parse("http://10.40.7.176:5000/user/login");
+    print("Hello");
     try {
-      final responce = await http.post(url,
-          body: json.encode({
-            "email": email,
-            "password": password,
-            "returnSecureToken": true,
-          }));
-
-      final extractData = json.decode(responce.body);
-      print(extractData['localId']);
-      // var user = {"email": email, "prn": prn, "id": extractData['localId']};
-      final url2 = Uri.parse(
-          "https://wce-support-default-rtdb.firebaseio.com/user/1.json");
-      final res = await http.post(url2,
-          body: json.encode(
-              {"email": email, "prn": prn, "id": extractData['localId']}));
-      final extract = json.decode(res.body);
-      print(extract);
+      var response = await http.post(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8'
+      }, body: <String, String>{
+        'username': username,
+        'password': password,
+      });
+      final extractedData = json.decode(response.body);
+      final statusCode = response.statusCode;
+      print(statusCode);
+      if (statusCode != 200) {
+        throw HttpException(extractedData['message']);
+      }
+      // print(extractedData);
+      user_id = extractedData['userid'];
+      token = extractedData['token'];
+      // print({user_id, token});
+      notifyListeners();
     } catch (error) {
-      print(error);
+      rethrow;
     }
   }
 }

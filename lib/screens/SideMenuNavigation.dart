@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wce_support/screens/HomePage.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
 import 'package:wce_support/screens/PutGrievance.dart';
 import 'package:wce_support/screens/ViewGrievances.dart';
 import 'package:wce_support/widgets/SidebarHeader.dart';
+import '../Provider/Auth provider.dart';
 import '../widgets/Appbar.dart';
 
 class SideMenuNavigation extends StatefulWidget {
+  
+  static const routeurl = "/sidemenunavigation";
+
   const SideMenuNavigation({super.key});
+ 
 
   @override
-  State<SideMenuNavigation> createState() => _SideMenuNavigationState();
+  State<SideMenuNavigation> createState() => SideMenuNavigationState();
 }
 
-class _SideMenuNavigationState extends State<SideMenuNavigation> {
-  var currentPage="home";
+class SideMenuNavigationState extends State<SideMenuNavigation> {
+  var currentPage;
+  @override
+  void initState() {
+    super.initState();
+    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,32 +35,28 @@ class _SideMenuNavigationState extends State<SideMenuNavigation> {
     } else if (currentPage == "buy_products") {
       container = const BuyProducts(); //need to change
     } else if (currentPage == "sell_products") {
-      container = const HomePage(); //need to change 
+      container = const HomePage(); //need to change
     } else if (currentPage == "view_grievances") {
       container = const ViewGrievances();
     } else if (currentPage == "put_grievance") {
       container = const PutGrievance();
     } else if (currentPage == "view_profile") {
-      container = const HomePage(); //need to change 
+      container = const HomePage(); //need to change
     } else if (currentPage == "logout") {
-      container = const HomePage(); //need to change 
+      container = const HomePage(); //need to change
     }
-    
+
     return Scaffold(
         appBar: const Appbar(),
         drawer: Drawer(
           child: SingleChildScrollView(
             child: Column(
-              children: [
-                const SidebarHeader(),
-                SidebarList()
-              ],
+              children: [const SidebarHeader(), SidebarList()],
             ),
           ),
         ),
-        body: container
-        );
-  } 
+        body: container);
+  }
 
   Widget SidebarList() {
     return Container(
@@ -78,6 +85,7 @@ class _SideMenuNavigationState extends State<SideMenuNavigation> {
   }
 
   Widget menuItem(int id, String title, IconData icon, bool selected) {
+    final authtoken = Provider.of<Auth>(context, listen: false).token;
     return Material(
       color: selected ? Colors.grey[300] : Colors.transparent,
       child: InkWell(
@@ -93,7 +101,13 @@ class _SideMenuNavigationState extends State<SideMenuNavigation> {
             } else if (id == 4) {
               currentPage = "view_grievances";
             } else if (id == 5) {
-              currentPage = "put_grievance";
+              if (authtoken == null) {
+                currentPage = "home";
+              }
+
+              else{
+                currentPage = "put_grievance";
+              }
             } else if (id == 6) {
               currentPage = "view_profile";
             } else if (id == 7) {
@@ -129,4 +143,3 @@ class _SideMenuNavigationState extends State<SideMenuNavigation> {
     );
   }
 }
-

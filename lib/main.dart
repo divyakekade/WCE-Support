@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 
 void main() {
@@ -24,10 +25,20 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: buildMaterialColor(primaryColor),
         ),
-        home: const SideMenuNavigation(),
+        home:  SideMenuNavigation(),
+        routes:{
+          
+         }
       ),
+      
     );
   }
+
+
+
+
+
+
 }
 
 
