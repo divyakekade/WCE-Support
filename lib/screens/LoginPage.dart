@@ -3,11 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:wce_support/widgets/Heading.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class LoginPage extends StatefulWidget {
- 
   static const routeUrl = "/login";
   const LoginPage({Key? key}) : super(key: key);
 
@@ -55,15 +53,29 @@ class _LoginPageState extends State<LoginPage> {
                   height: width10,
                 ),
                 //////////////
-                Heading(HeadingText: "Login"),
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  margin: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.02),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.0052,
+                      horizontal: MediaQuery.of(context).size.width * 0.1),
+                  decoration: headingBoxDecoration,
+                  child: Center(
+                    child: Text(
+                      'Login',
+                      style: headingTextStyle,
+                    ),
+                  ),
+                ),
                 Container(
                   padding: EdgeInsets.symmetric(
                       vertical: heightc / 2, horizontal: width10 * 2),
                   margin: EdgeInsets.symmetric(horizontal: width10),
                   decoration: BoxDecoration(
-                    color: grey_color,
+                    color: greyColor,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                           color: Colors.grey,
                           blurRadius: 10.0,
@@ -80,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         TextField(
                           controller: _emailController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             hintText: 'email',
                             border: UnderlineInputBorder(),
                           ),
@@ -93,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                         TextField(
                           controller: _passwordController,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: UnderlineInputBorder(),
                             hintText: 'Password',
                           ),
@@ -105,19 +117,12 @@ class _LoginPageState extends State<LoginPage> {
                         //button
                         ElevatedButton(
                           onPressed: login,
-                          child: Text(
+                          style: buttonStyle,
+                          child: const Text(
                             "Login",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor,
-                            textStyle: TextStyle(fontSize: heightc),
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.0))),
-                            //  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 5),
                           ),
                         ),
                         SizedBox(
@@ -134,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         SizedBox(height: width10),
                         GestureDetector(
-                            onTap:null,
+                            onTap: null,
                             child: Text(
                               "SignUp",
                               style: TextStyle(
@@ -155,7 +160,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-      backgroundColor: card_background,
+      backgroundColor: cardBackground,
     );
   }
 }
