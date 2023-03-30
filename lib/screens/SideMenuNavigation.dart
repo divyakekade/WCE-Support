@@ -20,7 +20,7 @@ class SideMenuNavigation extends StatefulWidget {
 }
 
 class SideMenuNavigationState extends State<SideMenuNavigation> {
-  var currentPage;
+  var currentPage = "home";
   @override
   void initState() {
     super.initState();
