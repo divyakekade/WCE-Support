@@ -7,8 +7,6 @@ import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 // import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import '../constants/ColorsAndStyles.dart';
-import 'package:shadows/shadows.dart';
-import 'package:wce_support/widgets/Heading.dart';
 
 class PutGrievance extends StatefulWidget {
   const PutGrievance({super.key});
@@ -45,7 +43,6 @@ class _PutGrievanceState extends State<PutGrievance> {
     final authtoken = Provider.of<Auth>(context, listen: false).token;
     print(authtoken);
     if (authtoken == null) {
-      
       // Navigator.of(context).popAndPushNamed(SideMenuNavigation.routeurl);
     }
   }
@@ -55,8 +52,20 @@ class _PutGrievanceState extends State<PutGrievance> {
     return Scaffold(
       body: Column(
         children: [
-          Heading(HeadingText: "Put Your Grievance"),
           Container(
+            margin: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height * 0.02),
+            padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height * 0.0052,
+                horizontal: MediaQuery.of(context).size.width * 0.05),
+            decoration: headingBoxDecoration,
+            child: Text(
+              'Put Your Grievance',
+              style: headingTextStyle,
+            ),
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height * 0.065,
             margin: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.039,
                 vertical: MediaQuery.of(context).size.height * 0.014),
@@ -80,6 +89,7 @@ class _PutGrievanceState extends State<PutGrievance> {
             ),
           ),
           Container(
+            height: MediaQuery.of(context).size.height * 0.065,
             margin: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.039,
                 vertical: MediaQuery.of(context).size.height * 0.014),
@@ -114,7 +124,7 @@ class _PutGrievanceState extends State<PutGrievance> {
               alignment: Alignment.topLeft,
               child: Text('Add image as a proof if any',
                   style: TextStyle(
-                      color: heading_color,
+                      color: headingColor,
                       fontSize: MediaQuery.of(context).size.height * 0.018)),
             ),
           ),
@@ -126,14 +136,7 @@ class _PutGrievanceState extends State<PutGrievance> {
                 alignment: Alignment.topLeft,
                 child: ElevatedButton(
                     onPressed: null,
-                    style: ButtonStyle(
-                        elevation: MaterialStatePropertyAll(5),
-                        minimumSize:
-                            MaterialStateProperty.all(ui.Size(150, 45)),
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(imagebutton),
-                        foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.black)),
+                    style: secondButtonStyle,
                     child: Text(
                       "Add Image",
                       style: TextStyle(
@@ -149,7 +152,7 @@ class _PutGrievanceState extends State<PutGrievance> {
               child: Text(
                 'Choose department for your grievance',
                 style: TextStyle(
-                    color: heading_color,
+                    color: headingColor,
                     fontSize: MediaQuery.of(context).size.height * 0.018),
               ),
             ),
@@ -192,22 +195,11 @@ class _PutGrievanceState extends State<PutGrievance> {
               alignment: Alignment.topRight,
               child: ElevatedButton(
                 onPressed: null,
-                child: Text(
+                style: buttonStyle,
+                child: const Text(
                   "Submit",
                   style: TextStyle(fontSize: 20),
                 ),
-                style: ButtonStyle(
-                    elevation: MaterialStateProperty.all(5),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                    ),
-                    minimumSize: MaterialStateProperty.all(ui.Size(130, 40)),
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(primaryColor),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.white)),
               ),
             ),
           ),
@@ -220,7 +212,7 @@ class _PutGrievanceState extends State<PutGrievance> {
               child: Text(
                 'Your Past Grievances',
                 style: TextStyle(
-                    color: heading_color,
+                    color: headingColor,
                     fontSize: MediaQuery.of(context).size.width * 0.05,
                     fontWeight: FontWeight.w500),
               ),
@@ -274,21 +266,8 @@ class _PutGrievanceState extends State<PutGrievance> {
                           children: [
                             ElevatedButton(
                                 onPressed: null,
-                                style: ButtonStyle(
-                                    elevation: MaterialStateProperty.all(5),
-                                    backgroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            primaryColor),
-                                    foregroundColor:
-                                        MaterialStateProperty.all<Color>(
-                                            Colors.white),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(20.0),
-                                      ),
-                                    )),
-                                child: Text("Give Feedback"))
+                                style: buttonStyle,
+                                child: const Text("Give Feedback"))
                           ],
                         )
                       ]),

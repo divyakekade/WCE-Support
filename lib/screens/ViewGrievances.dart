@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SingleGrievance.dart';
-import 'package:wce_support/widgets/Heading.dart';
+
 class ViewGrievances extends StatefulWidget {
   const ViewGrievances({super.key});
 
@@ -30,7 +31,18 @@ class _ViewGrievancesState extends State<ViewGrievances> {
     return Scaffold(
       body: Column(
         children: [
-           Heading(HeadingText: "View Grievances"),
+          Container(
+            margin: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height * 0.02),
+            padding: EdgeInsets.symmetric(
+                vertical: MediaQuery.of(context).size.height * 0.0052,
+                horizontal: MediaQuery.of(context).size.width * 0.05),
+            decoration: headingBoxDecoration,
+            child: Text(
+              'View Grievances',
+              style: headingTextStyle,
+            ),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.035),
@@ -38,8 +50,10 @@ class _ViewGrievancesState extends State<ViewGrievances> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("Grievances Assigned To Me")),
+                  onPressed: () {},
+                  style: buttonStyle,
+                  child: const Text("Grievances Assigned To Me"),
+                ),
               ],
             ),
           ),
@@ -111,8 +125,10 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
-                                          const SingleGrievance(grievance: "1st grievance")));
+                                          const SingleGrievance(
+                                              grievance: "1st grievance")));
                                 },
+                                style: buttonStyle,
                                 child: const Text('View Details'))
                           ],
                         )
