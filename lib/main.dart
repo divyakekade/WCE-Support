@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
+import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value:Auth()),
+        ChangeNotifierProvider.value(value:Griv()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

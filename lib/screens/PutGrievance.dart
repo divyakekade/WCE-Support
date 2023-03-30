@@ -3,8 +3,10 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
+import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/widgets/errorDialogBox.dart';
 // import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import '../constants/ColorsAndStyles.dart';
 import 'package:shadows/shadows.dart';
@@ -19,7 +21,9 @@ class PutGrievance extends StatefulWidget {
 
 class _PutGrievanceState extends State<PutGrievance> {
   String subject = "";
+  String description = "";
   String selectedOption = "Hostel Supervisor";
+
   List<String> sectionList = <String>[
     "Hostel Supervisor",
     "Hostel Chief Rector",
@@ -45,8 +49,18 @@ class _PutGrievanceState extends State<PutGrievance> {
     final authtoken = Provider.of<Auth>(context, listen: false).token;
     print(authtoken);
     if (authtoken == null) {
-      
       // Navigator.of(context).popAndPushNamed(SideMenuNavigation.routeurl);
+    }
+  }
+
+  Future<void> createGrevience() async {
+    print({subject, description, selectedOption});
+    final id = Provider.of<Auth>(context,listen: false).user_id;
+    try {
+      await Provider.of<Griv>(context, listen: false)
+          .putGrievance(subject, description, selectedOption, id!);
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
     }
   }
 
@@ -88,9 +102,9 @@ class _PutGrievanceState extends State<PutGrievance> {
               minLines: 1,
               maxLines: 10, // allow user to enter 5 line in textfield
               keyboardType: TextInputType.multiline,
-              onChanged: (sub) {
+              onChanged: (dec) {
                 setState(() {
-                  subject = sub;
+                  description = dec;
                 });
                 print(subject);
               },
@@ -191,7 +205,7 @@ class _PutGrievanceState extends State<PutGrievance> {
             child: Align(
               alignment: Alignment.topRight,
               child: ElevatedButton(
-                onPressed: null,
+                onPressed: createGrevience,
                 child: Text(
                   "Submit",
                   style: TextStyle(fontSize: 20),
