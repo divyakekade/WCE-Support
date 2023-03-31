@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class LoginPage extends StatefulWidget {
@@ -40,18 +41,29 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
 
-    return Scaffold(
-      body: SafeArea(
+    return Container(
+      margin: EdgeInsets.symmetric(
+          // vertical: MediaQuery.of(context).size.height * 0.01,
+          horizontal: MediaQuery.of(context).size.width * 0.04),
+      padding: EdgeInsets.symmetric(
+          // vertical: MediaQuery.of(context).size.height * 0.03,
+          horizontal: MediaQuery.of(context).size.width * 0.025),
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 247, 246, 246),
+        border:
+            Border.all(color: const Color.fromARGB(255, 7, 65, 79), width: 1),
+        borderRadius: BorderRadius.circular(10),
+      ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: width10*2),
+          padding: EdgeInsets.symmetric(horizontal: width10 * 0.001),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 //text field
-                SizedBox(
-                  height: width10,
-                ),
+                // SizedBox(
+                //   height: width10,
+                // ),
                 //////////////
                 Container(
                   width: MediaQuery.of(context).size.width * 0.7,
@@ -61,7 +73,6 @@ class _LoginPageState extends State<LoginPage> {
                       vertical: MediaQuery.of(context).size.height * 0.0052,
                       horizontal: MediaQuery.of(context).size.width * 0.1),
                   decoration: headingBoxDecoration,
-
                   child: Center(
                     child: Text(
                       'Login',
@@ -74,7 +85,7 @@ class _LoginPageState extends State<LoginPage> {
                       vertical: heightc / 2, horizontal: width10 * 2),
                   margin: EdgeInsets.symmetric(horizontal: width10),
                   decoration: BoxDecoration(
-                    color: greyColor,
+                    color: cardColor,
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: const [
                       BoxShadow(
@@ -126,42 +137,41 @@ class _LoginPageState extends State<LoginPage> {
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                        SizedBox(
-                          height: width10 * 3,
-                        ),
+                        // SizedBox(
+                        //   height: width10 * 9,
+                        // ),
                         //not a member? register now
 
-                        Text(
-                          "Account doesn't exist?",
-                          style: TextStyle(
-                            //  fontWeight: FontWeight.bold,
-                            fontSize: heightc / 1.2,
-                          ),
-                        ),
-                        SizedBox(height: width10),
-                        GestureDetector(
-                            onTap: null,
-                            child: Text(
-                              "SignUp",
-                              style: TextStyle(
-                                color: primaryColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: heightc / 1.2,
-                              ),
-                            )),
-                        SizedBox(
-                          height: width10,
-                        ),
+                        // Text(
+                        //   "Account doesn't exist?",
+                        //   style: TextStyle(
+                        //     //  fontWeight: FontWeight.bold,
+                        //     fontSize: heightc / 1.2,
+                        //   ),
+                        // ),
+                        // SizedBox(height: width10),
+                        // GestureDetector(
+                        //     onTap: null,
+                        //     child: Text(
+                        //       "SignUp",
+                        //       style: TextStyle(
+                        //         color: primaryColor,
+                        //         fontWeight: FontWeight.bold,
+                        //         fontSize: heightc / 1.2,
+                        //       ),
+                        //     )),
+                        // SizedBox(
+                        //   height: width10,
+                        // ),
                       ],
                     ),
                   ),
                 ),
+                SizedBox(height: MediaQuery.of(context).size.height*0.03,)
               ],
             ),
           ),
         ),
-      ),
-      backgroundColor: cardBackground,
     );
   }
 }

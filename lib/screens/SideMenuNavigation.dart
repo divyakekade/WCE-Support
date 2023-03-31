@@ -4,6 +4,7 @@ import 'package:wce_support/screens/CreateUser.dart';
 import 'package:wce_support/screens/EditProfile.dart';
 import 'package:wce_support/screens/HomePage.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/PutGrievance.dart';
 import 'package:wce_support/screens/SellProducts.dart';
 import 'package:wce_support/screens/ViewGrievances.dart';
@@ -22,7 +23,7 @@ class SideMenuNavigation extends StatefulWidget {
 }
 
 class SideMenuNavigationState extends State<SideMenuNavigation> {
-  var currentPage;
+  dynamic currentPage;
   @override
   void initState() {
     
@@ -32,23 +33,23 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    var container;
+    dynamic container;
     if (currentPage == "home") {
-      container = const HomePage();
+      container = const HomeScreen();
     } else if (currentPage == "buy_products") {
-      container = const BuyProducts(); //need to change
+      container = const BuyProducts(); 
     } else if (currentPage == "sell_products") {
-      container = const SellProduct(); //need to change
+      container = const SellProduct(); 
     } else if (currentPage == "view_grievances") {
       container = const ViewGrievances();
     } else if (currentPage == "put_grievance") {
       container = const PutGrievance();
     } else if (currentPage == "view_profile") {
-      container = const EditProfile(); //need to change
+      container = const EditProfile(); 
     } else if (currentPage == "create_user") {
       container = const CreateUser();
     } else if (currentPage == "logout") {
-      container = const HomePage(); //need to change
+      container = const HomePage(); 
     }
 
     return Scaffold(
@@ -64,6 +65,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
         body: container);
   }
 
+  // ignore: non_constant_identifier_names
   Widget SidebarList() {
     return Container(
       padding: const EdgeInsets.only(

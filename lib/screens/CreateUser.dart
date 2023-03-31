@@ -255,6 +255,7 @@ class _CreateUserState extends State<CreateUser> {
                           height: MediaQuery.of(context).size.height * 0.025,
                         ),
                         TextFormField(
+                          obscureText: true,
                           onChanged: (pass) {
                             setState(() {
                               password = pass;

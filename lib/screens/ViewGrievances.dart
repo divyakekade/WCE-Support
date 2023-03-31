@@ -35,7 +35,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
 
   void viewMyAssignment() {
     setState(() {
-      myassignment = (myassignment == false); 
+      myassignment = (myassignment == false);
     });
   }
 
@@ -85,7 +85,9 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                       ElevatedButton(
                         onPressed: viewMyAssignment,
                         style: buttonStyle,
-                        child:  myassignment?const Text("All Grievance"):const Text("My Grievances"),
+                        child: myassignment
+                            ? const Text("All Grievance")
+                            : const Text("My Grievances"),
                       ),
                     ],
                   ),
@@ -100,7 +102,8 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                   itemCount: list.length,
                   itemBuilder: (context, index) {
                     dynamic l = list[index];
-                    return (myassignment==false)||(list[index]['section'] == user['department'])
+                    return (myassignment == false) ||
+                            (list[index]['section'] == user['department'])
                         ? Container(
                             margin: EdgeInsets.symmetric(
                                 vertical:
@@ -112,91 +115,79 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                                     MediaQuery.of(context).size.height * 0.01,
                                 horizontal:
                                     MediaQuery.of(context).size.width * 0.04),
-                            decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 230, 230, 230),
-                              boxShadow: [
+                            decoration: BoxDecoration(
+                              color: cardColor,
+                              boxShadow:const [
                                 BoxShadow(
                                   color: Color.fromRGBO(159, 157, 157, 1),
                                   offset: Offset(2, 4),
                                   blurRadius: 4,
                                 )
                               ],
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             child: Column(children: [
-                              Row(
-                                children: [
-                                  Text(
-                                    "Subject:- ",
+                              SizedBox(
+                                  width: MediaQuery.of(context).size.width * 1,
+                                  child: Text(
+                                    list[index]['subject'],
                                     style: TextStyle(
+                                        fontWeight: FontWeight.w500,
                                         fontSize:
                                             MediaQuery.of(context).size.height *
-                                                0.018,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text(
-                                    "${list[index]["subject"]}",
-                                    style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.018,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
+                                                0.02),
+                                  )),
+                              SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.02),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 1,
+                                child: Text(
+                                  list[index]['description'],
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                      overflow: TextOverflow.ellipsis,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.018),
+                                ),
                               ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Section:- ",
-                                    style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.018,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text(
-                                    "${list[index]["section"]}",
-                                    style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.018,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Grievant's name:- ",
-                                    style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.018,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  Text(
-                                    "${list[index]['createrName']}",
-                                    style: TextStyle(
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.018,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
+                              // SizedBox(
+                              //     height:
+                              //         MediaQuery.of(context).size.width * 0.02),
+                              // Row(
+                              //   children: [
+                              //     Text(
+                              //       "Status: ",
+                              //       style: TextStyle(
+                              //           fontWeight: FontWeight.w500,
+                              //           fontSize:
+                              //               MediaQuery.of(context).size.height *
+                              //                   0.018),
+                              //     ),
+                              //     Text(
+                              //       list[index]['status'],
+                              //       style: TextStyle(
+                              //           fontSize:
+                              //               MediaQuery.of(context).size.height *
+                              //                   0.018),
+                              //     ),
+                              //   ],
+                              // ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    SingleGrievance(
-                                                        grievance:
-                                                            list[index])));
-                                      },
+                                      onPressed: () => {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        SingleGrievance(
+                                                            grievance:
+                                                                list[index])))
+                                          },
                                       style: buttonStyle,
-                                      child: const Text('View Details'))
+                                      child: const Text("View Details"))
                                 ],
                               )
                             ]),

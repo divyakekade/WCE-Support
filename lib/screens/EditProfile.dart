@@ -144,6 +144,7 @@ class _EditProfileState extends State<EditProfile> {
                               Container(
                                 width: MediaQuery.of(context).size.width*0.4,
                                 child: TextFormField(
+                                style: !editing?const TextStyle(color: Colors.grey):null,
                                 initialValue: firstName,
                                 onChanged: (name) {
                                   setState(() {
@@ -169,6 +170,7 @@ class _EditProfileState extends State<EditProfile> {
                               width: MediaQuery.of(context).size.width*0.4,
                               child: TextFormField(
                                 initialValue: lastName,
+                                style: !editing?const TextStyle(color: Colors.grey):null,
                                 onChanged: (name) {
                                   setState(() {
                                     lastName = name;
@@ -191,11 +193,11 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                               ],
                             ),
-                            
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.025,
                             ),
                             TextFormField(
+                              style: !editing?const TextStyle(color: Colors.grey):null,
                               initialValue: email,
                               onChanged: (mail) {
                                 setState(() {
@@ -220,6 +222,7 @@ class _EditProfileState extends State<EditProfile> {
                               height: MediaQuery.of(context).size.height * 0.025,
                             ),
                             TextFormField(
+                              style: !editing?const TextStyle(color: Colors.grey):null,
                               initialValue: mobileNo,
                               onChanged: (mobile) {
                                 setState(() {
@@ -255,7 +258,7 @@ class _EditProfileState extends State<EditProfile> {
                                 );
                               }).toList(),
                               value: role,
-                              onChanged: (String? value) {
+                              onChanged: editing?(String? value) {
                                 setState(() {
                                   role = value!;
                                 });
@@ -270,7 +273,7 @@ class _EditProfileState extends State<EditProfile> {
                                     department = "select department";
                                   });
                                 }
-                              },
+                              }:null,
                               decoration: InputDecoration(
                                   enabled: editing,
                                   labelText: 'select role',
@@ -300,11 +303,11 @@ class _EditProfileState extends State<EditProfile> {
                                 );
                               }).toList(),
                               value: department,
-                              onChanged: (String? value) {
+                              onChanged: editing?(String? value) {
                                 setState(() {
                                   department = value!;
                                 });
-                              },
+                              }: null,
                               decoration: InputDecoration(
                                   enabled: editing,
                                   labelText: 'select department',
@@ -335,11 +338,11 @@ class _EditProfileState extends State<EditProfile> {
                                       );
                                     }).toList(),
                                     value: year,
-                                    onChanged: (String? value) {
+                                    onChanged: editing?(String? value) {
                                       setState(() {
                                         year = value!;
                                       });
-                                    },
+                                    }:null,
                                     decoration: InputDecoration(
                                         enabled: editing,
                                         labelText: 'select year',
