@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: buildMaterialColor(primaryColor),
         ),
-        home:  SideMenuNavigation(),
+        home:  SideMenuNavigation(loadedPage: "home",),
         routes:{
           
          }

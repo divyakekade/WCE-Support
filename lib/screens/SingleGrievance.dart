@@ -1,8 +1,13 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wce_support/Provider/Auth%20provider.dart';
+import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class SingleGrievance extends StatefulWidget {
   const SingleGrievance({super.key, required this.grievance});
@@ -12,8 +17,25 @@ class SingleGrievance extends StatefulWidget {
 }
 
 class _SingleGrievanceState extends State<SingleGrievance> {
+  bool sameuser = false;
+  String? id;
   void initState() {
     print(widget.grievance);
+    String? id = Provider.of<Auth>(context, listen: false).user_id;
+    if (id == widget.grievance['userID']) {
+      sameuser = true;
+    }
+  }
+
+  Future<void> deleteGrievance() async {
+    try {
+      await Provider.of<Griv>(context, listen: false)
+          .deleteGrievance(widget.grievance['userID'], widget.grievance['_id']);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>SideMenuNavigation(loadedPage: "view_grievances")));
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
+    }
   }
 
   String role = "Student";
@@ -36,14 +58,16 @@ class _SingleGrievanceState extends State<SingleGrievance> {
         ),
         child: Column(
           children: [
-            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.delete),
-                color: const Color.fromARGB(255, 75, 75, 75),
-                iconSize: 32,
-              ),
-            ]),
+            sameuser
+                ? (Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    IconButton(
+                      onPressed: deleteGrievance,
+                      icon: const Icon(Icons.delete),
+                      color: const Color.fromARGB(255, 75, 75, 75),
+                      iconSize: 32,
+                    ),
+                  ]))
+                : Row(),
             Row(
               children: [
                 Text(
