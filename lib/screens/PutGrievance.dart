@@ -53,10 +53,11 @@ class _PutGrievanceState extends State<PutGrievance> {
 
   Future<void> createGrevience() async {
     print({subject, description, selectedOption});
-    final id = Provider.of<Auth>(context,listen: false).user_id;
+    String? id = Provider.of<Auth>(context, listen: false).user_id;
+    // String id = "xyz";
     try {
       await Provider.of<Griv>(context, listen: false)
-          .putGrievance(subject, description, selectedOption, id!);
+          .putGrievance(subject, description, selectedOption, id);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -209,7 +210,7 @@ class _PutGrievanceState extends State<PutGrievance> {
             child: Align(
               alignment: Alignment.topRight,
               child: ElevatedButton(
-                onPressed: null,
+                onPressed: createGrevience,
                 child: Text(
                   "Submit",
                   style: TextStyle(fontSize: 20),

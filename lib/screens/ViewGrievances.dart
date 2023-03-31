@@ -2,8 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:provider/provider.dart';
+import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SingleGrievance.dart';
+import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class ViewGrievances extends StatefulWidget {
   const ViewGrievances({super.key});
@@ -13,21 +16,30 @@ class ViewGrievances extends StatefulWidget {
 }
 
 class _ViewGrievancesState extends State<ViewGrievances> {
-  List list = [
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eight',
-    'nine',
-    'ten'
-  ];
+  
+  bool _isInit = true;
+  bool isLoading = false; 
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        isLoading = true;
+      });
+
+      Provider.of<Griv>(context).viewGrievances().then((_) {
+        setState(() {
+          isLoading = false;
+        });
+      }).catchError((error) {
+        showErrorDialogBox2(error.toString(),context);
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
+    List list = Provider.of<Griv>(context).sendGrievanceList();
     return Scaffold(
       body: Column(
         children: [
@@ -88,7 +100,14 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                         Row(
                           children: [
                             Text(
-                              "Subject",
+                              "Subject:- ",
+                              style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.018,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                             Text(
+                              "${list[index]["subject"]}",
                               style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.018,
@@ -99,7 +118,14 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                         Row(
                           children: [
                             Text(
-                              "Section",
+                              "Section:- ",
+                              style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.018,
+                                  fontWeight: FontWeight.w500),
+                            ),
+                             Text(
+                              "${list[index]["section"]}",
                               style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.018,
@@ -110,7 +136,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                         Row(
                           children: [
                             Text(
-                              "Grievant's name",
+                              "Grievant's name:- ",
                               style: TextStyle(
                                   fontSize: MediaQuery.of(context).size.height *
                                       0.018,
@@ -125,8 +151,8 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
-                                          const SingleGrievance(
-                                              grievance: "1st grievance")));
+                                           SingleGrievance(
+                                              grievance: list[index])));
                                 },
                                 style: buttonStyle,
                                 child: const Text('View Details'))

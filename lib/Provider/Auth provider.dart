@@ -9,7 +9,7 @@ class Auth with ChangeNotifier {
   String? user_id;
   String? ip = "192.168.43.89";
   Future<void> login(String username, String password) async {
-    final url = Uri.parse("http://192.168.43.89:5000/user/login");
+    final url = Uri.parse("http://${ip}:5000/user/login");
     print("Hello");
     try {
       var response = await http.post(url, headers: <String, String>{

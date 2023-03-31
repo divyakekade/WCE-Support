@@ -6,13 +6,18 @@ import 'package:wce_support/widgets/Appbar.dart';
 
 class SingleGrievance extends StatefulWidget {
   const SingleGrievance({super.key, required this.grievance});
-  final String grievance;
+  final  grievance;
   @override
   State<SingleGrievance> createState() => _SingleGrievanceState();
 }
 
 class _SingleGrievanceState extends State<SingleGrievance> {
+  void initState()
+  {
+    print(widget.grievance);
+  }
   @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const Appbar(),
@@ -25,7 +30,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
               Row(
                 children: [
                   Text(
-                    "Subject of Grievance",
+                    "${widget.grievance["subject"]}",
                     style: TextStyle(
                         color: headingColor,
                         fontSize: MediaQuery.of(context).size.height * 0.023,
@@ -73,6 +78,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                         MediaQuery.of(context).size.height *
                                             0.02),
                               ),
+                             
                             ],
                           ),
                           SizedBox(
@@ -81,7 +87,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 1,
                               child: Text(
-                                "jdnfviuarjns jdhfiuqhneicmos bd73ed jksdhiuewhf ybsduydwe uhse7fn3e iunsd8nfnnw nwuehfenf unweuefne00",
+                                "${widget.grievance['subject']}",
                                 style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
@@ -107,7 +113,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 1,
                               child: Text(
-                                "jdnfviuarjns jdhfiuqhneicmos",
+                                 "${widget.grievance['section']}",
                                 style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
@@ -152,7 +158,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                             0.02),
                               ),
                               Text(
-                                "Completed",
+                                 "${widget.grievance['status']}",
                                 style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
