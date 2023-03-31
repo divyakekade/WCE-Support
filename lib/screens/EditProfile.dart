@@ -67,7 +67,6 @@ class _EditProfileState extends State<EditProfile> {
     });}
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: const Appbar(),
       body: Stack(children: [
         Container(
             width: double.infinity,

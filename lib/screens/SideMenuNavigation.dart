@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/screens/CreateUser.dart';
+import 'package:wce_support/screens/EditProfile.dart';
 import 'package:wce_support/screens/HomePage.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
 import 'package:wce_support/screens/PutGrievance.dart';
@@ -43,7 +44,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
     } else if (currentPage == "put_grievance") {
       container = const PutGrievance();
     } else if (currentPage == "view_profile") {
-      container = const HomePage(); //need to change
+      container = const EditProfile(); //need to change
     } else if (currentPage == "create_user") {
       container = const CreateUser();
     } else if (currentPage == "logout") {
@@ -79,7 +80,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
               currentPage == "view_grievances"),
           menuItem(5, "Put Grievance", Icons.feedback_outlined,
               currentPage == "put_grievance"),
-          menuItem(6, "View Profile", Icons.person_outlined,
+          menuItem(6, "Profile Settings", Icons.settings_outlined,
               currentPage == "view_profile"),
           menuItem(7, "Create New User", Icons.person_add_outlined,
               currentPage == "create_user"),
