@@ -142,6 +142,13 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                                       0.018,
                                   fontWeight: FontWeight.w500),
                             ),
+                            Text(
+                              "${list[index]['createrName']}",
+                              style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.018,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ],
                         ),
                         Row(

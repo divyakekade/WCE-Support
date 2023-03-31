@@ -27,7 +27,7 @@ class _PutGrievanceState extends State<PutGrievance> {
     "Hostel Supervisor",
     "Hostel Chief Rector",
     "Exam Cell",
-    "Your Department"
+    "My Department"
   ];
   List list = [
     'one',

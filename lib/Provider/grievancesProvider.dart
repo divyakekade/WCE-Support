@@ -41,6 +41,7 @@ class Griv with ChangeNotifier {
       final extractedData = json.decode(response.body);
       grievance = extractedData['grievances'];
       ChangeNotifier();
+      
       print(grievance);
     } catch (error) {
       print(error.toString());
