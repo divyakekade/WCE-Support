@@ -31,8 +31,50 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     if (id == widget.grievance['userID']) {
       sameuser = true;
     }
-    if (sameuser && widget.grievance['status'] == 'Complete') {
+    if (sameuser && widget.grievance['status'] == 'Completed') {
       takeFeedback = true;
+    }
+  }
+
+  Future<void> markAknowledge() async {
+    try {
+      String? id = Provider.of<Auth>(context, listen: false).user_id;
+      await Provider.of<Griv>(context, listen: false)
+          .changeStatus(id, widget.grievance['_id'], "Acknowledged");
+
+          Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              SideMenuNavigation(loadedPage: "view_grievances")));
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
+    }
+  }
+
+  Future<void> markComplete() async {
+    try {
+      String? id = Provider.of<Auth>(context, listen: false).user_id;
+  
+      await Provider.of<Griv>(context, listen: false)
+          .changeStatus(id, widget.grievance['_id'], "Completed");
+          Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              SideMenuNavigation(loadedPage: "view_grievances")));
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
+    }
+  }
+
+  Future<void> markClose() async {
+    try {
+      String? id = Provider.of<Auth>(context, listen: false).user_id;
+
+      await Provider.of<Griv>(context, listen: false)
+          .changeStatus(id, widget.grievance['_id'], "Closed");
+          Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              SideMenuNavigation(loadedPage: "view_grievances")));
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
     }
   }
 
@@ -269,18 +311,18 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                     role == "Management"
                         ? widget.grievance['status'] == "Sent"
                             ? ElevatedButton(
-                                onPressed: () {},
+                                onPressed: markAknowledge,
                                 style: buttonStyle,
                                 child: const Text("Acknowledge"))
                             : widget.grievance['status'] == "Acknowledged"
                                 ? ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: markComplete,
                                     style: buttonStyle,
                                     child:
                                         const Text("Completed & Ask Feedback"))
                                 : widget.grievance['status'] == "Completed"
                                     ? ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: markClose,
                                         style: buttonStyle,
                                         child: const Text("Close Grievance"))
                                     : const SizedBox()

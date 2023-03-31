@@ -55,13 +55,35 @@ class Griv with ChangeNotifier {
 
   Future<void> deleteGrievance(String uid, String gid) async {
     final url = Uri.parse("http://${ip}:5000/grievances/delete/$gid");
-    
+
     try {
-     
       final response = await http.delete(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
         'id': uid
       });
+      final extractedData = json.decode(response.body);
+      if (response.statusCode != 200) {
+        throw HttpException(extractedData["message"]);
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> changeStatus(String? id, String gid, String status) async {
+    final url = Uri.parse("http://${ip}:5000/grievances/changestatus");
+    try {
+      if (id == null) {
+        throw HttpException("You are not authenticated");
+      }
+      final response = await http.post(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+        'id': id
+      }, body: <String, String>{
+        'status': status,
+        'gid': gid
+      });
+
       final extractedData = json.decode(response.body);
       if (response.statusCode != 200) {
         throw HttpException(extractedData["message"]);

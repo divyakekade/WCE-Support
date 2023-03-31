@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:provider/provider.dart';
+import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/SingleGrievance.dart';
 import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -17,6 +19,8 @@ class SingleUserPastGrievances extends StatefulWidget {
 }
 
 class _SingleUserPastGrievancesState extends State<SingleUserPastGrievances> {
+  bool _isInit = false;
+  dynamic user ; 
   List list = [
     "one",
     "two",
@@ -29,8 +33,30 @@ class _SingleUserPastGrievancesState extends State<SingleUserPastGrievances> {
     "nine",
     "ten"
   ];
+  void initState(){
+    user = Provider.of<Auth>(context,listen: false).user; 
+
+  }
+   void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        // isLoading = true;
+      });
+
+      Provider.of<Griv>(context).viewGrievances().then((_) {
+        setState(() {
+          // isLoading = false;
+        });
+      }).catchError((error) {
+        showErrorDialogBox2(error.toString(), context);
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
+    List list = Provider.of<Griv>(context).sendGrievanceList();
     return Scaffold(
       appBar: Appbar(),
       body: Column(
@@ -56,7 +82,7 @@ class _SingleUserPastGrievancesState extends State<SingleUserPastGrievances> {
                   itemCount: list.length,
                   itemBuilder: (context, index) {
                     dynamic l = list[index];
-                    return Container(
+                    return (list[index]['userID']==user["_id"])?Container(
                       margin: EdgeInsets.symmetric(
                           vertical: MediaQuery.of(context).size.height * 0.01,
                           horizontal: MediaQuery.of(context).size.width * 0.03),
@@ -88,7 +114,7 @@ class _SingleUserPastGrievancesState extends State<SingleUserPastGrievances> {
                           SizedBox(
                               height: MediaQuery.of(context).size.width * 0.03),
                           Text(
-                            "desrciption of the dunsd ndfief jndiwn jnsiuf nduwbf  wdufbu wudnfunf",
+                            list[index]['subject'],
                             style: TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 fontSize:
@@ -107,7 +133,7 @@ class _SingleUserPastGrievancesState extends State<SingleUserPastGrievances> {
                                             0.018),
                               ),
                               Text(
-                                "Completed",
+                                list[index]['status'],
                                 style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
@@ -119,14 +145,21 @@ class _SingleUserPastGrievancesState extends State<SingleUserPastGrievances> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               ElevatedButton(
-                                  onPressed: null,
+                                  onPressed: ()=>{
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SingleGrievance(
+                                                        grievance:
+                                                            list[index])))
+                                  },
                                   style: buttonStyle,
                                   child: const Text("View Details"))
                             ],
                           )
                         ],
                       ),
-                    );
+                    ):Container();
                   }))
           // ),
         ],
