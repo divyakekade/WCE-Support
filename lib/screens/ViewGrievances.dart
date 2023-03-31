@@ -64,7 +64,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                 ElevatedButton(
                   onPressed: () {},
                   style: buttonStyle,
-                  child: const Text("Grievances Assigned To Me"),
+                  child: const Text("My Grievances"),
                 ),
               ],
             ),

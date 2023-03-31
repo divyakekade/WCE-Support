@@ -16,19 +16,21 @@ class _CreateUserState extends State<CreateUser> {
   String email = "";
   String password = "";
   String role = "select role";
-  String branch = "select branch";
+  String department = "select department";
   String year = "select year";
   String mobileNo = "";
   bool showYearBranch = false;
 
-  List<String> branchesList = <String>[
-    "select branch",
+  List<String> departmentsList = <String>[
+    "select department",
     "Computer Science & Engineering",
     "Information Technology",
     "Electronics",
     "Electrical",
     "Mechanical",
-    "Civil"
+    "Civil",
+    "Hostel",
+    "Exam Cell"
   ];
 
   List<String> yearsList = <String>[
@@ -52,7 +54,7 @@ class _CreateUserState extends State<CreateUser> {
     print(email);
     print(password);
     print(role);
-    print(branch);
+    print(department);
     print(year);
     print(mobileNo);
   }
@@ -243,8 +245,8 @@ class _CreateUserState extends State<CreateUser> {
                           } else {
                             setState(() {
                               showYearBranch= false;
-                              year = "";
-                              branch = "";
+                              year = "select year";
+                              department = "select department";
                             });
                           }
                         },
@@ -263,11 +265,10 @@ class _CreateUserState extends State<CreateUser> {
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.025,
-                      ),
-                      showYearBranch ? 
+                      ), 
                       DropdownButtonFormField(
                         isExpanded: true,
-                        items: branchesList.map((value) {
+                        items: departmentsList.map((value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(
@@ -276,14 +277,14 @@ class _CreateUserState extends State<CreateUser> {
                             ),
                           );
                         }).toList(),
-                        value: branch,
+                        value: department,
                         onChanged: (String? value) {
                           setState(() {
-                            branch = value!;
+                            department = value!;
                           });
                         },
                         decoration: const InputDecoration(
-                            labelText: 'select branch',
+                            labelText: 'select department',
                             contentPadding: EdgeInsets.all(12),
                             border: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
@@ -294,11 +295,10 @@ class _CreateUserState extends State<CreateUser> {
                                 borderSide: BorderSide(
                               color: Colors.black,
                             ))),
-                      ) : 
-                      const SizedBox(
-                        // height: MediaQuery.of(context).size.height * 0.025,
                       ),
-                      showYearBranch ? SizedBox(height: MediaQuery.of(context).size.height * 0.025) : const SizedBox(),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.025,
+                      ),
                       showYearBranch ?
                       DropdownButtonFormField(
                         isExpanded: true,
