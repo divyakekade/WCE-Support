@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:provider/provider.dart';
+import 'package:wce_support/Provider/Auth%20provider.dart';
+import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class CreateUser extends StatefulWidget {
   const CreateUser({super.key});
@@ -11,7 +15,7 @@ class CreateUser extends StatefulWidget {
 
 class _CreateUserState extends State<CreateUser> {
   String firstName = "";
-  String lastName = ""; 
+  String lastName = "";
   String username = "";
   String email = "";
   String password = "";
@@ -40,14 +44,10 @@ class _CreateUserState extends State<CreateUser> {
     "Third Year",
     "Final Year",
   ];
-  
-  List<String> rolesList = <String>[
-    "select role",
-    "Student",
-    "Management"
-  ];
 
-  createUser() {
+  List<String> rolesList = <String>["select role", "Student", "Management"];
+
+  Future<void> createUser() async {
     print(firstName);
     print(lastName);
     print(username);
@@ -57,6 +57,23 @@ class _CreateUserState extends State<CreateUser> {
     print(department);
     print(year);
     print(mobileNo);
+
+    final user = {
+      "firstName": firstName,
+       "lastName": lastName,
+      "username": username,
+      "email": email,
+      "password": password,
+      "role": role,
+      "department": department,
+      "year": role == "Student" ? year : "other",
+      "mobileNo": mobileNo
+    };
+    try {
+      await Provider.of<Auth>(context, listen: false).createUser(user);
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
+    }
   }
 
   @override
@@ -87,8 +104,8 @@ class _CreateUserState extends State<CreateUser> {
                     vertical: MediaQuery.of(context).size.height * 0.02,
                     horizontal: MediaQuery.of(context).size.width * 0.05),
                 decoration: BoxDecoration(
-                  border:
-                      Border.all(color: Color.fromARGB(255, 7, 65, 79), width: 1),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 7, 65, 79), width: 1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: SingleChildScrollView(
@@ -123,8 +140,8 @@ class _CreateUserState extends State<CreateUser> {
                             contentPadding: EdgeInsets.all(12),
                             border: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 2.0)),
                             focusedBorder: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                 borderSide: BorderSide(
@@ -145,8 +162,8 @@ class _CreateUserState extends State<CreateUser> {
                             contentPadding: EdgeInsets.all(12),
                             border: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 2.0)),
                             focusedBorder: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                 borderSide: BorderSide(
@@ -167,8 +184,8 @@ class _CreateUserState extends State<CreateUser> {
                             contentPadding: EdgeInsets.all(12),
                             border: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 2.0)),
                             focusedBorder: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                 borderSide: BorderSide(
@@ -189,8 +206,8 @@ class _CreateUserState extends State<CreateUser> {
                             contentPadding: EdgeInsets.all(12),
                             border: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 2.0)),
                             focusedBorder: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                 borderSide: BorderSide(
@@ -211,8 +228,8 @@ class _CreateUserState extends State<CreateUser> {
                             contentPadding: EdgeInsets.all(12),
                             border: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 2.0)),
                             focusedBorder: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                 borderSide: BorderSide(
@@ -238,13 +255,13 @@ class _CreateUserState extends State<CreateUser> {
                           setState(() {
                             role = value!;
                           });
-                          if(role=="Student") {
+                          if (role == "Student") {
                             setState(() {
-                              showYearBranch=true;
+                              showYearBranch = true;
                             });
                           } else {
                             setState(() {
-                              showYearBranch= false;
+                              showYearBranch = false;
                               year = "select year";
                               department = "select department";
                             });
@@ -255,8 +272,8 @@ class _CreateUserState extends State<CreateUser> {
                             contentPadding: EdgeInsets.all(12),
                             border: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 2.0)),
                             focusedBorder: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                 borderSide: BorderSide(
@@ -265,7 +282,7 @@ class _CreateUserState extends State<CreateUser> {
                       ),
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.025,
-                      ), 
+                      ),
                       DropdownButtonFormField(
                         isExpanded: true,
                         items: departmentsList.map((value) {
@@ -288,8 +305,8 @@ class _CreateUserState extends State<CreateUser> {
                             contentPadding: EdgeInsets.all(12),
                             border: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 2.0)),
                             focusedBorder: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                 borderSide: BorderSide(
@@ -299,41 +316,43 @@ class _CreateUserState extends State<CreateUser> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.025,
                       ),
-                      showYearBranch ?
-                      DropdownButtonFormField(
-                        isExpanded: true,
-                        items: yearsList.map((value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          );
-                        }).toList(),
-                        value: year,
-                        onChanged: (String? value) {
-                          setState(() {
-                            year = value!;
-                          });
-                        },
-                        decoration: const InputDecoration(
-                            labelText: 'select year',
-                            contentPadding: EdgeInsets.all(12),
-                            border: OutlineInputBorder(
-                                // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0)),
-                            focusedBorder: OutlineInputBorder(
-                                // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide: BorderSide(
-                              color: Colors.black,
-                            ))),
-                      ) :
-                      const SizedBox(
-                        
-                      ),
-                      showYearBranch ? SizedBox(height: MediaQuery.of(context).size.height * 0.025) : const SizedBox(),
+                      showYearBranch
+                          ? DropdownButtonFormField(
+                              isExpanded: true,
+                              items: yearsList.map((value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                );
+                              }).toList(),
+                              value: year,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  year = value!;
+                                });
+                              },
+                              decoration: const InputDecoration(
+                                  labelText: 'select year',
+                                  contentPadding: EdgeInsets.all(12),
+                                  border: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.black, width: 2.0)),
+                                  focusedBorder: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ))),
+                            )
+                          : const SizedBox(),
+                      showYearBranch
+                          ? SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025)
+                          : const SizedBox(),
                       TextFormField(
                         onChanged: (mobile) {
                           setState(() {
@@ -345,8 +364,8 @@ class _CreateUserState extends State<CreateUser> {
                             contentPadding: EdgeInsets.all(12),
                             border: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0)),
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 2.0)),
                             focusedBorder: OutlineInputBorder(
                                 // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                 borderSide: BorderSide(
@@ -362,7 +381,8 @@ class _CreateUserState extends State<CreateUser> {
                         child: Text(
                           "Submit",
                           style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.height * 0.025),
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.025),
                         ),
                       )
                     ],
