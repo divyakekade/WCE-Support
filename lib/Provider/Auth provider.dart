@@ -8,7 +8,7 @@ class Auth with ChangeNotifier {
   String? token;
   String? user_id;
 
-  String? ip = "192.168.43.193";
+  String? ip = "192.168.43.89";
   Future<void> login(String username, String password) async {
     final url = Uri.parse("http://${ip}:5000/user/login");
     print("Hello");
