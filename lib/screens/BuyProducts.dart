@@ -15,8 +15,7 @@ class BuyProducts extends StatefulWidget {
 class _BuyproductState extends State<BuyProducts> {
   @override
   Widget build(BuildContext context) {
-    double heightc = MediaQuery.of(context).size.width * 0.053;
-    double width10 = MediaQuery.of(context).size.width * 0.025;
+
     return MaterialApp(
       home: Scaffold(
         body: Column(
