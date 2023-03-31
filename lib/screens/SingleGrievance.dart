@@ -21,205 +21,222 @@ class _SingleGrievanceState extends State<SingleGrievance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const Appbar(),
-        body: Container(
-            padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.025,
-                horizontal: MediaQuery.of(context).size.width * 0.04),
-            child: Column(
+      appBar: const Appbar(),
+      body: Container(
+        margin: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.008,
+            horizontal: MediaQuery.of(context).size.width * 0.02),
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.01,
+            horizontal: MediaQuery.of(context).size.width * 0.032),
+        decoration: BoxDecoration(
+          border:
+              Border.all(color: const Color.fromARGB(255, 7, 65, 79), width: 1),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.delete),
+                color: const Color.fromARGB(255, 75, 75, 75),
+                iconSize: 32,
+              ),
+            ]),
+            Row(
               children: [
-                Row(
+                Text(
+                  "${widget.grievance["subject"]}",
+                  style: TextStyle(
+                      color: headingColor,
+                      fontSize: MediaQuery.of(context).size.height * 0.023,
+                      fontWeight: FontWeight.w500),
+                )
+              ],
+            ),
+            const Divider(
+              height: 4,
+              thickness: 1.5,
+              color: Colors.black,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    Text(
-                      "${widget.grievance["subject"]}",
-                      style: TextStyle(
-                          color: headingColor,
-                          fontSize: MediaQuery.of(context).size.height * 0.023,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
-                const Divider(
-                  height: 4,
-                  thickness: 1.5,
-                  color: Colors.black,
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                          children: [
-                            Container(
-                              // height: MediaQuery.of(context).size.height * 0.9,
-                              // width: MediaQuery.of(context).size.width * 1,
-                              margin: EdgeInsets.symmetric(
-                                vertical: MediaQuery.of(context).size.height * 0.015,
-                                // horizontal: MediaQuery.of(context).size.width * 0.
+                    Container(
+                      // height: MediaQuery.of(context).size.height * 0.9,
+                      // width: MediaQuery.of(context).size.width * 1,
+                      margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.015,
+                        // horizontal: MediaQuery.of(context).size.width * 0.
+                      ),
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.01,
+                          horizontal: MediaQuery.of(context).size.width * 0.03),
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 230, 230, 230),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromRGBO(159, 157, 157, 1),
+                            offset: Offset(2, 4),
+                            blurRadius: 4,
+                          )
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "Grievance: ",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.02),
                               ),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: MediaQuery.of(context).size.height * 0.01,
-                                  horizontal: MediaQuery.of(context).size.width * 0.03),
-                              decoration: const BoxDecoration(
-                                color: Color.fromARGB(255, 230, 230, 230),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(159, 157, 157, 1),
-                                    offset: Offset(2, 4),
-                                    blurRadius: 4,
-                                  )
-                                ],
+                            ],
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.width * 0.025),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 1,
+                              child: Text(
+                                "${widget.grievance['subject']}",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.017),
+                              )),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.03),
+                          Row(
+                            children: [
+                              Text(
+                                "Grievance Section: ",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.02),
                               ),
-                              child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "Grievance: ",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.02),
-                                        ),
-                                       
-                                      ],
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.width * 0.025),
-                                    SizedBox(
-                                        width: MediaQuery.of(context).size.width * 1,
-                                        child: Text(
-                                          "${widget.grievance['subject']}",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.017),
-                                        )),
-                                    SizedBox(
-                                        height: MediaQuery.of(context).size.width * 0.03),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "Grievance Section: ",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.02),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.width * 0.025),
-                                    SizedBox(
-                                        width: MediaQuery.of(context).size.width * 1,
-                                        child: Text(
-                                           "${widget.grievance['section']}",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.017),
-                                        )),
-                                    SizedBox(
-                                        height: MediaQuery.of(context).size.width * 0.03),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "Grievant: ",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.02),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.width * 0.025),
-                                    SizedBox(
-                                        width: MediaQuery.of(context).size.width * 1,
-                                        child: Text(
-                                          "jdnfviuarjns jdhfiuqhneicmos bd73ed",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.017),
-                                        )),
-                                    SizedBox(
-                                        height: MediaQuery.of(context).size.width * 0.03),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "Status: ",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.02),
-                                        ),
-                                        Text(
-                                           "${widget.grievance['status']}",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.017),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                        height: MediaQuery.of(context).size.width * 0.05),
-                                    Center(
-                                      child: Container(
-                                        width: 250,
-                                        // height: 250,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                              color: Color.fromARGB(255, 7, 65, 79),
-                                              width: 1),
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Image.asset(
-                                            ('assets/walchand.jfif'),
-                                            alignment: Alignment.center,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                        height: MediaQuery.of(context).size.width * 0.05),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "Grievant's Feedback: ",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.02),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                        height:
-                                            MediaQuery.of(context).size.width * 0.025),
-                                    SizedBox(
-                                        width: MediaQuery.of(context).size.width * 1,
-                                        child: Text(
-                                          "jdkvnieufn nusdon  iuwdo2uf bcdu82nrfp, ndciuen29r",
-                                          style: TextStyle(
-                                              fontSize:
-                                                  MediaQuery.of(context).size.height *
-                                                      0.017),
-                                        )),
-                                  ],
+                            ],
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.width * 0.025),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 1,
+                              child: Text(
+                                "${widget.grievance['section']}",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.017),
+                              )),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.03),
+                          Row(
+                            children: [
+                              Text(
+                                "Grievant: ",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.02),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.width * 0.025),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 1,
+                              child: Text(
+                                "jdnfviuarjns jdhfiuqhneicmos bd73ed",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.017),
+                              )),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.03),
+                          Row(
+                            children: [
+                              Text(
+                                "Status: ",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.02),
+                              ),
+                              Text(
+                                "${widget.grievance['status']}",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.017),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.05),
+                          Center(
+                            child: Container(
+                              width: 250,
+                              // height: 250,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Color.fromARGB(255, 7, 65, 79),
+                                    width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  ('assets/walchand.jfif'),
+                                  alignment: Alignment.center,
+                                  fit: BoxFit.cover,
                                 ),
+                              ),
                             ),
-                            ElevatedButton(
+                          ),
+                          SizedBox(
+                              height: MediaQuery.of(context).size.width * 0.05),
+                          Row(
+                            children: [
+                              Text(
+                                "Grievant's Feedback: ",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.02),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.width * 0.025),
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 1,
+                              child: Text(
+                                "jdkvnieufn nusdon  iuwdo2uf bcdu82nrfp, ndciuen29r",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.017),
+                              )),
+                        ],
+                      ),
+                    ),
+                    role == "Management"
+                        ? widget.grievance['status'] == "Sent"
+                            ? ElevatedButton(
                                 onPressed: () {},
                                 style: buttonStyle,
                                 child: const Text("Acknowledge"))
