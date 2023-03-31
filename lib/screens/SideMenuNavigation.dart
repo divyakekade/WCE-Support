@@ -12,18 +12,21 @@ import '../widgets/Appbar.dart';
 
 class SideMenuNavigation extends StatefulWidget {
   static const routeurl = "/sidemenunavigation";
+  final String loadedPage;
 
-  const SideMenuNavigation({super.key});
+  const SideMenuNavigation({super.key, required this.loadedPage});
 
   @override
   State<SideMenuNavigation> createState() => SideMenuNavigationState();
 }
 
 class SideMenuNavigationState extends State<SideMenuNavigation> {
-  var currentPage = "home";
+  var currentPage;
   @override
   void initState() {
+    
     super.initState();
+    currentPage = widget.loadedPage;
   }
 
   @override
@@ -67,8 +70,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
       ),
       child: Column(
         children: [
-          menuItem(1, "Home", Icons.home_outlined,
-              currentPage == "home"),
+          menuItem(1, "Home", Icons.home_outlined, currentPage == "home"),
           menuItem(2, "Buy Products", Icons.shopping_cart_outlined,
               currentPage == "buy_products"),
           menuItem(3, "Sell Products", Icons.sell_outlined,
@@ -81,8 +83,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
               currentPage == "view_profile"),
           menuItem(7, "Create New User", Icons.person_add_outlined,
               currentPage == "create_user"),
-          menuItem(8, "Logout", Icons.logout,
-              currentPage == "logout"),
+          menuItem(8, "Logout", Icons.logout, currentPage == "logout"),
         ],
       ),
     );

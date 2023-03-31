@@ -41,7 +41,7 @@ class Griv with ChangeNotifier {
       final extractedData = json.decode(response.body);
       grievance = extractedData['grievances'];
       ChangeNotifier();
-      
+
       print(grievance);
     } catch (error) {
       print(error.toString());
@@ -51,5 +51,23 @@ class Griv with ChangeNotifier {
 
   List sendGrievanceList() {
     return [...grievance];
+  }
+
+  Future<void> deleteGrievance(String uid, String gid) async {
+    final url = Uri.parse("http://${ip}:5000/grievances/delete/$gid");
+    
+    try {
+     
+      final response = await http.delete(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+        'id': uid
+      });
+      final extractedData = json.decode(response.body);
+      if (response.statusCode != 200) {
+        throw HttpException(extractedData["message"]);
+      }
+    } catch (error) {
+      rethrow;
+    }
   }
 }
