@@ -156,7 +156,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                           SizedBox(
                               width: MediaQuery.of(context).size.width * 1,
                               child: Text(
-                                "jdnfviuarjns jdhfiuqhneicmos bd73ed",
+                                "${widget.grievance['createrName']}",
                                 style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
