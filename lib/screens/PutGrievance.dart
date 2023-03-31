@@ -6,6 +6,7 @@ import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 // import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import '../constants/ColorsAndStyles.dart';
@@ -66,6 +67,7 @@ class _PutGrievanceState extends State<PutGrievance> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           Container(
@@ -81,7 +83,7 @@ class _PutGrievanceState extends State<PutGrievance> {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.065,
+            // height: MediaQuery.of(context).size.height * 0.065,
             margin: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.039,
                 vertical: MediaQuery.of(context).size.height * 0.014),
@@ -105,7 +107,7 @@ class _PutGrievanceState extends State<PutGrievance> {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.065,
+            // height: MediaQuery.of(context).size.height * 0.065,
             margin: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.039,
                 vertical: MediaQuery.of(context).size.height * 0.014),
@@ -218,76 +220,35 @@ class _PutGrievanceState extends State<PutGrievance> {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.039,
-                vertical: MediaQuery.of(context).size.height * 0.014),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                'Your Past Grievances',
-                style: TextStyle(
-                    color: headingColor,
-                    fontSize: MediaQuery.of(context).size.width * 0.05,
-                    fontWeight: FontWeight.w500),
-              ),
-            ),
+          // Container(
+          //   margin: EdgeInsets.symmetric(
+          //       horizontal: MediaQuery.of(context).size.width * 0.039,
+          //       vertical: MediaQuery.of(context).size.height * 0.014),
+          //   child: Align(
+          //     alignment: Alignment.topLeft,
+          //     child: Text(
+          //       'Your Past Grievances',
+          //       style: TextStyle(
+          //           color: headingColor,
+          //           fontSize: MediaQuery.of(context).size.width * 0.05,
+          //           fontWeight: FontWeight.w500),
+          //     ),
+          //   ),
+          // ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.015,
           ),
           const Divider(height: 1, thickness: 2, color: Colors.grey),
-          Expanded(
-              child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: list.length,
-                  itemBuilder: (context, index) {
-                    dynamic l = list[index];
-                    return Container(
-                      margin: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width * 0.039,
-                          vertical: MediaQuery.of(context).size.height * 0.018),
-                      padding: EdgeInsets.symmetric(
-                          horizontal: MediaQuery.of(context).size.width * 0.035,
-                          vertical: MediaQuery.of(context).size.height * 0.009),
-                      decoration:
-                          const BoxDecoration(color: cardColor, boxShadow: [
-                        BoxShadow(
-                            color: Color.fromRGBO(159, 157, 157, 1),
-                            offset: Offset(2, 4),
-                            blurRadius: 4)
-                      ]),
-                      child: Column(children: [
-                        Row(
-                          children: [
-                            Text(
-                              "subject:-",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.023),
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              "Description:-",
-                              style: TextStyle(
-                                  fontSize: MediaQuery.of(context).size.height *
-                                      0.017),
-                            )
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ElevatedButton(
-                                onPressed: null,
-                                style: buttonStyle,
-                                child: const Text("Give Feedback"))
-                          ],
-                        )
-                      ]),
-                    );
-                  }))
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.018,
+          ),
+          ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const SingleUserPastGrievances()));
+              },
+              style: buttonStyle,
+              child: const Text("View Your Past Grievances"))
         ],
       ),
     );
