@@ -23,7 +23,7 @@ class Griv with ChangeNotifier {
         'section': selectedOption
       });
       final extractedData = json.decode(response.body);
-      print(extractedData);
+      // print(extractedData);
     } catch (error) {
       rethrow;
     }
@@ -42,7 +42,7 @@ class Griv with ChangeNotifier {
       grievance = extractedData['grievances'];
       ChangeNotifier();
 
-      print(grievance);
+      // print(grievance);
     } catch (error) {
       print(error.toString());
       rethrow;

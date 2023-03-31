@@ -19,11 +19,20 @@ class SingleGrievance extends StatefulWidget {
 class _SingleGrievanceState extends State<SingleGrievance> {
   bool sameuser = false;
   String? id;
+  String role = "Student";
+  bool takeFeedback = false;
   void initState() {
     print(widget.grievance);
     String? id = Provider.of<Auth>(context, listen: false).user_id;
+    if (id != null) {
+      dynamic user = Provider.of<Auth>(context, listen: false).user;
+      role = user['role'];
+    }
     if (id == widget.grievance['userID']) {
       sameuser = true;
+    }
+    if (sameuser && widget.grievance['status'] == 'Complete') {
+      takeFeedback = true;
     }
   }
 
@@ -32,14 +41,13 @@ class _SingleGrievanceState extends State<SingleGrievance> {
       await Provider.of<Griv>(context, listen: false)
           .deleteGrievance(widget.grievance['userID'], widget.grievance['_id']);
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>SideMenuNavigation(loadedPage: "view_grievances")));
+          builder: (context) =>
+              SideMenuNavigation(loadedPage: "view_grievances")));
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
   }
 
-  String role = "Student";
-  bool takeFeedback = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
