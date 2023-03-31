@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
-import 'package:wce_support/constants/ColorsAndStyles.dart';
-
+//import 'package:wce_support/screens/ProductDetails.dart';
 class ProductCard extends StatelessWidget implements PreferredSizeWidget {
   const ProductCard({
     Key? key,
@@ -64,8 +63,8 @@ class ProductCard extends StatelessWidget implements PreferredSizeWidget {
                     ),
                     Container(
                       child: ElevatedButton(
-                        onPressed: () {
-                          print("name");
+                        onPressed: (){
+                          print("details");
                         },
                         child: Text(
                           "View Details",
@@ -95,3 +94,5 @@ class ProductCard extends StatelessWidget implements PreferredSizeWidget {
   // TODO: implement preferredSize
   Size get preferredSize => throw UnimplementedError();
 }
+
+

@@ -30,15 +30,18 @@ const Color cardColor = Color.fromARGB(255, 230, 230, 230);
 const Color greyColor = Color(0xffE0E0E0);
 
 final headingBoxDecoration = BoxDecoration(
+
               boxShadow: const [
+
                 BoxShadow(
-                  color: Color.fromRGBO(159, 157, 157, 1),
+                color: Color.fromRGBO(159, 157, 157, 1),
+
                   offset: Offset(2, 3),
                   blurRadius: 4,
                   inset: true
                 )
               ],
-              color: cardBackground,
+
               borderRadius: BorderRadius.circular(15),
               // border: Border.all(color: Colors.black, width: 1)
             );

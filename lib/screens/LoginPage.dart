@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          padding: EdgeInsets.symmetric(horizontal: width10*2),
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -61,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                       vertical: MediaQuery.of(context).size.height * 0.0052,
                       horizontal: MediaQuery.of(context).size.width * 0.1),
                   decoration: headingBoxDecoration,
+
                   child: Center(
                     child: Text(
                       'Login',

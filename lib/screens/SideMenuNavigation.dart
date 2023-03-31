@@ -4,6 +4,7 @@ import 'package:wce_support/screens/CreateUser.dart';
 import 'package:wce_support/screens/HomePage.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
 import 'package:wce_support/screens/PutGrievance.dart';
+import 'package:wce_support/screens/SellProducts.dart';
 import 'package:wce_support/screens/ViewGrievances.dart';
 import 'package:wce_support/widgets/SidebarHeader.dart';
 import '../Provider/Auth provider.dart';
@@ -36,7 +37,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
     } else if (currentPage == "buy_products") {
       container = const BuyProducts(); //need to change
     } else if (currentPage == "sell_products") {
-      container = const HomePage(); //need to change
+      container = const SellProduct(); //need to change
     } else if (currentPage == "view_grievances") {
       container = const ViewGrievances();
     } else if (currentPage == "put_grievance") {
