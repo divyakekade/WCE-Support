@@ -64,6 +64,12 @@ class _EditProfileState extends State<EditProfile> {
       } catch (error) {
         showErrorDialogBox2(error.toString(), context);
       }
+
+    }
+    else{
+      setState(() {
+        editing = false;
+      });
     }
   }
 
