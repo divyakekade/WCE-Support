@@ -36,7 +36,7 @@ class _ChangePasswordState extends State<ChangePassword> {
         Container(
             width: double.infinity,
             height: double.infinity,
-            color: Color.fromARGB(255, 238, 245, 248)),
+            color: backgroundColor),
         Column(
           children: [
             Container(

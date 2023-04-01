@@ -2,7 +2,6 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
-import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -85,7 +84,7 @@ class _CreateUserState extends State<CreateUser> {
            Container(
             width: double.infinity,
             height: double.infinity,
-            color: Color.fromARGB(255, 238, 245, 248)),
+            color: backgroundColor),
           Column(
           children: [
             Container(

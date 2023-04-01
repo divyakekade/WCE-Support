@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/ChangePassword.dart';
-import 'package:wce_support/screens/SideMenuNavigation.dart';
-import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class EditProfile extends StatefulWidget {
@@ -98,7 +96,7 @@ class _EditProfileState extends State<EditProfile> {
         Container(
             width: double.infinity,
             height: double.infinity,
-            color: Color.fromARGB(255, 238, 245, 248)),
+            color: backgroundColor),
         Column(
           children: [
             Container(
@@ -177,26 +175,24 @@ class _EditProfileState extends State<EditProfile> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,
                                   child: TextFormField(
-                                    style: !editing
-                                        ? const TextStyle(color: Colors.grey)
-                                        : null,
+                                    style: const TextStyle(color: Colors.grey),
                                     initialValue: firstName,
                                     onChanged: (name) {
                                       setState(() {
                                         firstName = name;
                                       });
                                     },
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                         enabled: false,
                                         labelText: 'first name',
                                         contentPadding:
-                                            const EdgeInsets.all(12),
-                                        border: const OutlineInputBorder(
+                                            EdgeInsets.all(12),
+                                        border: OutlineInputBorder(
                                             // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
                                                 color: Colors.black,
                                                 width: 2.0)),
-                                        focusedBorder: const OutlineInputBorder(
+                                        focusedBorder: OutlineInputBorder(
                                             // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
                                           color: Colors.black,
@@ -208,25 +204,23 @@ class _EditProfileState extends State<EditProfile> {
                                       MediaQuery.of(context).size.width * 0.4,
                                   child: TextFormField(
                                     initialValue: lastName,
-                                    style: !editing
-                                        ? const TextStyle(color: Colors.grey)
-                                        : null,
+                                    style: const TextStyle(color: Colors.grey),
                                     onChanged: (name) {
                                       setState(() {
                                         lastName = name;
                                       });
                                     },
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                         enabled: false,
                                         labelText: 'last name',
                                         contentPadding:
-                                            const EdgeInsets.all(12),
-                                        border: const OutlineInputBorder(
+                                             EdgeInsets.all(12),
+                                        border: OutlineInputBorder(
                                             // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
                                                 color: Colors.black,
                                                 width: 2.0)),
-                                        focusedBorder: const OutlineInputBorder(
+                                        focusedBorder: OutlineInputBorder(
                                             // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
                                           color: Colors.black,
@@ -240,24 +234,22 @@ class _EditProfileState extends State<EditProfile> {
                                   MediaQuery.of(context).size.height * 0.025,
                             ),
                             TextFormField(
-                              style: !editing
-                                  ? const TextStyle(color: Colors.grey)
-                                  : null,
+                              style: const TextStyle(color: Colors.grey),
                               initialValue: email,
                               onChanged: (mail) {
                                 setState(() {
                                   email = mail;
                                 });
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   enabled: false,
                                   labelText: 'email',
-                                  contentPadding: const EdgeInsets.all(12),
-                                  border: const OutlineInputBorder(
+                                  contentPadding: EdgeInsets.all(12),
+                                  border: OutlineInputBorder(
                                       // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                       borderSide: BorderSide(
                                           color: Colors.black, width: 2.0)),
-                                  focusedBorder: const OutlineInputBorder(
+                                  focusedBorder: OutlineInputBorder(
                                       // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                       borderSide: BorderSide(
                                     color: Colors.black,
@@ -303,6 +295,7 @@ class _EditProfileState extends State<EditProfile> {
                                   child: Text(
                                     value,
                                     overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(color: Colors.grey),
                                   ),
                                 );
                               }).toList(),
@@ -325,15 +318,15 @@ class _EditProfileState extends State<EditProfile> {
                                       }
                                     }
                                   : null,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   enabled: false,
                                   labelText: 'select role',
-                                  contentPadding: const EdgeInsets.all(12),
-                                  border: const OutlineInputBorder(
+                                  contentPadding: EdgeInsets.all(12),
+                                  border: OutlineInputBorder(
                                       // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                       borderSide: BorderSide(
                                           color: Colors.black, width: 2.0)),
-                                  focusedBorder: const OutlineInputBorder(
+                                  focusedBorder: OutlineInputBorder(
                                       // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                       borderSide: BorderSide(
                                     color: Colors.black,
