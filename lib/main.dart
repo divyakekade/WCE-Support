@@ -13,16 +13,16 @@ void main() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   // print(pref.getString('userid'));
   runApp(MyApp(
-      token: pref.getString('token')!,
-      id: pref.getString('userid')!,
-      user: pref.getString('user')!));
+      token: pref.getString('token'),
+      id: pref.getString('userid'),
+      user: pref.getString('user')));
 }
 
 class MyApp extends StatelessWidget {
-  String token;
-  String id;
-  String user;
-  MyApp({super.key, required this.token, required this.id, required this.user});
+  String? token;
+  String?id;
+  String? user;
+  MyApp({super.key,  this.token,  this.id,  this.user});
 
   void initState(BuildContext context) {
     print("token $id");
@@ -44,13 +44,14 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: buildMaterialColor(primaryColor),
           ),
-          home: JwtDecoder.isExpired(token)? SideMenuNavigation(
+          home: (token != null && JwtDecoder.isExpired(token!)==false)? SideMenuNavigation(
             loadedPage: "home",
-          ): SideMenuNavigation(
-                  loadedPage: "home",
-                  token: token,
+            token: token,
                   user: user,
                   userid: id,
+          ): SideMenuNavigation(
+                  loadedPage: "home",
+                  
                 ),
           routes: {}),
     );
