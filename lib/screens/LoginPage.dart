@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class LoginPage extends StatefulWidget {
