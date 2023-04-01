@@ -129,7 +129,7 @@ class _ViewProfileState extends State<ViewProfile> {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const SideMenuNavigation(loadedPage: "home",)));
+                                                  SideMenuNavigation(loadedPage: "home",)));
                                     },
                                     style: buttonStyle,
                                     child: const Text("Save")),

@@ -2,9 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:provider/provider.dart';
+import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/ChangePassword.dart';
+import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
@@ -25,6 +29,7 @@ class _EditProfileState extends State<EditProfile> {
   String mobileNo = "8626061856";
   bool showYearBranch = false;
   bool editing = false;
+  dynamic user;
 
   List<String> departmentsList = <String>[
     "select department",
@@ -48,23 +53,45 @@ class _EditProfileState extends State<EditProfile> {
 
   List<String> rolesList = <String>["select role", "Student", "Management"];
 
-  editProfile() {
-    print(firstName);
-    print(lastName);
-    print(username);
-    print(email);
-    print(password);
-    print(role);
-    print(department);
-    print(year);
-    print(mobileNo);
+  Future<void> editProfile() async {
+    if (mobileNo != user['mobile'] ||
+        year != user['year'] ||
+        department != user['department']) {
+      try {
+        await Provider.of<Auth>(context, listen: false)
+            .updateProfile(mobileNo, department, year);
+        setState(() {
+          editing = false;
+        });
+      } catch (error) {
+        showErrorDialogBox2(error.toString(), context);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    user = Provider.of<Auth>(context, listen: false).user;
+    print(user);
+    firstName = user['firstname'];
+    lastName = user['lastname'];
+    username = user['username'];
+    email = user['email'];
+    mobileNo = user['mobile'];
+    role = user['role'];
+    department = user['department'];
+    year = user['year'];
   }
 
   @override
   Widget build(BuildContext context) {
-    if(role=="Student") {setState(() {
-      showYearBranch=true;
-    });}
+    if (role == "Student") {
+      setState(() {
+        showYearBranch = true;
+      });
+    }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(children: [
@@ -100,7 +127,8 @@ class _EditProfileState extends State<EditProfile> {
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 247, 246, 246),
                         border: Border.all(
-                            color: const Color.fromARGB(255, 7, 65, 79), width: 1),
+                            color: const Color.fromARGB(255, 7, 65, 79),
+                            width: 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: SingleChildScrollView(
@@ -116,7 +144,8 @@ class _EditProfileState extends State<EditProfile> {
                                       });
                                     },
                                     icon: const Icon(Icons.edit),
-                                    color: const Color.fromARGB(255, 75, 75, 75),
+                                    color:
+                                        const Color.fromARGB(255, 75, 75, 75),
                                     iconSize: 28,
                                   ),
                                 ]),
@@ -126,7 +155,9 @@ class _EditProfileState extends State<EditProfile> {
                                   username,
                                   style: TextStyle(
                                       color: headingColor,
-                                      fontSize: MediaQuery.of(context).size.height*0.02,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.02,
                                       fontWeight: FontWeight.w500),
                                 ),
                               ],
@@ -136,68 +167,82 @@ class _EditProfileState extends State<EditProfile> {
                               color: Colors.black,
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.009,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.009,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width*0.4,
-                                child: TextFormField(
-                                style: !editing?const TextStyle(color: Colors.grey):null,
-                                initialValue: firstName,
-                                onChanged: (name) {
-                                  setState(() {
-                                    firstName = name;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                    enabled: editing,
-                                    labelText: 'first name',
-                                    contentPadding: const EdgeInsets.all(12),
-                                    border: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                            color: Colors.black, width: 2.0)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                      color: Colors.black,
-                                    ))),
-                            ),
-                              ),
-                            Container(
-                              width: MediaQuery.of(context).size.width*0.4,
-                              child: TextFormField(
-                                initialValue: lastName,
-                                style: !editing?const TextStyle(color: Colors.grey):null,
-                                onChanged: (name) {
-                                  setState(() {
-                                    lastName = name;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                    enabled: editing,
-                                    labelText: 'last name',
-                                    contentPadding: const EdgeInsets.all(12),
-                                    border: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                            color: Colors.black, width: 2.0)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                      color: Colors.black,
-                                    ))),
-                              ),
-                            ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  child: TextFormField(
+                                    style: !editing
+                                        ? const TextStyle(color: Colors.grey)
+                                        : null,
+                                    initialValue: firstName,
+                                    onChanged: (name) {
+                                      setState(() {
+                                        firstName = name;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                        enabled: false,
+                                        labelText: 'first name',
+                                        contentPadding:
+                                            const EdgeInsets.all(12),
+                                        border: const OutlineInputBorder(
+                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                            borderSide: BorderSide(
+                                                color: Colors.black,
+                                                width: 2.0)),
+                                        focusedBorder: const OutlineInputBorder(
+                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                            borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ))),
+                                  ),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  child: TextFormField(
+                                    initialValue: lastName,
+                                    style: !editing
+                                        ? const TextStyle(color: Colors.grey)
+                                        : null,
+                                    onChanged: (name) {
+                                      setState(() {
+                                        lastName = name;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                        enabled: false,
+                                        labelText: 'last name',
+                                        contentPadding:
+                                            const EdgeInsets.all(12),
+                                        border: const OutlineInputBorder(
+                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                            borderSide: BorderSide(
+                                                color: Colors.black,
+                                                width: 2.0)),
+                                        focusedBorder: const OutlineInputBorder(
+                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                            borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ))),
+                                  ),
+                                ),
                               ],
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.025,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
                             ),
                             TextFormField(
-                              style: !editing?const TextStyle(color: Colors.grey):null,
+                              style: !editing
+                                  ? const TextStyle(color: Colors.grey)
+                                  : null,
                               initialValue: email,
                               onChanged: (mail) {
                                 setState(() {
@@ -205,7 +250,7 @@ class _EditProfileState extends State<EditProfile> {
                                 });
                               },
                               decoration: InputDecoration(
-                                  enabled: editing,
+                                  enabled: false,
                                   labelText: 'email',
                                   contentPadding: const EdgeInsets.all(12),
                                   border: const OutlineInputBorder(
@@ -219,10 +264,13 @@ class _EditProfileState extends State<EditProfile> {
                                   ))),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.025,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
                             ),
                             TextFormField(
-                              style: !editing?const TextStyle(color: Colors.grey):null,
+                              style: !editing
+                                  ? const TextStyle(color: Colors.grey)
+                                  : null,
                               initialValue: mobileNo,
                               onChanged: (mobile) {
                                 setState(() {
@@ -244,7 +292,8 @@ class _EditProfileState extends State<EditProfile> {
                                   ))),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.025,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
                             ),
                             DropdownButtonFormField(
                               isExpanded: true,
@@ -258,24 +307,26 @@ class _EditProfileState extends State<EditProfile> {
                                 );
                               }).toList(),
                               value: role,
-                              onChanged: editing?(String? value) {
-                                setState(() {
-                                  role = value!;
-                                });
-                                if (role == "Student") {
-                                  setState(() {
-                                    showYearBranch = true;
-                                  });
-                                } else {
-                                  setState(() {
-                                    showYearBranch = false;
-                                    year = "select year";
-                                    department = "select department";
-                                  });
-                                }
-                              }:null,
+                              onChanged: editing
+                                  ? (String? value) {
+                                      setState(() {
+                                        role = value!;
+                                      });
+                                      if (role == "Student") {
+                                        setState(() {
+                                          showYearBranch = true;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          showYearBranch = false;
+                                          year = "select year";
+                                          department = "select department";
+                                        });
+                                      }
+                                    }
+                                  : null,
                               decoration: InputDecoration(
-                                  enabled: editing,
+                                  enabled: false,
                                   labelText: 'select role',
                                   contentPadding: const EdgeInsets.all(12),
                                   border: const OutlineInputBorder(
@@ -289,7 +340,8 @@ class _EditProfileState extends State<EditProfile> {
                                   ))),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.025,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
                             ),
                             DropdownButtonFormField(
                               isExpanded: true,
@@ -303,16 +355,18 @@ class _EditProfileState extends State<EditProfile> {
                                 );
                               }).toList(),
                               value: department,
-                              onChanged: editing?(String? value) {
-                                setState(() {
-                                  department = value!;
-                                });
-                              }: null,
+                              onChanged: editing
+                                  ? (String? value) {
+                                      setState(() {
+                                        department = value!;
+                                      });
+                                    }
+                                  : null,
                               decoration: InputDecoration(
                                   enabled: editing,
                                   labelText: 'select department',
                                   contentPadding: const EdgeInsets.all(12),
-                                  border: const  OutlineInputBorder(
+                                  border: const OutlineInputBorder(
                                       // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                       borderSide: BorderSide(
                                           color: Colors.black, width: 2.0)),
@@ -323,7 +377,8 @@ class _EditProfileState extends State<EditProfile> {
                                   ))),
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.025,
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
                             ),
                             showYearBranch
                                 ? DropdownButtonFormField(
@@ -338,19 +393,23 @@ class _EditProfileState extends State<EditProfile> {
                                       );
                                     }).toList(),
                                     value: year,
-                                    onChanged: editing?(String? value) {
-                                      setState(() {
-                                        year = value!;
-                                      });
-                                    }:null,
+                                    onChanged: editing
+                                        ? (String? value) {
+                                            setState(() {
+                                              year = value!;
+                                            });
+                                          }
+                                        : null,
                                     decoration: InputDecoration(
                                         enabled: editing,
                                         labelText: 'select year',
-                                        contentPadding: const EdgeInsets.all(12),
+                                        contentPadding:
+                                            const EdgeInsets.all(12),
                                         border: const OutlineInputBorder(
                                             // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
-                                                color: Colors.black, width: 2.0)),
+                                                color: Colors.black,
+                                                width: 2.0)),
                                         focusedBorder: const OutlineInputBorder(
                                             // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
@@ -360,8 +419,8 @@ class _EditProfileState extends State<EditProfile> {
                                 : const SizedBox(),
                             showYearBranch
                                 ? SizedBox(
-                                    height:
-                                        MediaQuery.of(context).size.height * 0.025)
+                                    height: MediaQuery.of(context).size.height *
+                                        0.025)
                                 : const SizedBox(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -373,7 +432,8 @@ class _EditProfileState extends State<EditProfile> {
                                     "Save",
                                     style: TextStyle(
                                         fontSize:
-                                            MediaQuery.of(context).size.height * 0.025),
+                                            MediaQuery.of(context).size.height *
+                                                0.025),
                                   ),
                                 ),
                               ],
@@ -382,13 +442,16 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                     ),
-                    SizedBox(height: MediaQuery.of(context).size.height*0.003,),
-                    ElevatedButton(onPressed: (){
-                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const ChangePassword()));
-                    },style: buttonStyle ,child: const Text("Change Password"))
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.003,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => const ChangePassword()));
+                        },
+                        style: buttonStyle,
+                        child: const Text("Change Password"))
                   ],
                 ),
               ),

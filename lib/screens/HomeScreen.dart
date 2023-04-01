@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Provider/Auth provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/LoginPage.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  String? token;
+  String? user;
+  String? userid;
+  HomeScreen({super.key, this.token, this.user, this.userid});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // SharedPreferences  pref = await SharedPreferences.getInstance();
+    // String token =
+    // print(pref.getString('userid'));
+    // if(widget.token!=null  && widget.token!=null &&widget.token!=null){
+
+    Provider.of<Auth>(context, listen: false)
+        .setuser(widget.token, widget.user, widget.userid);
+    // }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,26 +88,26 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.1,
             ),
-            authtoken==null?
-            const LoginPage()
-            // Container(
-            //   width: MediaQuery.of(context).size.width*0.3,
-            //   height: MediaQuery.of(context).size.height*0.06,
-            //   child: ElevatedButton(
-            //       onPressed: () {
-            //         Navigator.of(context).push(MaterialPageRoute(
-            //             builder: (context) => const LoginPage()));
-            //       },
-            //       style: ElevatedButton.styleFrom(
-            //         foregroundColor: Colors.white,
-            //         backgroundColor: primaryColor,
-            //         elevation: 10,
-            //         shape: const RoundedRectangleBorder(
-            //             borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            //       ),
-            //       child: Text("Login",style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.024),)),
-            // )
-            : const Center(child: Text("You are logged in")),
+            authtoken == null
+                ? const LoginPage()
+                // Container(
+                //   width: MediaQuery.of(context).size.width*0.3,
+                //   height: MediaQuery.of(context).size.height*0.06,
+                //   child: ElevatedButton(
+                //       onPressed: () {
+                //         Navigator.of(context).push(MaterialPageRoute(
+                //             builder: (context) => const LoginPage()));
+                //       },
+                //       style: ElevatedButton.styleFrom(
+                //         foregroundColor: Colors.white,
+                //         backgroundColor: primaryColor,
+                //         elevation: 10,
+                //         shape: const RoundedRectangleBorder(
+                //             borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                //       ),
+                //       child: Text("Login",style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.024),)),
+                // )
+                : const Center(child: Text("You are logged in")),
           ],
         ),
       ]),

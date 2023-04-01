@@ -15,8 +15,10 @@ import '../widgets/Appbar.dart';
 class SideMenuNavigation extends StatefulWidget {
   static const routeurl = "/sidemenunavigation";
   final String loadedPage;
-
-  const SideMenuNavigation({super.key, required this.loadedPage});
+  String? token;
+  String? user;
+  String? userid; 
+  SideMenuNavigation({super.key, required this.loadedPage,this.token,this.user,this.userid});
 
   @override
   State<SideMenuNavigation> createState() => SideMenuNavigationState();
@@ -26,7 +28,6 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
   dynamic currentPage;
   @override
   void initState() {
-    
     super.initState();
     currentPage = widget.loadedPage;
   }
@@ -35,21 +36,21 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
   Widget build(BuildContext context) {
     dynamic container;
     if (currentPage == "home") {
-      container = const HomeScreen();
+      container =  HomeScreen(user:widget.user,userid: widget.userid,token: widget.token);
     } else if (currentPage == "buy_products") {
-      container = const BuyProducts(); 
+      container = const BuyProducts();
     } else if (currentPage == "sell_products") {
-      container = const SellProduct(); 
+      container = const SellProduct();
     } else if (currentPage == "view_grievances") {
       container = const ViewGrievances();
     } else if (currentPage == "put_grievance") {
       container = const PutGrievance();
     } else if (currentPage == "view_profile") {
-      container = const EditProfile(); 
+      container = const EditProfile();
     } else if (currentPage == "create_user") {
       container = const CreateUser();
     } else if (currentPage == "logout") {
-      container = const HomePage(); 
+      container = const HomePage();
     }
 
     return Scaffold(

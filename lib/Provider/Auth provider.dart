@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wce_support/Exceptions/httpexception.dart';
 
 class Auth with ChangeNotifier {
@@ -9,6 +10,17 @@ class Auth with ChangeNotifier {
   String? user_id;
   dynamic user;
   String? ip = "192.168.43.89";
+  void setuser(String? token, String? user, String? user_id) {
+    if (user == null || token == null) {
+      return;
+    }
+    print("hello");
+    this.token = token;
+    this.user = json.decode(user)['details'];
+    // print();
+    this.user_id = user_id;
+  }
+
   Future<void> login(String username, String password) async {
     final url = Uri.parse("http://${ip}:5000/user/login");
     print("Hello");
@@ -25,12 +37,20 @@ class Auth with ChangeNotifier {
       if (statusCode != 200) {
         throw HttpException(extractedData['message']);
       }
-      // print(extractedData);
-      user = extractedData['user']; 
+      print(extractedData);
+      user = extractedData['user'];
       user_id = extractedData['userid'];
       token = extractedData['token'];
       // print({user_id, token});
       notifyListeners();
+      final SharedPreferences pref = await SharedPreferences.getInstance();
+      pref.setString("token", extractedData['token']);
+      pref.setString("userid", extractedData['userid']);
+      final userv = json.encode({
+        "details": extractedData['user'],
+      });
+      pref.setString("user", userv);
+      print(pref.getString('token'));
     } catch (error) {
       rethrow;
     }
@@ -51,7 +71,7 @@ class Auth with ChangeNotifier {
         'role': userdetails["role"],
         'department': userdetails["department"],
         'year': userdetails["year"],
-        'mobile': userdetails["year"]
+        'mobile': userdetails["mobileNo"]
       });
       final extractedData = json.decode(response.body);
       // print(extractedData);
@@ -63,5 +83,48 @@ class Auth with ChangeNotifier {
       rethrow;
     }
   }
+
   // Future<void>createManagment(String )
+  Future<void> changePassword(String oldpassword, String newpassword) async {
+    final url = Uri.parse("http://${ip}:5000/user/changepassword");
+    try {
+      final response = await http.post(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+        'id': user['_id']
+      }, body: <String, String>{
+        "oldpassword": oldpassword,
+        "newpassword": newpassword
+      });
+      final extractedData = json.decode(response.body);
+      if (response.statusCode != 200) {
+        throw HttpException(extractedData['message']);
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateProfile(
+      String mobile, String department, String year) async {
+    final url = Uri.parse("http://${ip}:5000/user/updateprofile");
+    try {
+      final response = await http.post(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+        'id': user['_id']
+      }, body: <String, String>{
+        "mobile": mobile,
+        "department": department,
+        "year": year
+      });
+      final extractedData = json.decode(response.body);
+      print(extractedData);
+      if (response.statusCode != 200) {
+        throw HttpException(extractedData['message']);
+      }
+      user = extractedData['user'];
+      ChangeNotifier();
+    } catch (error) {
+      rethrow;
+    }
+  }
 }
