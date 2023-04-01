@@ -27,7 +27,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
   String comment = "";
   void initState() {
     print(widget.grievance);
-    String? id = Provider.of<Auth>(context, listen: false).user_id;
+     id = Provider.of<Auth>(context, listen: false).user_id;
     if (id != null) {
       dynamic user = Provider.of<Auth>(context, listen: false).user;
       role = user['role'];
@@ -94,9 +94,13 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     }
   }
 
-  saveFeedback(){
-    print(feedback);
-    print(comment);
+  Future<void> saveFeedback() async {
+    try {
+
+      await Provider.of<Griv>(context,listen:false).putfeedback(id, widget.grievance['_id'] ,feedback, comment);
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
+    }
   }
 
   @override
@@ -247,13 +251,15 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                       style: buttonStyle,
                                       child: const Text(
                                           "Completed & Ask Feedback"))
-                                  : widget.grievance['status'] == "Completed"
+                                  : (widget.grievance['status'] ==
+                                              "Completed" &&
+                                          widget.grievance['feedback'] != null)
                                       ? ElevatedButton(
                                           onPressed: markClose,
                                           style: buttonStyle,
                                           child: const Text("Close Grievance"))
                                       : const SizedBox()
-                          : takeFeedback && !openFeedbackForm
+                          : takeFeedback && !openFeedbackForm&&widget.grievance['feedback']==null
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -267,7 +273,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                   ],
                                 )
                               : const SizedBox(),
-                      openFeedbackForm
+                      openFeedbackForm&& widget.grievance['feedback'] == null
                           ? Container(
                               margin: EdgeInsets.symmetric(
                                   vertical:

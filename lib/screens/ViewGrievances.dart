@@ -211,8 +211,8 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text("01/04/2023",style: TextStyle(color: headingColor,fontSize: MediaQuery.of(context).size.height*0.014),),
-                                        Text("9:30 AM",style: TextStyle(color: headingColor,fontSize: MediaQuery.of(context).size.height*0.014),)
+                                        Text(list[index]['date'],style: TextStyle(color: headingColor,fontSize: MediaQuery.of(context).size.height*0.014),),
+                                        Text(list[index]['time'],style: TextStyle(color: headingColor,fontSize: MediaQuery.of(context).size.height*0.014),)
                                       ],
                                     ),
                                   )

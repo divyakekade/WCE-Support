@@ -92,4 +92,30 @@ class Griv with ChangeNotifier {
       rethrow;
     }
   }
+
+  Future<void> putfeedback(
+      String? id, String gid, String review, String comment) async {
+    final url = Uri.parse("http://${ip}:5000/grievances/putfeedback");
+    try {
+      if(id==null)
+      {
+        throw HttpException("You are not authenticated"); 
+      }
+      final response = await http.post(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+        'id': id
+      }, body: <String, String>{
+        
+        'gid': gid,
+        'review':review, 
+        'comment':comment, 
+      });
+      final extractedData = json.decode(response.body);
+      if (response.statusCode != 200) {
+        throw HttpException(extractedData['message']); 
+      }
+    } catch (error) {
+      rethrow;
+    }
+  }
 }
