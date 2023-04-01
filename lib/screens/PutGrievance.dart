@@ -68,189 +68,218 @@ class _PutGrievanceState extends State<PutGrievance> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.02),
-            padding: EdgeInsets.symmetric(
-                vertical: MediaQuery.of(context).size.height * 0.0052,
-                horizontal: MediaQuery.of(context).size.width * 0.05),
-            decoration: headingBoxDecoration,
-            child: Text(
-              'Put Your Grievance',
-              style: headingTextStyle,
-            ),
-          ),
-          Container(
-            // height: MediaQuery.of(context).size.height * 0.065,
-            margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.039,
-                vertical: MediaQuery.of(context).size.height * 0.014),
-            child: TextFormField(
-              onChanged: (sub) {
-                setState(() {
-                  subject = sub;
-                });
-                print(subject);
-              },
-              decoration: const InputDecoration(
-                  // contentPadding: EdgeInsets.all(4),
-
-                  labelText: "subject",
-                  border: OutlineInputBorder(
-                      // borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide: BorderSide(color: Colors.black, width: 0.3)),
-                  focusedBorder: OutlineInputBorder(
-                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                      borderSide: BorderSide(color: Colors.black, width: 0.3))),
-            ),
-          ),
-          Container(
-            // height: MediaQuery.of(context).size.height * 0.065,
-            margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.039,
-                vertical: MediaQuery.of(context).size.height * 0.014),
-            child: SizedBox(
-                child: TextFormField(
-              minLines: 1,
-              maxLines: 10, // allow user to enter 5 line in textfield
-              keyboardType: TextInputType.multiline,
-              onChanged: (dec) {
-                setState(() {
-                  description = dec;
-                });
-                print(subject);
-              },
-
-              decoration: const InputDecoration(
-                  // contentPadding: EdgeInsets.all(4),
-                  labelText: "write your grievence here",
-                  border: OutlineInputBorder(
-                      // borderRadius: BorderRadius.all(Radius.circular(7)),
-                      borderSide: BorderSide(color: Colors.black, width: 0.3)),
-                  focusedBorder: OutlineInputBorder(
-                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                      borderSide: BorderSide(color: Colors.black, width: 0.3))),
-            )),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.039,
-                vertical: MediaQuery.of(context).size.height * 0.008),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text('Add image as a proof if any',
-                  style: TextStyle(
-                      color: headingColor,
-                      fontSize: MediaQuery.of(context).size.height * 0.018)),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.039,
-                vertical: MediaQuery.of(context).size.height * 0.014),
-            child: Align(
-                alignment: Alignment.topLeft,
-                child: ElevatedButton(
-                    onPressed: null,
-                    style: secondButtonStyle,
-                    child: Text(
-                      "Add Image",
-                      style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * 0.05),
-                    ))),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.039,
-                vertical: MediaQuery.of(context).size.height * 0.005),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                'Choose department for your grievance',
-                style: TextStyle(
-                    color: headingColor,
-                    fontSize: MediaQuery.of(context).size.height * 0.018),
-              ),
-            ),
-          ),
-          Container(
-              // width: 300,
+      body: Stack(children: [
+        Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: backgroundColor),
+        Column(
+          children: [
+            Container(
               margin: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.039,
-                  vertical: MediaQuery.of(context).size.height * 0.018),
-              child: DropdownButtonFormField(
-                decoration: const InputDecoration(
-                    // contentPadding: EdgeInsets.all(4),
-
-                    border: OutlineInputBorder(
-                        // borderRadius: BorderRadius.all(Radius.circular(7)),
-                        borderSide:
-                            BorderSide(color: Colors.black, width: 0.3)),
-                    focusedBorder: OutlineInputBorder(
-                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                        borderSide:
-                            BorderSide(color: Colors.black, width: 0.3))),
-                items: sectionList.map((value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                value: selectedOption,
-                onChanged: (String? value) {
-                  setState(() {
-                    selectedOption = value!;
-                  });
-                },
-              )),
-          Container(
-            margin: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.035,
-            ),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: ElevatedButton(
-                onPressed: createGrevience,
-                child: Text(
-                  "Submit",
-                  style: TextStyle(fontSize: 20),
-                ),
+                  vertical: MediaQuery.of(context).size.height * 0.02),
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.0052,
+                  horizontal: MediaQuery.of(context).size.width * 0.05),
+              decoration: headingBoxDecoration,
+              child: Text(
+                'Put Your Grievance',
+                style: headingTextStyle,
               ),
             ),
-          ),
-          // Container(
-          //   margin: EdgeInsets.symmetric(
-          //       horizontal: MediaQuery.of(context).size.width * 0.039,
-          //       vertical: MediaQuery.of(context).size.height * 0.014),
-          //   child: Align(
-          //     alignment: Alignment.topLeft,
-          //     child: Text(
-          //       'Your Past Grievances',
-          //       style: TextStyle(
-          //           color: headingColor,
-          //           fontSize: MediaQuery.of(context).size.width * 0.05,
-          //           fontWeight: FontWeight.w500),
-          //     ),
-          //   ),
-          // ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.015,
-          ),
-          const Divider(height: 1, thickness: 2, color: Colors.grey),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.018,
-          ),
-          ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const SingleUserPastGrievances()));
-              },
-              style: buttonStyle,
-              child: const Text("View Your Past Grievances"))
-        ],
-      ),
+            Expanded(
+                child: SingleChildScrollView(
+              child: Container(
+                  margin: EdgeInsets.symmetric(
+                      // vertical: MediaQuery.of(context).size.height * 0.01,
+                      horizontal: MediaQuery.of(context).size.width * 0.03),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.02,
+                      horizontal: MediaQuery.of(context).size.width * 0.05),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 247, 246, 246),
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 7, 65, 79), width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Enter details below",
+                              style: TextStyle(
+                                  color: headingColor,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.018),
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          thickness: 1,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.009,
+                        ),
+                        TextFormField(
+                          onChanged: (sub) {
+                            setState(() {
+                              subject = sub;
+                            });
+                          },
+                          decoration: const InputDecoration(
+                              labelText: 'subject',
+                              contentPadding: EdgeInsets.all(12),
+                              border: OutlineInputBorder(
+                                  // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 2.0)),
+                              focusedBorder: OutlineInputBorder(
+                                  // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                  borderSide: BorderSide(
+                                color: Colors.black,
+                              ))),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.025,
+                        ),
+                        TextFormField(
+                          minLines: 1,
+                          maxLines: 20,
+                          onChanged: (dec) {
+                            setState(() {
+                              description = dec;
+                            });
+                          },
+                          decoration: const InputDecoration(
+                              labelText: 'write your grievance here',
+                              contentPadding: EdgeInsets.all(12),
+                              border: OutlineInputBorder(
+                                  // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 2.0)),
+                              focusedBorder: OutlineInputBorder(
+                                  // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                  borderSide: BorderSide(
+                                color: Colors.black,
+                              ))),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.025,
+                        ),
+                        Row(
+                          children: [
+                            Text('Add image as a proof if any',
+                                style: TextStyle(
+                                    color: headingColor,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.036)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.012,
+                        ),
+                        Row(children: [
+                          ElevatedButton(
+                              onPressed: null,
+                              style: secondButtonStyle,
+                              child: Text(
+                                "Add Image",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.045),
+                              )),
+                        ]),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.025,
+                        ),
+                        Row(
+                          children: [
+                            Text('Choose department for your grievance',
+                                style: TextStyle(
+                                    color: headingColor,
+                                    fontSize:
+                                        MediaQuery.of(context).size.width *
+                                            0.036)),
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.025,
+                        ),
+                        DropdownButtonFormField(
+                          isExpanded: true,
+                          items: sectionList.map((value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(
+                                value,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            );
+                          }).toList(),
+                          value: selectedOption,
+                          onChanged: (String? value) {
+                            setState(() {
+                              selectedOption = value!;
+                            });
+                          },
+                          decoration: const InputDecoration(
+                              labelText: 'select department',
+                              contentPadding: EdgeInsets.all(12),
+                              border: OutlineInputBorder(
+                                  // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 2.0)),
+                              focusedBorder: OutlineInputBorder(
+                                  // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                  borderSide: BorderSide(
+                                color: Colors.black,
+                              ))),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.025,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                              onPressed: createGrevience,
+                              style: buttonStyle,
+                              child: Text(
+                                "Submit",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.023),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )),
+            )),
+            const Divider(height: 1, thickness: 3, color: Colors.grey),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.012,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const SingleUserPastGrievances()));
+                },
+                style: buttonStyle,
+                child: Text("View Your Past Grievances",style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.021),)),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.02,
+            ),
+          ],
+        ),
+      ]),
     );
   }
 }

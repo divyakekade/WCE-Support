@@ -7,6 +7,7 @@ import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/HeadingAndField.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class SingleGrievance extends StatefulWidget {
@@ -21,6 +22,9 @@ class _SingleGrievanceState extends State<SingleGrievance> {
   String? id;
   String role = "Student";
   bool takeFeedback = false;
+  bool openFeedbackForm = false;
+  String feedback = "";
+  String comment = "";
   void initState() {
     print(widget.grievance);
     String? id = Provider.of<Auth>(context, listen: false).user_id;
@@ -42,7 +46,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
       await Provider.of<Griv>(context, listen: false)
           .changeStatus(id, widget.grievance['_id'], "Acknowledged");
 
-          Navigator.of(context).push(MaterialPageRoute(
+      Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
               SideMenuNavigation(loadedPage: "view_grievances")));
     } catch (error) {
@@ -53,10 +57,10 @@ class _SingleGrievanceState extends State<SingleGrievance> {
   Future<void> markComplete() async {
     try {
       String? id = Provider.of<Auth>(context, listen: false).user_id;
-  
+
       await Provider.of<Griv>(context, listen: false)
           .changeStatus(id, widget.grievance['_id'], "Completed");
-          Navigator.of(context).push(MaterialPageRoute(
+      Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
               SideMenuNavigation(loadedPage: "view_grievances")));
     } catch (error) {
@@ -70,7 +74,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
 
       await Provider.of<Griv>(context, listen: false)
           .changeStatus(id, widget.grievance['_id'], "Closed");
-          Navigator.of(context).push(MaterialPageRoute(
+      Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
               SideMenuNavigation(loadedPage: "view_grievances")));
     } catch (error) {
@@ -90,262 +94,329 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     }
   }
 
+  saveFeedback(){
+    print(feedback);
+    print(comment);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const Appbar(),
-      body: Container(
-        margin: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.008,
-            horizontal: MediaQuery.of(context).size.width * 0.02),
-        padding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.01,
-            horizontal: MediaQuery.of(context).size.width * 0.032),
-        decoration: BoxDecoration(
-          border:
-              Border.all(color: const Color.fromARGB(255, 7, 65, 79), width: 1),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            sameuser
-                ? (Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                    IconButton(
-                      onPressed: deleteGrievance,
-                      icon: const Icon(Icons.delete),
-                      color: const Color.fromARGB(255, 75, 75, 75),
-                      iconSize: 32,
-                    ),
-                  ]))
-                : Row(),
-            Row(
-              children: [
-                Text(
-                  "${widget.grievance["subject"]}",
-                  style: TextStyle(
-                      color: headingColor,
-                      fontSize: MediaQuery.of(context).size.height * 0.023,
-                      fontWeight: FontWeight.w500),
-                )
-              ],
-            ),
-            const Divider(
-              height: 4,
-              thickness: 1.5,
-              color: Colors.black,
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      // height: MediaQuery.of(context).size.height * 0.9,
-                      // width: MediaQuery.of(context).size.width * 1,
-                      margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.015,
-                        // horizontal: MediaQuery.of(context).size.width * 0.
+      body: Stack(children: [
+        Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: backgroundColor),
+        Container(
+          margin: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.008,
+              horizontal: MediaQuery.of(context).size.width * 0.02),
+          padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.012,
+              horizontal: MediaQuery.of(context).size.width * 0.022),
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: const Color.fromARGB(255, 7, 65, 79), width: 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              sameuser
+                  ? (Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                      IconButton(
+                        onPressed: deleteGrievance,
+                        icon: const Icon(Icons.delete),
+                        color: const Color.fromARGB(255, 75, 75, 75),
+                        iconSize: 32,
                       ),
-                      padding: EdgeInsets.symmetric(
-                          vertical: MediaQuery.of(context).size.height * 0.01,
-                          horizontal: MediaQuery.of(context).size.width * 0.03),
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 230, 230, 230),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color.fromRGBO(159, 157, 157, 1),
-                            offset: Offset(2, 4),
-                            blurRadius: 4,
-                          )
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                "Grievance: ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.02),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.width * 0.025),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 1,
-                              child: Text(
-                                "${widget.grievance['subject']}",
-                                style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.017),
-                              )),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.width * 0.03),
-                          Row(
-                            children: [
-                              Text(
-                                "Grievance Section: ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.02),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.width * 0.025),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 1,
-                              child: Text(
-                                "${widget.grievance['section']}",
-                                style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.017),
-                              )),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.width * 0.03),
-                          Row(
-                            children: [
-                              Text(
-                                "Grievant: ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.02),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.width * 0.025),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 1,
-                              child: Text(
-                                "${widget.grievance['createrName']}",
-                                style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.017),
-                              )),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.width * 0.03),
-                          Row(
-                            children: [
-                              Text(
-                                "Status: ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.02),
-                              ),
-                              Text(
-                                "${widget.grievance['status']}",
-                                style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.017),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.width * 0.05),
-                          Center(
-                            child: Container(
-                              width: 250,
-                              // height: 250,
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Color.fromARGB(255, 7, 65, 79),
-                                    width: 1),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.asset(
-                                  ('assets/walchand.jfif'),
-                                  alignment: Alignment.center,
-                                  fit: BoxFit.cover,
+                    ]))
+                  : Row(),
+              Row(
+                children: [
+                  Text(
+                    "${widget.grievance["subject"]}",
+                    style: TextStyle(
+                        color: headingColor,
+                        fontSize: MediaQuery.of(context).size.height * 0.023,
+                        fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
+              const Divider(
+                height: 4,
+                thickness: 1.5,
+                color: Colors.black,
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.01,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        // height: MediaQuery.of(context).size.height * 0.9,
+                        // width: MediaQuery.of(context).size.width * 1,
+                        margin: EdgeInsets.symmetric(
+                            // vertical: MediaQuery.of(context).size.height * 0.006,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.015),
+                        padding: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.height * 0.01,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.025),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: cardColor,
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Color.fromRGBO(159, 157, 157, 1),
+                              offset: Offset(2, 4),
+                              blurRadius: 4,
+                            )
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            HeadingAndField(
+                                heading: "Grievance:",
+                                field: widget.grievance['description']),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.03),
+                            HeadingAndField(
+                                heading: "Grievance Section:",
+                                field: widget.grievance['section']),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.03),
+                            HeadingAndField(
+                                heading: "Grievant:",
+                                field: widget.grievance['createrName']),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.03),
+                            HeadingAndField(
+                                heading: "Status:",
+                                field: widget.grievance['status']),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.05),
+                            Center(
+                              child: Container(
+                                width: 250,
+                                // height: 250,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Color.fromARGB(255, 7, 65, 79),
+                                      width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset(
+                                    ('assets/walchand.jfif'),
+                                    alignment: Alignment.center,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.width * 0.05),
-                          Row(
-                            children: [
-                              Text(
-                                "Grievant's Feedback: ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.02),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.width * 0.025),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 1,
-                              child: Text(
-                                "jdkvnieufn nusdon  iuwdo2uf bcdu82nrfp, ndciuen29r",
-                                style: TextStyle(
-                                    fontSize:
-                                        MediaQuery.of(context).size.height *
-                                            0.017),
-                              )),
-                        ],
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.05),
+                            const HeadingAndField(
+                                heading: "Grievant's Feedback:",
+                                field:
+                                    "jdkvnieufn nusdon  iuwdo2uf bcdu82nrfp, ndciuen29r"),
+                          ],
+                        ),
                       ),
-                    ),
-                    role == "Management"
-                        ? widget.grievance['status'] == "Sent"
-                            ? ElevatedButton(
-                                onPressed: markAknowledge,
-                                style: buttonStyle,
-                                child: const Text("Acknowledge"))
-                            : widget.grievance['status'] == "Acknowledged"
-                                ? ElevatedButton(
-                                    onPressed: markComplete,
-                                    style: buttonStyle,
-                                    child:
-                                        const Text("Completed & Ask Feedback"))
-                                : widget.grievance['status'] == "Completed"
-                                    ? ElevatedButton(
-                                        onPressed: markClose,
-                                        style: buttonStyle,
-                                        child: const Text("Close Grievance"))
-                                    : const SizedBox()
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      takeFeedback = true;
-                                    });
-                                  },
-                                  child: const Text("Give Feedback"))
-                            ],
-                          ),
-                    takeFeedback ? TextFormField() : const SizedBox()
-                  ],
+                      SizedBox(
+                          height: MediaQuery.of(context).size.width * 0.02),
+                      role == "Management"
+                          ? widget.grievance['status'] == "Sent"
+                              ? ElevatedButton(
+                                  onPressed: markAknowledge,
+                                  style: buttonStyle,
+                                  child: const Text("Acknowledge"))
+                              : widget.grievance['status'] == "Acknowledged"
+                                  ? ElevatedButton(
+                                      onPressed: markComplete,
+                                      style: buttonStyle,
+                                      child: const Text(
+                                          "Completed & Ask Feedback"))
+                                  : widget.grievance['status'] == "Completed"
+                                      ? ElevatedButton(
+                                          onPressed: markClose,
+                                          style: buttonStyle,
+                                          child: const Text("Close Grievance"))
+                                      : const SizedBox()
+                          : takeFeedback && !openFeedbackForm
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            openFeedbackForm = true;
+                                          });
+                                        },
+                                        child: const Text("Give Feedback"))
+                                  ],
+                                )
+                              : const SizedBox(),
+                      openFeedbackForm
+                          ? Container(
+                              margin: EdgeInsets.symmetric(
+                                  vertical:
+                                      MediaQuery.of(context).size.height * 0.01,
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.01),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: MediaQuery.of(context).size.height *
+                                      0.014,
+                                  horizontal:
+                                      MediaQuery.of(context).size.width * 0.04),
+                              decoration: BoxDecoration(
+                                color: cardBackground,
+                                border: Border.all(
+                                    color: const Color.fromARGB(255, 7, 65, 79),
+                                    width: 1),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Feedback",
+                                          style: TextStyle(
+                                              color: headingColor,
+                                              fontSize: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.02,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                    const Divider(
+                                      thickness: 1,
+                                      color: Colors.black,
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.007,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text('Is your grievance solved?',
+                                            style: TextStyle(
+                                                color: headingColor,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.036)),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Radio(
+                                                value: "Yes",
+                                                groupValue: feedback,
+                                                onChanged: (res) {
+                                                  setState(() {
+                                                    feedback = res.toString();
+                                                    print(feedback);
+                                                  });
+                                                }),
+                                            const Text("Yes")
+                                          ],
+                                        ),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.08),
+                                        Row(
+                                          children: [
+                                            Radio(
+                                                value: "No",
+                                                groupValue: feedback,
+                                                onChanged: (res) {
+                                                  setState(() {
+                                                    feedback = res.toString();
+                                                    print(feedback);
+                                                  });
+                                                }),
+                                            const Text("No")
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    TextFormField(
+                                      minLines: 1,
+                                      maxLines: 10,
+                                      onChanged: (newPass) {
+                                        setState(() {
+                                          comment = newPass;
+                                        });
+                                      },
+                                      decoration: const InputDecoration(
+                                          labelText: 'comment',
+                                          contentPadding: EdgeInsets.all(12),
+                                          border: OutlineInputBorder(
+                                              // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 2.0)),
+                                          focusedBorder: OutlineInputBorder(
+                                              // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                              borderSide: BorderSide(
+                                            color: Colors.black,
+                                          ))),
+                                    ),
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.01,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: saveFeedback,
+                                          style: buttonStyle,
+                                          child: Text(
+                                            "Submit",
+                                            style: TextStyle(
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.02),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          : const SizedBox()
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+      ]),
     );
   }
 }
