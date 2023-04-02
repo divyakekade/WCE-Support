@@ -203,7 +203,10 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                     MediaQuery.of(context).size.width * 0.03),
                             HeadingAndField(
                                 heading: "Status:",
-                                field: widget.grievance['status']),
+                                field: (widget.grievance['status']!="Completed")?"${widget.grievance['status']}":(widget.grievance['feedback']==null)?"${widget.grievance['status']} and  not Feedbacked": "${widget.grievance['status']} and  Feedbacked"
+                                
+                                
+                                ),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.05),
