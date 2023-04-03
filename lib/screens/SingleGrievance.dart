@@ -251,7 +251,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                 ): const SizedBox(),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.width * 0.03),
+                                    MediaQuery.of(context).size.width * 0.02),
                             widget.grievance['feedback'] != null
                                     ? HeadingAndField(
                                         heading: "Is issue resolved?",
