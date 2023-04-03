@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+//import 'package:wce_support/widgets/Appbar.dart';
 
 class DetailPage extends StatelessWidget implements PreferredSizeWidget {
   DetailPage(
@@ -62,7 +63,7 @@ class DetailPage extends StatelessWidget implements PreferredSizeWidget {
                   Text(productname,
                     style: TextStyle(
                       color: headingColor,
-                      fontSize: MediaQuery.of(context).size.height*0.025,
+                      fontSize: MediaQuery.of(context).size.height*0.023,
                       fontWeight: FontWeight.bold,
                     ),
                    ),
@@ -71,13 +72,13 @@ class DetailPage extends StatelessWidget implements PreferredSizeWidget {
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey, width: 1),
                         borderRadius: const BorderRadius.all(Radius.circular(12.0),),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 3.0,
-                            spreadRadius: 1.0,
-                            offset: Offset(2.0, 2.0))
-                      ],
+                      // boxShadow: const [
+                      //   BoxShadow(
+                      //       color: Colors.grey,
+                      //       blurRadius: 3.0,
+                      //       spreadRadius: 1.0,
+                      //       offset: Offset(2.0, 2.0))
+                      // ],
                     ),
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(12.0),),
@@ -99,7 +100,7 @@ class DetailPage extends StatelessWidget implements PreferredSizeWidget {
                           style: TextStyle(
                             color: headingColor,
                             fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.height*0.02,/////////
+                            fontSize: MediaQuery.of(context).size.height*0.015,/////////
                           ),
                         ),
                         Text(
@@ -107,7 +108,7 @@ class DetailPage extends StatelessWidget implements PreferredSizeWidget {
                           style: TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.height*0.02,
+                            fontSize: MediaQuery.of(context).size.height*0.015,
                           ),
                         ),
                       ],
@@ -123,7 +124,7 @@ class DetailPage extends StatelessWidget implements PreferredSizeWidget {
                           style: TextStyle(
                             color: headingColor,
                               fontWeight: FontWeight.bold,
-                              fontSize: MediaQuery.of(context).size.height*0.02,
+                              fontSize: MediaQuery.of(context).size.height*0.015,
                           ),
                         ),
                         Text(
@@ -131,7 +132,7 @@ class DetailPage extends StatelessWidget implements PreferredSizeWidget {
                           style: TextStyle(
                             color: Colors.grey,
                             fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.height*0.02/////////
+                            fontSize: MediaQuery.of(context).size.height*0.015/////////
                           ),
                         ),
                       ],

@@ -72,7 +72,7 @@ class GridB extends StatefulWidget {
 class _GridBState extends State<GridB> {
   final List<Map<String, dynamic>> gridMap = [
     {
-      "title": "white T-shirt rty vbnmd,fc  djkzl; oihgm",
+      "title": "white T-shirt",
       "price": "500 Rs",
       "quantity" : "2",
       "images": "https://tse3.mm.bing.net/th?id=OIP.fvoD8omL8_A_PuPqA8LFVAHaJQ&pid=Api&P=0"
@@ -144,7 +144,7 @@ class _GridBState extends State<GridB> {
                       color: imagebutton,
                       blurRadius: 2.0,
                       spreadRadius: 2.0,
-                      offset: Offset(2.0, 5.0))
+                      offset: Offset(2.0, 2.0))
                 ],
                 borderRadius: BorderRadius.circular(
                   12.0,
@@ -174,16 +174,18 @@ class _GridBState extends State<GridB> {
                         Text(
                           "${gridMap.elementAt(index)['title']}",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold
+                              fontWeight: FontWeight.bold,
+                            fontSize: MediaQuery.of(context).size.height * 0.013
                           ),
                         ),
                         SizedBox(
-                          height:  MediaQuery.of(context).size.height * 0.01,
+                          height:  MediaQuery.of(context).size.height * 0.005,
                         ),
                         Text(
                           "${gridMap.elementAt(index)['price']}",
                             style: TextStyle(
-                            fontWeight: FontWeight.bold
+                            fontWeight: FontWeight.bold,
+                                fontSize: MediaQuery.of(context).size.height * 0.013
                             ),
                                           ),
                       ],
