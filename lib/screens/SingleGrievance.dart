@@ -27,7 +27,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
   String comment = "";
   void initState() {
     print(widget.grievance);
-     id = Provider.of<Auth>(context, listen: false).user_id;
+    id = Provider.of<Auth>(context, listen: false).user_id;
     if (id != null) {
       dynamic user = Provider.of<Auth>(context, listen: false).user;
       role = user['role'];
@@ -96,8 +96,8 @@ class _SingleGrievanceState extends State<SingleGrievance> {
 
   Future<void> saveFeedback() async {
     try {
-
-      await Provider.of<Griv>(context,listen:false).putfeedback(id, widget.grievance['_id'] ,feedback, comment);
+      await Provider.of<Griv>(context, listen: false)
+          .putfeedback(id, widget.grievance['_id'], feedback, comment);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -172,12 +172,12 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                 MediaQuery.of(context).size.width * 0.025),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: cardColor,
+                          color: const Color.fromARGB(255, 242, 244, 245),
                           boxShadow: const [
                             BoxShadow(
                               color: Color.fromRGBO(159, 157, 157, 1),
-                              offset: Offset(2, 4),
-                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                              blurRadius: 5,
                             )
                           ],
                         ),
@@ -203,10 +203,12 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                     MediaQuery.of(context).size.width * 0.03),
                             HeadingAndField(
                                 heading: "Status:",
-                                field: (widget.grievance['status']!="Completed")?"${widget.grievance['status']}":(widget.grievance['feedback']==null)?"${widget.grievance['status']} and  not Feedbacked": "${widget.grievance['status']} and  Feedbacked"
-                                
-                                
-                                ),
+                                field: (widget.grievance['status'] !=
+                                        "Completed")
+                                    ? "${widget.grievance['status']}"
+                                    : (widget.grievance['feedback'] == null)
+                                        ? "${widget.grievance['status']} and  not Feedbacked"
+                                        : "${widget.grievance['status']} and  Feedbacked"),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.05),
@@ -233,10 +235,31 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.05),
-                            const HeadingAndField(
-                                heading: "Grievant's Feedback:",
-                                field:
-                                    "jdkvnieufn nusdon  iuwdo2uf bcdu82nrfp, ndciuen29r"),
+                            widget.grievance['feedback'] != null
+                                ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        "Grievant's Feedback:",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize:
+                                                MediaQuery.of(context).size.height *
+                                                    0.019),
+                                      ),
+                                  ],
+                                ): const SizedBox(),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.03),
+                            widget.grievance['feedback'] != null
+                                    ? HeadingAndField(
+                                        heading: "Is issue resolved?",
+                                        field: widget.grievance['feedback']['review']): const SizedBox(),
+                            widget.grievance['feedback'] != null
+                                    ? HeadingAndField(
+                                        heading: "Comment:",
+                                        field: widget.grievance['feedback']['comment']): const SizedBox(),
                           ],
                         ),
                       ),
@@ -262,7 +285,9 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                           style: buttonStyle,
                                           child: const Text("Close Grievance"))
                                       : const SizedBox()
-                          : takeFeedback && !openFeedbackForm&&widget.grievance['feedback']==null
+                          : takeFeedback &&
+                                  !openFeedbackForm &&
+                                  widget.grievance['feedback'] == null
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -276,7 +301,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                   ],
                                 )
                               : const SizedBox(),
-                      openFeedbackForm&& widget.grievance['feedback'] == null
+                      openFeedbackForm && widget.grievance['feedback'] == null
                           ? Container(
                               margin: EdgeInsets.symmetric(
                                   vertical:

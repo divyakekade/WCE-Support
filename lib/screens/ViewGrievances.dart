@@ -174,6 +174,23 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                                                     0.018),
                                           ),
                                         ),
+                                        SizedBox(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.02),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.78,
+                                          child: Row(
+                                            children: [
+                                              Text("Status: ", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.016,fontWeight: FontWeight.w500),),
+                                              Text(l['status'], style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.016,fontWeight: FontWeight.w500),)
+                                            ],
+                                          ),
+                                        )
                                       ]),
                                       SizedBox(
                                         width: MediaQuery.of(context).size.width *
