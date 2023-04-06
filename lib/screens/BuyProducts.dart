@@ -139,17 +139,18 @@ class _GridBState extends State<GridB> {
               margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.02,
               vertical: MediaQuery.of(context).size.height * 0.001),
               decoration: BoxDecoration(
+              //  border: Border.all(width: 0, color: const Color(0x7960c5e1)),
                 boxShadow: const [
                   BoxShadow(
-                      color: imagebutton,
-                      blurRadius: 2.0,
-                      spreadRadius: 2.0,
-                      offset: Offset(2.0, 2.0))
+                      color: greyColor,
+                      blurRadius: 1.0,
+                      spreadRadius: 1.0,
+                      offset: Offset(1.0, 1.0))
                 ],
                 borderRadius: BorderRadius.circular(
                   12.0,
                 ),
-                color: greyColor,
+                color: const Color(0x7960c5e1),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -175,7 +176,7 @@ class _GridBState extends State<GridB> {
                           "${gridMap.elementAt(index)['title']}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.height * 0.013
+                            fontSize: MediaQuery.of(context).size.height * 0.014
                           ),
                         ),
                         SizedBox(
@@ -185,7 +186,7 @@ class _GridBState extends State<GridB> {
                           "${gridMap.elementAt(index)['price']}",
                             style: TextStyle(
                             fontWeight: FontWeight.bold,
-                                fontSize: MediaQuery.of(context).size.height * 0.013
+                                fontSize: MediaQuery.of(context).size.height * 0.014
                             ),
                                           ),
                       ],

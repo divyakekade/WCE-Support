@@ -1,4 +1,6 @@
 //make classname same as that of the file name
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/widgets/ProductCard.dart';
@@ -32,11 +34,10 @@ class _SellProductState extends State<SellProduct> {
     double width10 = MediaQuery.of(context).size.width * 0.025;
     double heightc = MediaQuery.of(context).size.width * 0.053;
     return Scaffold(
-        body: SafeArea(
-          child: Padding(
+        backgroundColor: backgroundColor,
+        body: Padding(
             padding: EdgeInsets.symmetric(horizontal: width10*2),
-            child: SingleChildScrollView(
-              child: Column(
+            child: Column(
                 children: [
                 Center(
                   child: Container(
@@ -57,116 +58,151 @@ class _SellProductState extends State<SellProduct> {
                   ),
                 ),
                   ////
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: heightc / 2, horizontal: width10 * 2),
-                    margin: EdgeInsets.symmetric(horizontal: width10),
-                    decoration: BoxDecoration(
-                      color: greyColor,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 10.0,
-                            spreadRadius: 2.0,
-                            offset: Offset(2.0, 5.0))
-                      ],
-                    ),
+                  Expanded(
                     child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: width10 * 2,
-                          ),
-                          TextField(
-                            controller: _ProductnameController,
-                            decoration: const InputDecoration(
-                              hintText: 'product name',
-                              border: UnderlineInputBorder(),
-                            ),
-                          ),
-
-                          SizedBox(
-                            height: width10 * 2,
-                          ),
-                          //password
-                          TextField(
-                            controller: _quantityController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              border: UnderlineInputBorder(),
-                              hintText: 'quantity',
-                            ),
-                          ),
-                          SizedBox(
-                            height: width10 * 2,
-                          ),
-                          //password
-                          TextField(
-                            controller: _priceController,
-                            obscureText: true,
-                            decoration: const InputDecoration(
-                              border: UnderlineInputBorder(),
-                              hintText: 'price',
-                            ),
-                          ),
-
-                          SizedBox(
-                            height: width10 * 2,
-                          ),
-                          //button
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal: MediaQuery.of(context).size.width * 0.039,
-                                vertical: MediaQuery.of(context).size.height * 0.014),
-                           child: ElevatedButton(
-                                    onPressed: null,
-                                    style: secondButtonStyle,
-                                    child: Text(
-                                      "Add Image",
-                                      style: TextStyle(
-                                          fontSize: MediaQuery.of(context).size.width * 0.05),
-                                    )),
-                          ),
-                          SizedBox(
-                            height: width10 * 4,
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: ElevatedButton(
-                              onPressed: null,
-                              style: buttonStyle,
-                              child: const Text(
-                                "Save",
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            vertical: heightc / 2, horizontal: width10 * 2),
+                       // margin: EdgeInsets.symmetric(horizontal: width10/4),
+                       //   width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 247, 246, 246),
+                          border: Border.all(
+                              color: Color.fromARGB(255, 7, 65, 79), width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                          // boxShadow: const [
+                          //   BoxShadow(
+                          //       color: Colors.grey,
+                          //       blurRadius: 10.0,
+                          //       spreadRadius: 2.0,
+                          //       offset: Offset(2.0, 5.0))
+                          // ],
+                        ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              // SizedBox(
+                              //   height: width10 * 2,
+                              // ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Text("Add your product",
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                                    fontSize:  MediaQuery.of(context).size.height * 0.018),
+                                )),
+                              // const Divider(height: 1, thickness: 2, color: Colors.grey),
+                              const Divider(
+                                thickness: 1,
+                                color: Colors.black,
                               ),
-                            ),
+                              SizedBox(
+                                height: width10 * 2,
+                              ),
+                              TextField(
+                                controller: _ProductnameController,
+                                decoration: const InputDecoration(
+                                    labelText: 'product name',
+                                    contentPadding: EdgeInsets.all(12),
+                                    border: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                        borderSide: BorderSide(
+                                            color: Colors.black, width: 2.0)),
+                                    focusedBorder: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ))),
+                              ),
+
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.025,
+                              ),
+                              //password
+                              TextField(
+                                controller: _quantityController,
+                                obscureText: true,
+                                decoration: const InputDecoration(
+                                    labelText: 'quantity',
+                                    contentPadding: EdgeInsets.all(12),
+                                    border: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                        borderSide: BorderSide(
+                                            color: Colors.black, width: 2.0)),
+                                    focusedBorder: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ))),
+                              ),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.height * 0.025,
+                              ),
+                              //password
+                              TextField(
+                                controller: _priceController,
+                                obscureText: true,
+                                decoration: const InputDecoration(
+                                    labelText: 'price',
+                                    contentPadding: EdgeInsets.all(12),
+                                    border: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                        borderSide: BorderSide(
+                                            color: Colors.black, width: 2.0)),
+                                    focusedBorder: OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                        borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ))),
+                              ),
+
+                              SizedBox(
+                                height: width10 * 2,
+                              ),
+                              //button
+                              Container(
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: MediaQuery.of(context).size.width * 0.039,
+                                    vertical: MediaQuery.of(context).size.height * 0.014),
+                               child: ElevatedButton(
+                                        onPressed: null,
+                                        style: secondButtonStyle,
+                                        child: Text(
+                                          "Add Image",
+                                          style: TextStyle(
+                                              fontSize: MediaQuery.of(context).size.width * 0.04),
+                                        )),
+                              ),
+                              SizedBox(
+                                height: width10 * 2,
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: ElevatedButton(
+                                  onPressed: null,
+                                  style: buttonStyle,
+                                  child: Text(
+                                    "Save",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: MediaQuery.of(context).size.height * 0.020
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: width10 * 2,
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: width10 * 2,
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Text("Your recent products",
-                    style: TextStyle(
-                        fontSize: width10*2,
-                    )),
-                  ),
-                  const Divider(height: 1, thickness: 2, color: Colors.grey),
-
-                  
                ],
               ),
             ),
-          ),
-        ),
     );
   }
 }

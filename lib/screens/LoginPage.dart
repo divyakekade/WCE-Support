@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
           // vertical: MediaQuery.of(context).size.height * 0.03,
           horizontal: MediaQuery.of(context).size.width * 0.025),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 247, 246, 246),
+        color: const Color(0x9d47b6d2),
         border:
             Border.all(color: const Color.fromARGB(255, 7, 65, 79), width: 1),
         borderRadius: BorderRadius.circular(10),
@@ -86,13 +86,14 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: BoxDecoration(
                     color: cardColor,
                     borderRadius: BorderRadius.circular(10),
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 10.0,
-                          spreadRadius: 2.0,
-                          offset: Offset(2.0, 5.0))
-                    ],
+                    border: Border.all(width: 1, color: Colors.grey),
+                    // boxShadow: const [
+                    //   // BoxShadow(
+                    //   //     color: Colors.grey,
+                    //   //     blurRadius: 10.0,
+                    //   //     spreadRadius: 2.0,
+                    //   //     offset: Offset(2.0, 5.0))
+                    // ],
                   ),
                   child: SingleChildScrollView(
                     child: Column(
