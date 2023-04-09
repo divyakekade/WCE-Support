@@ -44,10 +44,10 @@ class DetailPage extends StatelessWidget implements PreferredSizeWidget {
               height: MediaQuery.of(context).size.height * 0.55,
               width: MediaQuery.of(context).size.width * 0.85,
               padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.027),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: cardColor,
                // borderRadius: BorderRadius.circular(10),///////////
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
                       color: Colors.grey,
                       blurRadius: 10.0,

@@ -1,6 +1,3 @@
-//make classname same as that of the file name
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/widgets/ProductCard.dart';
@@ -16,13 +13,13 @@ class _SellProductState extends State<SellProduct> {
    late int quantity;
    late double price;
 
-   final _ProductnameController = TextEditingController();
+   final _productnameController = TextEditingController();
    final _quantityController = TextEditingController();
    final _priceController = TextEditingController();
 
    @override
    void dispose() {
-    _ProductnameController.dispose();
+    _productnameController.dispose();
     _quantityController.dispose();
     _priceController.dispose();
      super.dispose();
@@ -41,21 +38,17 @@ class _SellProductState extends State<SellProduct> {
                 children: [
                 Center(
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
-                    margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.02),
-                    padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.0052,
-                        horizontal: MediaQuery.of(context).size.width * 0.1),
-                    decoration: headingBoxDecoration,
-
-                    child: Center(
-                      child: Text(
-                        'Add Your Product',
-                        style: headingTextStyle,
-                      ),
-                    ),
-                  ),
+              margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.02),
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.0052,
+                  horizontal: MediaQuery.of(context).size.width * 0.05),
+              decoration: headingBoxDecoration,
+              child: Text(
+                'Add Your Product',
+                style: headingTextStyle,
+              ),
+            ),
                 ),
                   ////
                   Expanded(
@@ -87,7 +80,7 @@ class _SellProductState extends State<SellProduct> {
                               // ),
                               Align(
                                 alignment: Alignment.topLeft,
-                                child: Text("Add your product",
+                                child: Text("Enter your product details below",
                                 style: TextStyle(
                                     fontSize:  MediaQuery.of(context).size.height * 0.018),
                                 )),
@@ -100,7 +93,7 @@ class _SellProductState extends State<SellProduct> {
                                 height: width10 * 2,
                               ),
                               TextField(
-                                controller: _ProductnameController,
+                                controller: _productnameController,
                                 decoration: const InputDecoration(
                                     labelText: 'product name',
                                     contentPadding: EdgeInsets.all(12),
@@ -114,14 +107,13 @@ class _SellProductState extends State<SellProduct> {
                                           color: Colors.black,
                                         ))),
                               ),
-
                               SizedBox(
                                 height: MediaQuery.of(context).size.height * 0.025,
                               ),
                               //password
                               TextField(
                                 controller: _quantityController,
-                                obscureText: true,
+                                keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                     labelText: 'quantity',
                                     contentPadding: EdgeInsets.all(12),
@@ -141,7 +133,7 @@ class _SellProductState extends State<SellProduct> {
                               //password
                               TextField(
                                 controller: _priceController,
-                                obscureText: true,
+                                keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                     labelText: 'price',
                                     contentPadding: EdgeInsets.all(12),
@@ -186,7 +178,7 @@ class _SellProductState extends State<SellProduct> {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: MediaQuery.of(context).size.height * 0.020
+                                        fontSize: MediaQuery.of(context).size.height * 0.025
                                     ),
                                   ),
                                 ),

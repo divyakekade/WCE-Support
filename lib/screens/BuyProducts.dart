@@ -14,49 +14,46 @@ class BuyProducts extends StatefulWidget {
 class _BuyproductState extends State<BuyProducts> {
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       home: Scaffold(
-       // backgroundColor: Color.fromARGB(255, 238, 245, 248),
+        // backgroundColor: Color.fromARGB(255, 238, 245, 248),
         body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints contraints){
-            return Column(
+            builder: (BuildContext context, BoxConstraints contraints) {
+          return Column(
             children: [
-            Container(
-              margin: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.height * 0.02),
-              padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.height * 0.0052,
-              horizontal: MediaQuery.of(context).size.width * 0.05),
-              decoration: headingBoxDecoration,
-              child: Text(
-              'Pick Up Your Choice',
-              style: headingTextStyle,
+              Container(
+                margin: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.02),
+                padding: EdgeInsets.symmetric(
+                    vertical: MediaQuery.of(context).size.height * 0.0052,
+                    horizontal: MediaQuery.of(context).size.width * 0.05),
+                decoration: headingBoxDecoration,
+                child: Text(
+                  'Pick Up Your Choice',
+                  style: headingTextStyle,
+                ),
               ),
-              ),
-            // Expanded(
-            //   child: ListView(
-            //     children: [
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //     ],
-            //   ),
-            // )
-            const Divider(height: 1, thickness: 2, color: Colors.grey),
-            Expanded(
-                child: Container(
-                   color: Color.fromARGB(255, 238, 245, 248),
-                    child: GridB())),
+              // Expanded(
+              //   child: ListView(
+              //     children: [
+              //       ProductCard(imagename: "mas", productname: "Product Name"),
+              //       ProductCard(imagename: "mas", productname: "Product Name"),
+              //       ProductCard(imagename: "mas", productname: "Product Name"),
+              //       ProductCard(imagename: "mas", productname: "Product Name"),
+              //       ProductCard(imagename: "mas", productname: "Product Name"),
+              //     ],
+              //   ),
+              // )
+              const Divider(height: 1, thickness: 2, color: Colors.grey),
+              Expanded(
+                  child: Container(
+                      //  color: Color.fromARGB(255, 238, 245, 248),
+                      color: backgroundColor,
+                      child: GridB())),
             ],
-            );
-            
-          }
-          
-          ),
-        ),
+          );
+        }),
+      ),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -74,72 +71,84 @@ class _GridBState extends State<GridB> {
     {
       "title": "white T-shirt",
       "price": "500 Rs",
-      "quantity" : "2",
-      "images": "https://tse3.mm.bing.net/th?id=OIP.fvoD8omL8_A_PuPqA8LFVAHaJQ&pid=Api&P=0"
-      },
+      "quantity": "2",
+      "images":
+          "https://tse3.mm.bing.net/th?id=OIP.fvoD8omL8_A_PuPqA8LFVAHaJQ&pid=Api&P=0"
+    },
     {
       "title": "Black shoes",
       "price": "600 Rs",
-      "quantity" : "3",
-      "images": "https://tse2.mm.bing.net/th?id=OIP.YWLqzwgxHxFZSlDSM1uMtAHaHn&pid=Api&P=0"
-       },
+      "quantity": "3",
+      "images":
+          "https://tse2.mm.bing.net/th?id=OIP.YWLqzwgxHxFZSlDSM1uMtAHaHn&pid=Api&P=0"
+    },
     {
       "title": "black jeans",
       "price": "1000 Rs",
-      "quantity" : "1",
-      "images": "https://tse3.mm.bing.net/th?id=OIP.HaH7d1nBe8h3edK3V-KzNgHaLH&pid=Api&P=0"},
+      "quantity": "1",
+      "images":
+          "https://tse3.mm.bing.net/th?id=OIP.HaH7d1nBe8h3edK3V-KzNgHaLH&pid=Api&P=0"
+    },
     {
       "title": "walakar cooler",
       "price": "2000 Rs",
-      "quantity" : "4",
-      "images": "https://tse3.mm.bing.net/th?id=OIP.rg5SaZIq0C5EKydX4O1g9wHaHC&pid=Api&P=0" },
+      "quantity": "4",
+      "images":
+          "https://tse3.mm.bing.net/th?id=OIP.rg5SaZIq0C5EKydX4O1g9wHaHC&pid=Api&P=0"
+    },
     {
       "title": "Scale or ruler",
       "price": "100 rs",
-      "quantity" : "2",
-      "images": "https://images-na.ssl-images-amazon.com/images/I/81akp8ODxVL._SL1500_.jpg" },
+      "quantity": "2",
+      "images":
+          "https://images-na.ssl-images-amazon.com/images/I/81akp8ODxVL._SL1500_.jpg"
+    },
     {
       "title": "cooking pot",
       "price": "300 Rs",
-      "quantity" : "2",
-      "images": "https://tse4.mm.bing.net/th?id=OIP.oEhZWwkb0aHEYVWH7UamgAHaHa&pid=Api&P=0" },
+      "quantity": "2",
+      "images":
+          "https://tse4.mm.bing.net/th?id=OIP.oEhZWwkb0aHEYVWH7UamgAHaHa&pid=Api&P=0"
+    },
     {
       "title": "os book(galvin)",
       "price": "250 Rs",
-      "quantity" : "2",
-      "images": "https://tse4.mm.bing.net/th?id=OIP.NRf637IxJAgcBP_u6h1zLgHaD4&pid=Api&P=0" }
+      "quantity": "2",
+      "images":
+          "https://tse4.mm.bing.net/th?id=OIP.NRf637IxJAgcBP_u6h1zLgHaD4&pid=Api&P=0"
+    }
   ];
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
-        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-         // crossAxisSpacing: MediaQuery.of(context).size.width * 0.02 ,
+          // crossAxisSpacing: MediaQuery.of(context).size.width * 0.02 ,
           mainAxisSpacing: MediaQuery.of(context).size.height * 0.015,
           mainAxisExtent: MediaQuery.of(context).size.height * 0.30,
         ),
         itemCount: gridMap.length,
         itemBuilder: (_, index) {
           return InkWell(
-            onTap: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                  DetailPage(
-                      productname:  "${gridMap.elementAt(index)['title']}",
-                      price:  "${gridMap.elementAt(index)['price']}",
-                      quantity: "${gridMap.elementAt(index)['quantity']}",
-                      imageaddress:  "${gridMap.elementAt(index)['images']}",
-                  )
-              ));
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => DetailPage(
+                        productname: "${gridMap.elementAt(index)['title']}",
+                        price: "${gridMap.elementAt(index)['price']}",
+                        quantity: "${gridMap.elementAt(index)['quantity']}",
+                        imageaddress: "${gridMap.elementAt(index)['images']}",
+                      )));
             },
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.02,
-              vertical: MediaQuery.of(context).size.height * 0.001),
+              margin: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.02,
+                  vertical: MediaQuery.of(context).size.height * 0.001),
               decoration: BoxDecoration(
-              //  border: Border.all(width: 0, color: const Color(0x7960c5e1)),
+                //  border: Border.all(width: 0, color: const Color(0x7960c5e1)),
                 boxShadow: const [
                   BoxShadow(
                       color: greyColor,
@@ -168,7 +177,8 @@ class _GridBState extends State<GridB> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.02),
+                    padding: EdgeInsets.all(
+                        MediaQuery.of(context).size.width * 0.02),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -176,19 +186,19 @@ class _GridBState extends State<GridB> {
                           "${gridMap.elementAt(index)['title']}",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                            fontSize: MediaQuery.of(context).size.height * 0.014
-                          ),
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.014),
                         ),
                         SizedBox(
-                          height:  MediaQuery.of(context).size.height * 0.005,
+                          height: MediaQuery.of(context).size.height * 0.005,
                         ),
                         Text(
                           "${gridMap.elementAt(index)['price']}",
-                            style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                                fontSize: MediaQuery.of(context).size.height * 0.014
-                            ),
-                                          ),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize:
+                                  MediaQuery.of(context).size.height * 0.014),
+                        ),
                       ],
                     ),
                   ),

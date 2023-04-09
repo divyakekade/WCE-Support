@@ -43,135 +43,159 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       margin: EdgeInsets.symmetric(
           // vertical: MediaQuery.of(context).size.height * 0.01,
-          horizontal: MediaQuery.of(context).size.width * 0.04),
+          horizontal: MediaQuery.of(context).size.width * 0.06),
       padding: EdgeInsets.symmetric(
           // vertical: MediaQuery.of(context).size.height * 0.03,
-          horizontal: MediaQuery.of(context).size.width * 0.025),
+          horizontal: MediaQuery.of(context).size.width * 0.015),
       decoration: BoxDecoration(
         color: const Color(0x9d47b6d2),
         border:
             Border.all(color: const Color.fromARGB(255, 7, 65, 79), width: 1),
         borderRadius: BorderRadius.circular(10),
       ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: width10 * 0.001),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //text field
-                // SizedBox(
-                //   height: width10,
-                // ),
-                //////////////
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  margin: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.02),
-                  padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.0052,
-                      horizontal: MediaQuery.of(context).size.width * 0.1),
-                  decoration: headingBoxDecoration,
-                  child: Center(
-                    child: Text(
-                      'Login',
-                      style: headingTextStyle,
-                    ),
-                  ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: width10 * 0.001),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.02),
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.0052,
+                  horizontal: MediaQuery.of(context).size.width * 0.18),
+              decoration: headingBoxDecoration,
+              child: Text(
+                'Login',
+                style: headingTextStyle,
+              ),
+            ),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    vertical: heightc / 2, horizontal: width10 * 2),
+                margin: EdgeInsets.symmetric(horizontal: width10),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 247, 246, 246),
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 1, color: Colors.grey),
+                  // boxShadow: const [
+                  //   // BoxShadow(
+                  //   //     color: Colors.grey,
+                  //   //     blurRadius: 10.0,
+                  //   //     spreadRadius: 2.0,
+                  //   //     offset: Offset(2.0, 5.0))
+                  // ],
                 ),
-                Container(
-                  padding: EdgeInsets.symmetric(
-                      vertical: heightc / 2, horizontal: width10 * 2),
-                  margin: EdgeInsets.symmetric(horizontal: width10),
-                  decoration: BoxDecoration(
-                    color: cardColor,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(width: 1, color: Colors.grey),
-                    // boxShadow: const [
-                    //   // BoxShadow(
-                    //   //     color: Colors.grey,
-                    //   //     blurRadius: 10.0,
-                    //   //     spreadRadius: 2.0,
-                    //   //     offset: Offset(2.0, 5.0))
-                    // ],
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: width10 * 2,
-                        ),
-                        TextField(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: width10 * 2,
+                      ),
+                      // TextField(
+                      //   controller: _emailController,
+                      //   decoration: const InputDecoration(
+                      //     hintText: 'email',
+                      //     border: UnderlineInputBorder(),
+                      //   ),
+                      // ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 1,
+                        child: TextField(
                           controller: _emailController,
                           decoration: const InputDecoration(
-                            hintText: 'email',
-                            border: UnderlineInputBorder(),
-                          ),
+                              labelText: 'username',
+                              contentPadding: EdgeInsets.all(12),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 2.0)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.black,
+                              ))),
                         ),
-
-                        SizedBox(
-                          height: width10 * 2,
-                        ),
-                        //password
-                        TextField(
-                          controller: _passwordController,
+                      ),
+                      SizedBox(
+                        height: width10 * 2,
+                      ),
+                      //password
+                      // TextField(
+                      //   controller: _passwordController,
+                      //   obscureText: true,
+                      //   decoration: const InputDecoration(
+                      //     border: UnderlineInputBorder(),
+                      //     hintText: 'Password',
+                      //   ),
+                      // ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 1,
+                        child: TextField(
                           obscureText: true,
+                          controller: _passwordController,
                           decoration: const InputDecoration(
-                            border: UnderlineInputBorder(),
-                            hintText: 'Password',
-                          ),
+                              labelText: 'password',
+                              contentPadding: EdgeInsets.all(12),
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 2.0)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                color: Colors.black,
+                              ))),
                         ),
+                      ),
+                      SizedBox(
+                        height: width10 * 5,
+                      ),
+                      //button
+                      ElevatedButton(
+                        onPressed: login,
+                        style: buttonStyle,
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold, fontSize: heightc*0.9),
+                        ),
+                      ),
+                      // SizedBox(
+                      //   height: width10 * 9,
+                      // ),
+                      //not a member? register now
 
-                        SizedBox(
-                          height: width10 * 6,
-                        ),
-                        //button
-                        ElevatedButton(
-                          onPressed: login,
-                          style: buttonStyle,
-                          child: const Text(
-                            "Login",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        // SizedBox(
-                        //   height: width10 * 9,
-                        // ),
-                        //not a member? register now
-
-                        // Text(
-                        //   "Account doesn't exist?",
-                        //   style: TextStyle(
-                        //     //  fontWeight: FontWeight.bold,
-                        //     fontSize: heightc / 1.2,
-                        //   ),
-                        // ),
-                        // SizedBox(height: width10),
-                        // GestureDetector(
-                        //     onTap: null,
-                        //     child: Text(
-                        //       "SignUp",
-                        //       style: TextStyle(
-                        //         color: primaryColor,
-                        //         fontWeight: FontWeight.bold,
-                        //         fontSize: heightc / 1.2,
-                        //       ),
-                        //     )),
-                        // SizedBox(
-                        //   height: width10,
-                        // ),
-                      ],
-                    ),
+                      // Text(
+                      //   "Account doesn't exist?",
+                      //   style: TextStyle(
+                      //     //  fontWeight: FontWeight.bold,
+                      //     fontSize: heightc / 1.2,
+                      //   ),
+                      // ),
+                      // SizedBox(height: width10),
+                      // GestureDetector(
+                      //     onTap: null,
+                      //     child: Text(
+                      //       "SignUp",
+                      //       style: TextStyle(
+                      //         color: primaryColor,
+                      //         fontWeight: FontWeight.bold,
+                      //         fontSize: heightc / 1.2,
+                      //       ),
+                      //     )),
+                      // SizedBox(
+                      //   height: width10,
+                      // ),
+                    ],
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height*0.03,)
-              ],
-            ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.015,
+              )
+            ],
           ),
         ),
+      ),
     );
   }
 }
