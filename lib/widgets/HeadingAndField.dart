@@ -62,17 +62,20 @@ class HeadingAndField extends StatelessWidget {
                   // ),
                   //     ],
                   //   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        field,
-                        style: TextStyle(
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.017),
-                      ),
-                    ],
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.78,
+                          child: Text(
+                            field,
+                            style: TextStyle(
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.017),
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
               )),
         ],

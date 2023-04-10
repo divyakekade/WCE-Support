@@ -1,32 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
-import 'package:wce_support/widgets/ProductCard.dart';
-class SellProduct extends StatefulWidget {
-  const SellProduct({super.key});
-
+class EditProductDetails extends StatefulWidget {
+  const EditProductDetails({super.key, required this.product});
+  final product;
   @override
-  State<SellProduct> createState() => _SellProductState();
+  State<EditProductDetails> createState() => _EditProductDetailsState();
 }
 
-class _SellProductState extends State<SellProduct> {
-   late String productname;
-   late int quantity;
-   late double price;
+class _EditProductDetailsState extends State<EditProductDetails> {
+   String productName="";
+   int productQuantity=0;
+   String productPrice="";
+   String productImage=""; 
 
-   final _productnameController = TextEditingController();
-   final _quantityController = TextEditingController();
-   final _priceController = TextEditingController();
-
-   @override
-   void dispose() {
-    _productnameController.dispose();
-    _quantityController.dispose();
-    _priceController.dispose();
-     super.dispose();
+   saveDetails(){
+    print(productName);
+    print(productPrice);
+    print(productQuantity);
    }
 
-
+   @override
+   void initState() {
+    // TODO: implement initState
+    super.initState();
+    productName=widget.product[0].toString();
+    productPrice=widget.product[1].toString();
+    productQuantity=int.parse(widget.product[2].toString());
+    productImage=widget.product[3].toString();
+  }
+  
    @override
   Widget build(BuildContext context) {
     double width10 = MediaQuery.of(context).size.width * 0.025;
@@ -34,7 +37,7 @@ class _SellProductState extends State<SellProduct> {
     return Scaffold(
         backgroundColor: backgroundColor,
         body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: width10*2),
+            padding: EdgeInsets.symmetric(horizontal: width10*1),
             child: Column(
                 children: [
                 Center(
@@ -46,7 +49,7 @@ class _SellProductState extends State<SellProduct> {
                   horizontal: MediaQuery.of(context).size.width * 0.05),
               decoration: headingBoxDecoration,
               child: Text(
-                'Add Your Product',
+                'Your Product',
                 style: headingTextStyle,
               ),
             ),
@@ -81,7 +84,7 @@ class _SellProductState extends State<SellProduct> {
                               // ),
                               Align(
                                 alignment: Alignment.topLeft,
-                                child: Text("Enter your product details below",
+                                child: Text("Edit your product details below",
                                 style: TextStyle(
                                     fontSize:  MediaQuery.of(context).size.height * 0.018),
                                 )),
@@ -93,8 +96,13 @@ class _SellProductState extends State<SellProduct> {
                               SizedBox(
                                 height: width10 * 2,
                               ),
-                              TextField(
-                                controller: _productnameController,
+                              TextFormField(
+                                initialValue: productName,
+                                onChanged: (name) {
+                                      setState(() {
+                                        productName = name;
+                                      });
+                                    },
                                 decoration: const InputDecoration(
                                     labelText: 'product name',
                                     contentPadding: EdgeInsets.all(12),
@@ -112,8 +120,13 @@ class _SellProductState extends State<SellProduct> {
                                 height: MediaQuery.of(context).size.height * 0.025,
                               ),
                               //password
-                              TextField(
-                                controller: _quantityController,
+                              TextFormField(
+                                initialValue: productQuantity.toString(),
+                                onChanged: (q){
+                                  setState(() {
+                                    productQuantity=int.parse(q);
+                                  });
+                                },
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                     labelText: 'quantity',
@@ -132,8 +145,13 @@ class _SellProductState extends State<SellProduct> {
                                 height: MediaQuery.of(context).size.height * 0.025,
                               ),
                               //password
-                              TextField(
-                                controller: _priceController,
+                              TextFormField(
+                                initialValue: productPrice.toString(),
+                                onChanged: (pr){
+                                  setState(() {
+                                    productPrice=pr;
+                                  });
+                                },
                                 keyboardType: TextInputType.number,
                                 decoration: const InputDecoration(
                                     labelText: 'price',
@@ -152,13 +170,44 @@ class _SellProductState extends State<SellProduct> {
                               SizedBox(
                                 height: width10 * 2,
                               ),
+                              SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 1),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12.0),
+                            ),
+                            // boxShadow: const [
+                            //   BoxShadow(
+                            //       color: Colors.grey,
+                            //       blurRadius: 3.0,
+                            //       spreadRadius: 1.0,
+                            //       offset: Offset(2.0, 2.0))
+                            // ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(12.0),
+                            ),
+                            child: Image.network(
+                              productImage,
+                              height: MediaQuery.of(context).size.height * 0.32,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01),
+
                               //button
                               Container(
                                 margin: EdgeInsets.symmetric(
                                     horizontal: MediaQuery.of(context).size.width * 0.039,
                                     vertical: MediaQuery.of(context).size.height * 0.014),
                                child: ElevatedButton(
-                                        onPressed: null,
+                                        onPressed: (){},
                                         style: secondButtonStyle,
                                         child: Text(
                                           "Add Image",
@@ -172,7 +221,7 @@ class _SellProductState extends State<SellProduct> {
                               Align(
                                 alignment: Alignment.center,
                                 child: ElevatedButton(
-                                  onPressed: null,
+                                  onPressed: saveDetails,
                                   style: buttonStyle,
                                   child: Text(
                                     "Save",
@@ -193,20 +242,6 @@ class _SellProductState extends State<SellProduct> {
                       ),
                     ),
                   ),
-                  const Divider(height: 1, thickness: 3, color: Colors.grey),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.012,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const SingleUserPastGrievances()));
-                },
-                style: buttonStyle,
-                child: Text("View Your Past Products",style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.021),)),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.02,
-            ),
                ],
               ),
             ),
