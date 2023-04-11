@@ -17,6 +17,7 @@ class _SellProductState extends State<SellProduct> {
   final _productnameController = TextEditingController();
   final _quantityController = TextEditingController();
   final _priceController = TextEditingController();
+  final _productdescriptionController = TextEditingController();
 
   @override
   void dispose() {
@@ -90,6 +91,26 @@ class _SellProductState extends State<SellProduct> {
                           controller: _productnameController,
                           decoration: const InputDecoration(
                               labelText: 'product name',
+                              contentPadding: EdgeInsets.all(12),
+                              border: OutlineInputBorder(
+                                  // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 2.0)),
+                              focusedBorder: OutlineInputBorder(
+                                  // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                  borderSide: BorderSide(
+                                color: Colors.black,
+                              ))),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.025,
+                        ),
+                        TextField(
+                          controller: _productdescriptionController,
+                          minLines: 1,
+                          maxLines: 10,
+                          decoration: const InputDecoration(
+                              labelText: 'product description',
                               contentPadding: EdgeInsets.all(12),
                               border: OutlineInputBorder(
                                   // borderRadius: BorderRadius.all(Radius.circular(30.0)),

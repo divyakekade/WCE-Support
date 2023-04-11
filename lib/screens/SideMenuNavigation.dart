@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/screens/CreateUser.dart';
 import 'package:wce_support/screens/EditProfile.dart';
+import 'package:wce_support/screens/FavouriteProducts.dart';
 import 'package:wce_support/screens/HomePage.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
 import 'package:wce_support/screens/HomeScreen.dart';
@@ -41,6 +42,8 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
       container = const BuyProducts();
     } else if (currentPage == "sell_products") {
       container = const SellProduct();
+    } else if(currentPage == "favourite_products") {
+      container = const FavouriteProducts();
     } else if (currentPage == "view_grievances") {
       container = const ViewGrievances();
     } else if (currentPage == "put_grievance") {
@@ -79,15 +82,16 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
               currentPage == "buy_products"),
           menuItem(3, "Sell Products", Icons.sell_outlined,
               currentPage == "sell_products"),
-          menuItem(4, "View Grivances", Icons.notes,
+          menuItem(4, "Favourite Products", Icons.favorite_border_outlined, currentPage=="favourite_products"),
+          menuItem(5, "View Grievances", Icons.notes,
               currentPage == "view_grievances"),
-          menuItem(5, "Put Grievance", Icons.feedback_outlined,
+          menuItem(6, "Put Grievance", Icons.feedback_outlined,
               currentPage == "put_grievance"),
-          menuItem(6, "Profile Settings", Icons.settings_outlined,
+          menuItem(7, "Profile Settings", Icons.settings_outlined,
               currentPage == "view_profile"),
-          menuItem(7, "Create New User", Icons.person_add_outlined,
+          menuItem(8, "Create New User", Icons.person_add_outlined,
               currentPage == "create_user"),
-          menuItem(8, "Logout", Icons.logout, currentPage == "logout"),
+          menuItem(9, "Logout", Icons.logout, currentPage == "logout"),
         ],
       ),
     );
@@ -107,19 +111,21 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
               currentPage = "buy_products";
             } else if (id == 3) {
               currentPage = "sell_products";
-            } else if (id == 4) {
-              currentPage = "view_grievances";
+            } else if (id==4) {
+              currentPage = "favourite_products";
             } else if (id == 5) {
+              currentPage = "view_grievances";
+            } else if (id == 6) {
               if (authtoken == null) {
                 currentPage = "home";
               } else {
                 currentPage = "put_grievance";
               }
-            } else if (id == 6) {
-              currentPage = "view_profile";
             } else if (id == 7) {
-              currentPage = "create_user";
+              currentPage = "view_profile";
             } else if (id == 8) {
+              currentPage = "create_user";
+            } else if (id == 9) {
               currentPage = "logout";
             }
           });
