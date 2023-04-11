@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/EditProduct.dart';
-//import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/Appbar.dart';
 
+// ignore: must_be_immutable
 class DetailPage extends StatelessWidget implements PreferredSizeWidget {
   DetailPage({
     Key? key,
@@ -20,7 +21,8 @@ class DetailPage extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(children: [
+      appBar: const Appbar(),
+      body: Stack(children: [
       Container(
           width: double.infinity,
           height: double.infinity,
@@ -226,11 +228,9 @@ class DetailPage extends StatelessWidget implements PreferredSizeWidget {
     ])
         //ProductDetails(p: productname, pr: price, q: quantity, i: imageaddress, ),
         );
-    // TODO: implement build
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => throw UnimplementedError();
 }
 

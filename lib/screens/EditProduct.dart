@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
+import 'package:wce_support/widgets/Appbar.dart';
 class EditProductDetails extends StatefulWidget {
   const EditProductDetails({super.key, required this.product});
   final product;
@@ -22,7 +23,6 @@ class _EditProductDetailsState extends State<EditProductDetails> {
 
    @override
    void initState() {
-    // TODO: implement initState
     super.initState();
     productName=widget.product[0].toString();
     productPrice=widget.product[1].toString();
@@ -35,6 +35,7 @@ class _EditProductDetailsState extends State<EditProductDetails> {
     double width10 = MediaQuery.of(context).size.width * 0.025;
     double heightc = MediaQuery.of(context).size.width * 0.053;
     return Scaffold(
+        appBar: const Appbar(),
         backgroundColor: backgroundColor,
         body: Padding(
             padding: EdgeInsets.symmetric(horizontal: width10*1),

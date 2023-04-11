@@ -1,4 +1,3 @@
-//make classname same as that of the file name
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/DetailPage.dart';
@@ -14,8 +13,7 @@ class BuyProducts extends StatefulWidget {
 class _BuyproductState extends State<BuyProducts> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
         // backgroundColor: Color.fromARGB(255, 238, 245, 248),
         body: LayoutBuilder(
             builder: (BuildContext context, BoxConstraints contraints) {
@@ -23,7 +21,7 @@ class _BuyproductState extends State<BuyProducts> {
             children: [
               Container(
                 margin: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.02),
+                    vertical: MediaQuery.of(context).size.height * 0.012),
                 padding: EdgeInsets.symmetric(
                     vertical: MediaQuery.of(context).size.height * 0.0052,
                     horizontal: MediaQuery.of(context).size.width * 0.05),
@@ -49,13 +47,19 @@ class _BuyproductState extends State<BuyProducts> {
                   child: Container(
                       //  color: Color.fromARGB(255, 238, 245, 248),
                       color: backgroundColor,
-                      child: GridB())),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            SizedBox(height: MediaQuery.of(context).size.height*0.016,),
+                            const GridB(),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.016,),
+                          ],
+                        ),
+                      ))),
             ],
           );
         }),
-      ),
-      debugShowCheckedModeBanner: false,
-    );
+      );
   }
 }
 
@@ -69,14 +73,14 @@ class GridB extends StatefulWidget {
 class _GridBState extends State<GridB> {
   final List<Map<String, dynamic>> gridMap = [
     {
-      "title": "white T-shirt",
+      "title": "white T-shirt djdns jnsdn xnusnd shbhbfh",
       "price": "500 Rs",
       "quantity": "2",
       "images":
           "https://tse3.mm.bing.net/th?id=OIP.fvoD8omL8_A_PuPqA8LFVAHaJQ&pid=Api&P=0"
     },
     {
-      "title": "Black shoes",
+      "title": "Black shoes nudn uhusnd dbsydb",
       "price": "600 Rs",
       "quantity": "3",
       "images":
@@ -137,11 +141,17 @@ class _GridBState extends State<GridB> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => DetailPage(
-                        productname: "${gridMap.elementAt(index)['title']}",
-                        price: "${gridMap.elementAt(index)['price']}",
-                        quantity: "${gridMap.elementAt(index)['quantity']}",
-                        imageaddress: "${gridMap.elementAt(index)['images']}",
-                      )));
+                      productname: "${gridMap.elementAt(index)['title']}",
+                      price: "${gridMap.elementAt(index)['price']}",
+                      quantity: "${gridMap.elementAt(index)['quantity']}",
+                      imageaddress: "${gridMap.elementAt(index)['images']}")));
+              // Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (context) => DetailPage(
+              //           productname: "${gridMap.elementAt(index)['title']}",
+              //           price: "${gridMap.elementAt(index)['price']}",
+              //           quantity: "${gridMap.elementAt(index)['quantity']}",
+              //           imageaddress: "${gridMap.elementAt(index)['images']}",
+              //         )));
             },
             child: Container(
               margin: EdgeInsets.symmetric(
