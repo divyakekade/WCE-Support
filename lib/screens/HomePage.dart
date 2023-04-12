@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
 
-      body: const RegisterPage(),
+     body: const RegisterPage(),
     );
   }
 }

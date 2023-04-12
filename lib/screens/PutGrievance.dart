@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/screens/LoginPage.dart';
@@ -53,9 +54,12 @@ class _PutGrievanceState extends State<PutGrievance> {
   }
 
   Future<void> createGrevience() async {
-    print({subject, description, selectedOption});
+    // print({subject, description, selectedOption});
     String? id = Provider.of<Auth>(context, listen: false).user_id;
-    // String id = "xyz";
+    // // String id = "xyz";
+    // QuickAlert.show(context: context,
+    // type: QuickAlertType.success,
+    // );
     try {
       await Provider.of<Griv>(context, listen: false)
           .putGrievance(subject, description, selectedOption, id);
@@ -273,7 +277,11 @@ class _PutGrievanceState extends State<PutGrievance> {
                       builder: (context) => const SingleUserPastGrievances()));
                 },
                 style: buttonStyle,
-                child: Text("View Your Past Grievances",style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.021),)),
+                child: Text(
+                  "View Your Past Grievances",
+                  style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.height * 0.021),
+                )),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.02,
             ),

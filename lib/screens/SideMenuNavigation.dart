@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:wce_support/screens/CreateUser.dart';
 import 'package:wce_support/screens/EditProfile.dart';
 import 'package:wce_support/screens/HomePage.dart';
@@ -17,8 +18,13 @@ class SideMenuNavigation extends StatefulWidget {
   final String loadedPage;
   String? token;
   String? user;
-  String? userid; 
-  SideMenuNavigation({super.key, required this.loadedPage,this.token,this.user,this.userid});
+  String? userid;
+  SideMenuNavigation(
+      {super.key,
+      required this.loadedPage,
+      this.token,
+      this.user,
+      this.userid});
 
   @override
   State<SideMenuNavigation> createState() => SideMenuNavigationState();
@@ -36,7 +42,8 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
   Widget build(BuildContext context) {
     dynamic container;
     if (currentPage == "home") {
-      container =  HomeScreen(user:widget.user,userid: widget.userid,token: widget.token);
+      container = HomeScreen(
+          user: widget.user, userid: widget.userid, token: widget.token);
     } else if (currentPage == "buy_products") {
       container = const BuyProducts();
     } else if (currentPage == "sell_products") {
@@ -51,6 +58,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
       container = const CreateUser();
     } else if (currentPage == "logout") {
       container = const HomePage();
+      // QuickAlert.show(context: context, type: QuickAlertType.success);
     }
 
     return Scaffold(
@@ -120,8 +128,12 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
             } else if (id == 7) {
               currentPage = "create_user";
             } else if (id == 8) {
-              currentPage = "logout";
+              currentPage = "logout";    
+
             }
+             
+            
+            
           });
         },
         child: Padding(
