@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/grievancesProvider.dart';
+import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: Auth()),
         ChangeNotifierProvider.value(value: Griv()),
+        ChangeNotifierProvider.value(value: Prod()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
