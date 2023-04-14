@@ -224,8 +224,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                 ),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    ('assets/walchand.jfif'),
+                                  child: Image.network(widget.grievance['image'],
                                     alignment: Alignment.center,
                                     fit: BoxFit.cover,
                                   ),

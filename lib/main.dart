@@ -8,9 +8,10 @@ import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
-
+import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   SharedPreferences pref = await SharedPreferences.getInstance();
   // print(pref.getString('userid'));
   runApp(MyApp(
@@ -21,19 +22,18 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   String? token;
-  String?id;
+  String? id;
   String? user;
-  MyApp({super.key,  this.token,  this.id,  this.user});
+  MyApp({super.key, this.token, this.id, this.user});
 
   void initState(BuildContext context) {
     print("token $id");
-    
   }
 
   @override
   Widget build(BuildContext context) {
     // initState(context);
-  
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: Auth()),
@@ -46,14 +46,15 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: buildMaterialColor(primaryColor),
           ),
-          home: (token != null && JwtDecoder.isExpired(token!)==false)? SideMenuNavigation(
-            loadedPage: "home",
-            token: token,
+          home: (token != null && JwtDecoder.isExpired(token!) == false)
+              ? SideMenuNavigation(
+                  loadedPage: "home",
+                  token: token,
                   user: user,
                   userid: id,
-          ): SideMenuNavigation(
+                )
+              : SideMenuNavigation(
                   loadedPage: "home",
-                  
                 ),
           routes: {}),
     );

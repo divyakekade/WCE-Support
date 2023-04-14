@@ -6,7 +6,7 @@ import '../Exceptions/httpexception.dart';
 import 'package:http/http.dart' as http;
 
 class Prod with ChangeNotifier {
-  static const ip = "192.168.43.95";
+  static const ip = "10.40.7.176";
   var products = [];
   Future<void> addProduct(String name, String description, int quantity,
       double price, String? id) async {

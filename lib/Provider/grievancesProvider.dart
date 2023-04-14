@@ -5,10 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:wce_support/Exceptions/httpexception.dart';
 
 class Griv with ChangeNotifier {
-  static const ip = "192.168.43.95";
+  static const ip = "10.40.7.176";
   var grievance = [];
   Future<void> putGrievance(String subject, String description,
-      String selectedOption, String? id) async {
+      String selectedOption,String image, String? id) async {
     final url = Uri.parse("http://${ip}:5000/grievances/putgrievances");
     try {
       if (id == null) {
@@ -20,7 +20,8 @@ class Griv with ChangeNotifier {
       }, body: <String, String>{
         'subject': subject,
         'description': description,
-        'section': selectedOption
+        'section': selectedOption,
+        'image':image
       });
       final extractedData = json.decode(response.body);
       // print(extractedData);
