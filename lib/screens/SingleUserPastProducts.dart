@@ -62,7 +62,7 @@ class GridB extends StatefulWidget {
 }
 
 class _GridBState extends State<GridB> {
-  final List<Map<String, dynamic>> gridMap = [
+  final List<dynamic> gridMap = [
     {
       "title": "white T-shirt",
       "price": "500 Rs",
@@ -132,11 +132,7 @@ class _GridBState extends State<GridB> {
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => DetailPage(
-                        productname: "${gridMap.elementAt(index)['title']}",
-                        price: "${gridMap.elementAt(index)['price']}",
-                        quantity: "${gridMap.elementAt(index)['quantity']}",
-                        imageaddress: "${gridMap.elementAt(index)['images']}",
-                        pid: "1",
+                       product:gridMap[index]
                       )));
             },
             child: Container(

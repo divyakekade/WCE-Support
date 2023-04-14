@@ -54,7 +54,7 @@ class Prod with ChangeNotifier {
     }
   }
 
-Future<void> deleteProduct(String uid, String? gid) async {
+  Future<void> deleteProduct(String uid, String? gid) async {
     final url = Uri.parse("http://${ip}:5000/product/delete/$gid");
 
     try {
@@ -71,8 +71,8 @@ Future<void> deleteProduct(String uid, String? gid) async {
     }
   }
 
-Future<void> updateProduct(
-      String name, String description, String quantity, String price,String uid,String pid)async {
+  Future<void> updateProduct(String name, String description, String quantity,
+      String price, String uid, String pid) async {
     final url = Uri.parse("http://${ip}:5000/product/update");
     try {
       final response = await http.post(url, headers: <String, String>{
@@ -83,7 +83,7 @@ Future<void> updateProduct(
         'description': description,
         'quantity': quantity,
         'price': price,
-        'pid':pid
+        'pid': pid
       });
       final extractedData = json.decode(response.body);
       print(extractedData);
@@ -97,4 +97,43 @@ Future<void> updateProduct(
     }
   }
 
+  Future<dynamic> addBookmark(String uid, String pid) async {
+    final url = Uri.parse("http://${ip}:5000/user/addbookmark");
+    try {
+      final response = await http.post(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+        'id': uid
+      }, body: <String, String>{
+        'pid': pid
+      });
+      final extractedData = json.decode(response.body);
+      print(extractedData);
+      if (response.statusCode != 200) {
+        throw HttpException(extractedData['message']);
+      }
+      return extractedData['newuser'];
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<dynamic> removeBookmark(String uid, String pid) async {
+    final url = Uri.parse("http://${ip}:5000/user/removebookmark");
+    try {
+      final response = await http.post(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+        'id': uid
+      }, body: <String, String>{
+        'pid': pid
+      });
+      final extractedData = json.decode(response.body);
+      print(extractedData);
+      if (response.statusCode != 200) {
+        throw HttpException(extractedData['message']);
+      }
+       return extractedData['newuser'];
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
