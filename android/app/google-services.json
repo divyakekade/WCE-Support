@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "483081130847",
+    "firebase_url": "https://wce-support-default-rtdb.firebaseio.com",
+    "project_id": "wce-support",
+    "storage_bucket": "wce-support.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483081130847:android:b551a50efaf7b190a75cea",
+        "android_client_info": {
+          "package_name": "com.example.wce_support"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483081130847-hfq1ri7ea4k9asapfmu352b3m7ia2kmo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU6XGziFsH05xQem_3a8ny_KIQ2CENPFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483081130847-hfq1ri7ea4k9asapfmu352b3m7ia2kmo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

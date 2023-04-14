@@ -1,5 +1,7 @@
 import 'dart:ffi';
+import 'dart:io';
 import 'dart:ui' as ui;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
@@ -11,6 +13,7 @@ import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 // import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import '../constants/ColorsAndStyles.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PutGrievance extends StatefulWidget {
   const PutGrievance({super.key});
@@ -23,7 +26,9 @@ class _PutGrievanceState extends State<PutGrievance> {
   String subject = "";
   String description = "";
   String selectedOption = "Hostel Supervisor";
-
+  String image = '';
+  bool isloading = false;
+  // final network = NetworkHandler();
   List<String> sectionList = <String>[
     "Hostel Supervisor",
     "Hostel Chief Rector",
@@ -53,6 +58,33 @@ class _PutGrievanceState extends State<PutGrievance> {
     }
   }
 
+  Future<void> pickImage() async {
+    setState(() {
+      isloading = true; 
+    });
+    try {
+      final poster = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (poster == null) return;
+      print(poster.path);
+      // image = poster.path;
+      final refernceRoot = FirebaseStorage.instance.ref();
+      final referenceDirImages = refernceRoot.child('products');
+      final referenceImageToUpload = referenceDirImages.child(poster.path);
+      await referenceImageToUpload.putFile(File(poster.path));
+      final String res = await referenceImageToUpload.getDownloadURL();
+      image = res;
+      print(res);
+      // File fileimage = File(poster.path);
+      // print(fileimage.path);
+    } catch (e) {
+      print(e);
+    }
+  setState(() {
+    isloading = false; 
+  });
+
+  }
+
   Future<void> createGrevience() async {
     // print({subject, description, selectedOption});
     String? id = Provider.of<Auth>(context, listen: false).user_id;
@@ -62,7 +94,7 @@ class _PutGrievanceState extends State<PutGrievance> {
     // );
     try {
       await Provider.of<Griv>(context, listen: false)
-          .putGrievance(subject, description, selectedOption, id);
+          .putGrievance(subject, description, selectedOption, image, id);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -72,7 +104,7 @@ class _PutGrievanceState extends State<PutGrievance> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Stack(children: [
+      body:isloading?Text("Loading"): Stack(children: [
         Container(
             width: double.infinity,
             height: double.infinity,
@@ -188,7 +220,7 @@ class _PutGrievanceState extends State<PutGrievance> {
                         ),
                         Row(children: [
                           ElevatedButton(
-                              onPressed: null,
+                              onPressed: pickImage,
                               style: secondButtonStyle,
                               child: Text(
                                 "Add Image",
