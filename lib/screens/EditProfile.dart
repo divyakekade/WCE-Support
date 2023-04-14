@@ -97,7 +97,7 @@ class _EditProfileState extends State<EditProfile> {
       });
     }
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: Stack(children: [
         Container(
             width: double.infinity,

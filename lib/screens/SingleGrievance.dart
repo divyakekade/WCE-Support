@@ -212,7 +212,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.05),
-                            Center(
+                            widget.grievance['image']!=null ? Center(
                               child: Container(
                                 width: 250,
                                 // height: 250,
@@ -230,7 +230,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                   ),
                                 ),
                               ),
-                            ),
+                            ):SizedBox(),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.05),

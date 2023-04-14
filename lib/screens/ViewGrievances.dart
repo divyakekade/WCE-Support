@@ -62,14 +62,12 @@ class _ViewGrievancesState extends State<ViewGrievances> {
   Widget build(BuildContext context) {
     List list = Provider.of<Griv>(context).sendGrievanceList();
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
+      body: Stack(children: [
+        Container(
             width: double.infinity,
             height: double.infinity,
-            color: backgroundColor
-          ),
-          Column(
+            color: backgroundColor),
+        Column(
           children: [
             Container(
               margin: EdgeInsets.symmetric(
@@ -112,136 +110,199 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                       dynamic l = list[index];
                       return (myassignment == false) ||
                               (list[index]['section'] == user['department'])
-                          ? Container(
-                              margin: EdgeInsets.symmetric(
-                                  vertical:
-                                      MediaQuery.of(context).size.height * 0.008,
-                                  horizontal:
-                                      MediaQuery.of(context).size.width * 0.035),
-                              padding: EdgeInsets.only(
-                                  left: MediaQuery.of(context).size.width * 0.02,
-                                  top: MediaQuery.of(context).size.height * 0.01,
-                                  bottom: MediaQuery.of(context).size.height * 0.01),
-                              decoration: BoxDecoration(
-                                color: cardColor,
-                                border: Border.all(color: headingColor,width: 0.4),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Color.fromRGBO(194, 194, 194, 1),
-                                    offset: Offset(2, 4),
-                                    blurRadius: 5,
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Column(children: [
-                                        SizedBox(
+                          ? InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => SingleGrievance(
+                                        grievance: list[index])));
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical:
+                                        MediaQuery.of(context).size.height *
+                                            0.008,
+                                    horizontal:
+                                        MediaQuery.of(context).size.width *
+                                            0.035),
+                                padding: EdgeInsets.only(
+                                    left: MediaQuery.of(context).size.width *
+                                        0.02,
+                                    top: MediaQuery.of(context).size.height *
+                                        0.01,
+                                    bottom: MediaQuery.of(context).size.height *
+                                        0.01),
+                                decoration: BoxDecoration(
+                                  color: cardColor,
+                                  border: Border.all(
+                                      color: headingColor, width: 0.5),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      color: Color.fromRGBO(194, 194, 194, 1),
+                                      offset: Offset(2, 4),
+                                      blurRadius: 5,
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Column(children: [
+                                          SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.78,
+                                              child: Text(
+                                                list[index]['subject'],
+                                                style: TextStyle(
+                                                    color: const Color.fromARGB(
+                                                        255, 15, 100, 112),
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .height *
+                                                            0.02),
+                                              )),
+                                          SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.02),
+                                          SizedBox(
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
                                                 0.78,
                                             child: Text(
-                                              list[index]['subject'],
+                                              list[index]['description'],
+                                              maxLines: 2,
                                               style: TextStyle(
-                                                color: const Color.fromARGB(255, 15, 100, 112),
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.02),
-                                            )),
-                                        SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.02),
-                                        SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.78,
-                                          child: Text(
-                                            list[index]['description'],
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                                overflow: TextOverflow.ellipsis,
-                                                fontSize: MediaQuery.of(context)
-                                                        .size
-                                                        .height *
-                                                    0.018),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  fontSize:
+                                                      MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                          0.018),
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.02),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
+                                          SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.02),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
                                                     .size
                                                     .width *
                                                 0.78,
-                                          child: Row(
-                                            children: [
-                                              Text("Status: ", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.016,fontWeight: FontWeight.w500),),
-                                              Text(l['status'], style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.016,fontWeight: FontWeight.w500),)
-                                            ],
-                                          ),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  "Status: ",
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.016,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                                Text(
+                                                  l['status'],
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.016,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ]),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.022,
+                                        ),
+                                        Container(
+                                          padding: const EdgeInsets.all(0.0),
+                                          decoration: BoxDecoration(
+                                              color: imagebutton,
+                                              borderRadius:
+                                                  BorderRadius.circular(50)),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            SingleGrievance(
+                                                                grievance: list[
+                                                                    index])));
+                                              },
+                                              child: const Icon(
+                                                Icons.chevron_right,
+                                                size: 32,
+                                                color: headingColor,
+                                              )),
                                         )
-                                      ]),
-                                      SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.022,
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.all(0.0),
-                                        decoration: BoxDecoration(
-                                            color: imagebutton,
-                                            borderRadius:
-                                                BorderRadius.circular(50)),
-                                        child: GestureDetector(
-                                            onTap: () {
-                                              Navigator.of(context).push(MaterialPageRoute(
-                                                              builder: (context) =>
-                                                                  SingleGrievance(grievance:list[index])));
-                                            },
-                                            child: const Icon(
-                                              Icons.chevron_right,
-                                              size: 32,
-                                              color: headingColor,
-                                            )),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                      height: MediaQuery.of(context).size.width *
-                                          0.03),
-                                  Container(
-                                    margin: EdgeInsets.only(
-                                        right: MediaQuery.of(context).size.width *
-                                            0.02),
-                                    width: MediaQuery.of(context).size.width * 1,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(list[index]['date'],style: TextStyle(color: headingColor,fontSize: MediaQuery.of(context).size.height*0.014),),
-                                        Text(list[index]['time'],style: TextStyle(color: headingColor,fontSize: MediaQuery.of(context).size.height*0.014),)
                                       ],
                                     ),
-                                  )
-                                ],
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.width *
+                                                0.03),
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          right: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.02),
+                                      width:
+                                          MediaQuery.of(context).size.width * 1,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            list[index]['date'],
+                                            style: TextStyle(
+                                                color: headingColor,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.014),
+                                          ),
+                                          Text(
+                                            list[index]['time'],
+                                            style: TextStyle(
+                                                color: headingColor,
+                                                fontSize: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.014),
+                                          )
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             )
                           : Container();
                     }))
             // ),
           ],
-        ),]
-      ),
+        ),
+      ]),
     );
   }
 }

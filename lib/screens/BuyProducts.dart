@@ -40,54 +40,58 @@ class _BuyproductState extends State<BuyProducts> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 238, 245, 248),
-      body: isLoading?Text("Loading"):LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints contraints) {
-        return Column(
-          children: [
-            Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.012),
-              padding: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.0052,
-                  horizontal: MediaQuery.of(context).size.width * 0.05),
-              decoration: headingBoxDecoration,
-              child: Text(
-                'Pick Up Your Choice',
-                style: headingTextStyle,
-              ),
-            ),
-            // Expanded(
-            //   child: ListView(
-            //     children: [
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //       ProductCard(imagename: "mas", productname: "Product Name"),
-            //     ],
-            //   ),
-            // )
-            const Divider(height: 1, thickness: 2, color: Colors.grey),
-            Expanded(
-                child: Container(
-                    //  color: Color.fromARGB(255, 238, 245, 248),
-                    color: backgroundColor,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.016,
-                          ),
-                          const GridB(),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.016,
-                          ),
-                        ],
-                      ),
-                    ))),
-          ],
-        );
-      }),
+      body: isLoading
+          ? Text("Loading")
+          : LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints contraints) {
+              return Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.012),
+                    padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.0052,
+                        horizontal: MediaQuery.of(context).size.width * 0.05),
+                    decoration: headingBoxDecoration,
+                    child: Text(
+                      'Pick Up Your Choice',
+                      style: headingTextStyle,
+                    ),
+                  ),
+                  // Expanded(
+                  //   child: ListView(
+                  //     children: [
+                  //       ProductCard(imagename: "mas", productname: "Product Name"),
+                  //       ProductCard(imagename: "mas", productname: "Product Name"),
+                  //       ProductCard(imagename: "mas", productname: "Product Name"),
+                  //       ProductCard(imagename: "mas", productname: "Product Name"),
+                  //       ProductCard(imagename: "mas", productname: "Product Name"),
+                  //     ],
+                  //   ),
+                  // )
+                  const Divider(height: 1, thickness: 2, color: Colors.grey),
+                  Expanded(
+                      child: Container(
+                          //  color: Color.fromARGB(255, 238, 245, 248),
+                          color: backgroundColor,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.016,
+                                ),
+                                const GridB(),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.016,
+                                ),
+                              ],
+                            ),
+                          ))),
+                ],
+              );
+            }),
     );
   }
 }
@@ -107,7 +111,7 @@ class _GridBState extends State<GridB> {
     print(gridMap);
     return SingleChildScrollView(
       child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
+        // physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -138,62 +142,83 @@ class _GridBState extends State<GridB> {
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.02,
                   vertical: MediaQuery.of(context).size.height * 0.001),
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.033,
+                vertical: MediaQuery.of(context).size.height * 0.015,
+              ),
               decoration: BoxDecoration(
                 //  border: Border.all(width: 0, color: const Color(0x7960c5e1)),
                 boxShadow: const [
                   BoxShadow(
-                      color: greyColor,
-                      blurRadius: 1.0,
-                      spreadRadius: 1.0,
-                      offset: Offset(1.0, 1.0))
+                      color: Color.fromARGB(255, 198, 198, 198),
+                      blurRadius: 4,
+                      offset: Offset(3.5, 4.5))
                 ],
                 borderRadius: BorderRadius.circular(
                   12.0,
                 ),
                 color: const Color(0x7960c5e1),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(12.0),
-                      topRight: Radius.circular(12.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.asset(
+                        ('assets/walchand.jfif'),
+                        alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height * 0.18,
+                        // width: MediaQuery.of(context).size.height * 0.20,
+                        fit: BoxFit.fill,
+                      ),
                     ),
-                    child: Image.network(
-                      gridMap[index]['description'],
-                      height: MediaQuery.of(context).size.height * 0.20,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.width * 0.02),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          gridMap[index]['name'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.014),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.005,
-                        ),
-                        Text(
-                          gridMap[index]['price'].toString(),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.014),
-                        ),
-                      ],
+                    Center(
+                      child: Text(
+                        gridMap[index]['name'],
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.018),
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.008,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height*0.001,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 0.5, color: headingColor),
+                        borderRadius: BorderRadius.circular(4),
+                        color: greyColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Rs. ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.018),
+                          ),
+                          Text(
+                            gridMap[index]['price'].toString(),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.018),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );
