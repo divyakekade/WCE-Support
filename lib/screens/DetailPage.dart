@@ -13,20 +13,9 @@ import '../Provider/productProvider.dart';
 class DetailPage extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => throw UnimplementedError();
-  DetailPage(
-      {Key? key,
-      required this.productname,
-      required this.price,
-      required this.quantity,
-      required this.imageaddress,
-      required this.pid})
-      : super(key: key);
+  DetailPage({Key? key, required this.product}) : super(key: key);
 
-  final String productname;
-  final String price;
-  final String quantity;
-  final String imageaddress;
-  final String pid;
+  dynamic product;
   @override
   State<DetailPage> createState() => _DetailPageState();
 }
@@ -34,16 +23,66 @@ class DetailPage extends StatefulWidget implements PreferredSizeWidget {
 class _DetailPageState extends State<DetailPage> {
   bool sameuser = true;
   bool saved = false;
+  var user;
+  @override
+  void initState() {
+    user = Provider.of<Auth>(context, listen: false).user;
+    sameuser = widget.product['userID'] == user['_id'];
+    for(int i =0 ; i<user['bookmark'].length;i++)
+    {
+      if(user['bookmark'][i]==widget.product['_id'])
+      {
+        saved = true ; 
+      }
+    }
+    // var product = user['bookmark'].map((pid) => pid == widget.product['_id']);
+    // print("product");
+    // print(product);
+    // if (product.lengt) {
+    //   saved = true;
+
+    // }
+    // else{
+    //   saved = false;
+    // }
+  }
 
   Future<void> deleteProduct() async {
     try {
-      var user = await Provider.of<Auth>(context, listen: false).user;
+      var user = Provider.of<Auth>(context, listen: false).user;
       await Provider.of<Prod>(context, listen: false)
-          .deleteProduct(user['_id'], widget.pid);
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => BuyProducts()));
+          .deleteProduct(user['_id'], widget.product['_id']);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => BuyProducts()));
     } catch (e) {
       showErrorDialogBox2(e.toString(), context);
+    }
+  }
+
+  Future<void> likeProduct() async {
+    setState(() {
+      saved = !saved;
+    });
+    dynamic user = Provider.of<Auth>(context, listen: false).user;
+    try {
+      dynamic newuser = await Provider.of<Prod>(context, listen: false)
+          .addBookmark(widget.product['_id'], user['_id']);
+          
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
+    }
+  }
+
+  Future<void> unlikeProduct() async {
+    setState(() {
+      saved = !saved;
+    });
+    dynamic user = Provider.of<Auth>(context, listen: false).user;
+    try {
+      dynamic newuser = await Provider.of<Prod>(context, listen: false)
+          .removeBookmark(widget.product['_id'], user['_id']);
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
     }
   }
 
@@ -80,11 +119,13 @@ class _DetailPageState extends State<DetailPage> {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => EditProductDetails(
                                             product: [
-                                              widget.productname,
-                                              widget.price,
-                                              widget.quantity,
-                                              widget.imageaddress,
-                                              widget.pid
+                                              widget.product["name"],
+                                              widget.product['price']
+                                                  .toString(),
+                                              widget.product['quantity']
+                                                  .toString(),
+                                              widget.product['description'],
+                                              widget.product['_id'],
                                             ],
                                           )));
                                 },
@@ -93,11 +134,7 @@ class _DetailPageState extends State<DetailPage> {
                                 iconSize: 28,
                               ),
                               IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    saved = !saved;
-                                  });
-                                },
+                                onPressed: saved ? unlikeProduct : likeProduct,
                                 icon: saved
                                     ? const Icon(Icons.favorite)
                                     : const Icon(Icons.favorite_outline),
@@ -161,7 +198,7 @@ class _DetailPageState extends State<DetailPage> {
                           children: [
                             //  SizedBox(height: 10),////////////
                             Text(
-                              widget.productname,
+                              widget.product['name'],
                               style: TextStyle(
                                 color: headingColor,
                                 fontSize:
@@ -192,7 +229,7 @@ class _DetailPageState extends State<DetailPage> {
                                   Radius.circular(12.0),
                                 ),
                                 child: Image.asset(
-                                  widget.imageaddress,
+                                  widget.product['description'],
                                   height:
                                       MediaQuery.of(context).size.height * 0.32,
                                   width:
@@ -219,7 +256,7 @@ class _DetailPageState extends State<DetailPage> {
                                     ),
                                   ),
                                   Text(
-                                    widget.quantity,
+                                    widget.product['quantity'].toString(),
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontWeight: FontWeight.bold,
@@ -249,7 +286,7 @@ class _DetailPageState extends State<DetailPage> {
                                     ),
                                   ),
                                   Text(
-                                    widget.price,
+                                    widget.product['price'].toString(),
                                     style: TextStyle(
                                         color: Colors.grey,
                                         fontWeight: FontWeight.bold,

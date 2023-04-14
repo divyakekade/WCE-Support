@@ -120,12 +120,7 @@ class _GridBState extends State<GridB> {
           return InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => DetailPage(
-                      productname: gridMap[index]['name'],
-                      price: gridMap[index]['price'].toString(),
-                      quantity: gridMap[index]['quantity'].toString(),
-                      imageaddress: gridMap[index]['description'],
-                      pid: gridMap[index]['_id'])));
+                  builder: (context) => DetailPage(product:gridMap[index])));
               // Navigator.of(context).push(MaterialPageRoute(
               //     builder: (context) => DetailPage(
               //           productname: "${gridMap.elementAt(index)['title']}",
