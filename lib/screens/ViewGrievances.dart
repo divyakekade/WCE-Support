@@ -62,7 +62,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
   Widget build(BuildContext context) {
     List list = Provider.of<Griv>(context).sendGrievanceList();
     return Scaffold(
-      body: Stack(children: [
+      body: isLoading?const Center(child: CircularProgressIndicator()):Stack(children: [
         Container(
             width: double.infinity,
             height: double.infinity,

@@ -41,7 +41,7 @@ class _BuyproductState extends State<BuyProducts> {
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 238, 245, 248),
       body: isLoading
-          ? Text("Loading")
+          ? const Center(child: CircularProgressIndicator())
           : LayoutBuilder(
               builder: (BuildContext context, BoxConstraints contraints) {
               return Column(
@@ -111,7 +111,7 @@ class _GridBState extends State<GridB> {
     print(gridMap);
     return SingleChildScrollView(
       child: GridView.builder(
-        // physics: const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -164,7 +164,7 @@ class _GridBState extends State<GridB> {
                         ('assets/walchand.jfif'),
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height * 0.18,
-                        // width: MediaQuery.of(context).size.height * 0.20,
+                        width: MediaQuery.of(context).size.height * 0.20,
                         fit: BoxFit.fill,
                       ),
                     ),

@@ -10,6 +10,7 @@ import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
+import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 // import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import '../constants/ColorsAndStyles.dart';
@@ -95,6 +96,9 @@ class _PutGrievanceState extends State<PutGrievance> {
     try {
       await Provider.of<Griv>(context, listen: false)
           .putGrievance(subject, description, selectedOption, image, id);
+      showCustomSnackbar(1, "Grievance added successfully!", context);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => SideMenuNavigation(loadedPage: 'view_grievances')));
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -104,7 +108,7 @@ class _PutGrievanceState extends State<PutGrievance> {
   Widget build(BuildContext context) {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
-      body:isloading?Text("Loading"): Stack(children: [
+      body:isloading?const Center(child: CircularProgressIndicator()): Stack(children: [
         Container(
             width: double.infinity,
             height: double.infinity,

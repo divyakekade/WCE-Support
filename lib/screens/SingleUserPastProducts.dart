@@ -60,7 +60,6 @@ class GridB extends StatefulWidget {
   @override
   State<GridB> createState() => _GridBState();
 }
-
 class _GridBState extends State<GridB> {
   final List<dynamic> gridMap = [
     {
@@ -113,7 +112,6 @@ class _GridBState extends State<GridB> {
           "https://tse4.mm.bing.net/th?id=OIP.NRf637IxJAgcBP_u6h1zLgHaD4&pid=Api&P=0"
     }
   ];
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -131,70 +129,89 @@ class _GridBState extends State<GridB> {
           return InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => DetailPage(
-                       product:gridMap[index]
-                      )));
+                  builder: (context) => DetailPage(product:gridMap[index])));
             },
             child: Container(
               margin: EdgeInsets.symmetric(
                   horizontal: MediaQuery.of(context).size.width * 0.02,
                   vertical: MediaQuery.of(context).size.height * 0.001),
+              padding: EdgeInsets.symmetric(
+                horizontal: MediaQuery.of(context).size.width * 0.033,
+                vertical: MediaQuery.of(context).size.height * 0.015,
+              ),
               decoration: BoxDecoration(
                 //  border: Border.all(width: 0, color: const Color(0x7960c5e1)),
                 boxShadow: const [
                   BoxShadow(
-                      color: greyColor,
-                      blurRadius: 1.0,
-                      spreadRadius: 1.0,
-                      offset: Offset(1.0, 1.0))
+                      color: Color.fromARGB(255, 198, 198, 198),
+                      blurRadius: 4,
+                      offset: Offset(3.5, 4.5))
                 ],
                 borderRadius: BorderRadius.circular(
                   12.0,
                 ),
                 color: const Color(0x7960c5e1),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(12.0),
-                      topRight: Radius.circular(12.0),
-                    ),
-                    child: Image.network(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.network(
                       "${gridMap.elementAt(index)['images']}",
-                      height: MediaQuery.of(context).size.height * 0.20,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                        height: MediaQuery.of(context).size.height * 0.18,
+                        width: MediaQuery.of(context).size.height * 0.20,
+                        fit: BoxFit.fill,
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(
-                        MediaQuery.of(context).size.width * 0.02),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "${gridMap.elementAt(index)['title']}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.014),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.005,
-                        ),
-                        Text(
-                          "${gridMap.elementAt(index)['price']}",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize:
-                                  MediaQuery.of(context).size.height * 0.014),
-                        ),
-                      ],
                     ),
-                  ),
-                ],
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.01,
+                    ),
+                    Center(
+                      child: Text(
+                        "${gridMap.elementAt(index)['title']}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize:
+                                MediaQuery.of(context).size.height * 0.018),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.008,
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height*0.001,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 0.5, color: headingColor),
+                        borderRadius: BorderRadius.circular(4),
+                        color: greyColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Rs. ",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.018),
+                          ),
+                          Text(
+                            "${gridMap.elementAt(index)['price']}",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * 0.018),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

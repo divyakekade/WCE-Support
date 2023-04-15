@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class LoginPage extends StatefulWidget {
@@ -35,6 +36,7 @@ class _LoginPageState extends State<LoginPage> {
       try {
         await Provider.of<Auth>(context, listen: false)
             .login(_emailController.text, _passwordController.text);
+        showCustomSnackbar(1, "Logged in successfully!", context);
       } catch (error) {
         showErrorDialogBox2(error.toString(), context);
       }

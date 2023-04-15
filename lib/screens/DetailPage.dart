@@ -3,7 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
 import 'package:wce_support/screens/EditProduct.dart';
+import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/screens/ViewProfile.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/HeadingAndField.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 import '../Provider/Auth provider.dart';
@@ -28,11 +31,9 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     user = Provider.of<Auth>(context, listen: false).user;
     sameuser = widget.product['userID'] == user['_id'];
-    for(int i =0 ; i<user['bookmark'].length;i++)
-    {
-      if(user['bookmark'][i]==widget.product['_id'])
-      {
-        saved = true ; 
+    for (int i = 0; i < user['bookmark'].length; i++) {
+      if (user['bookmark'][i] == widget.product['_id']) {
+        saved = true;
       }
     }
     // var product = user['bookmark'].map((pid) => pid == widget.product['_id']);
@@ -52,8 +53,9 @@ class _DetailPageState extends State<DetailPage> {
       var user = Provider.of<Auth>(context, listen: false).user;
       await Provider.of<Prod>(context, listen: false)
           .deleteProduct(user['_id'], widget.product['_id']);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => BuyProducts()));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              SideMenuNavigation(loadedPage: 'buy_products')));
     } catch (e) {
       showErrorDialogBox2(e.toString(), context);
     }
@@ -67,7 +69,6 @@ class _DetailPageState extends State<DetailPage> {
     try {
       dynamic newuser = await Provider.of<Prod>(context, listen: false)
           .addBookmark(widget.product['_id'], user['_id']);
-          
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -101,7 +102,7 @@ class _DetailPageState extends State<DetailPage> {
                 horizontal: MediaQuery.of(context).size.width * 0.02),
             padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.height * 0.012,
-                horizontal: MediaQuery.of(context).size.width * 0.022),
+                horizontal: MediaQuery.of(context).size.width * 0.03),
             decoration: BoxDecoration(
               border: Border.all(
                   color: const Color.fromARGB(255, 7, 65, 79), width: 1),
@@ -118,34 +119,12 @@ class _DetailPageState extends State<DetailPage> {
                                 onPressed: () {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => EditProductDetails(
-                                            product: [
-                                              widget.product["name"],
-                                              widget.product['price']
-                                                  .toString(),
-                                              widget.product['quantity']
-                                                  .toString(),
-                                              widget.product['description'],
-                                              widget.product['_id'],
-                                            ],
-                                          )));
+                                          product: widget.product)));
                                 },
                                 icon: const Icon(Icons.edit),
                                 color: const Color.fromARGB(255, 75, 75, 75),
+                                // color: primaryColor,
                                 iconSize: 28,
-                              ),
-                              IconButton(
-                                onPressed: saved ? unlikeProduct : likeProduct,
-                                icon: saved
-                                    ? const Icon(Icons.favorite)
-                                    : const Icon(Icons.favorite_outline),
-                                color: const Color.fromARGB(255, 75, 75, 75),
-                                iconSize: 32,
-                              ),
-                              IconButton(
-                                onPressed: deleteProduct,
-                                icon: const Icon(Icons.delete),
-                                color: const Color.fromARGB(255, 75, 75, 75),
-                                iconSize: 32,
                               ),
                             ]))
                       : Row(),
@@ -156,12 +135,12 @@ class _DetailPageState extends State<DetailPage> {
                           left: MediaQuery.of(context).size.width * 0.02,
                           top: MediaQuery.of(context).size.height * 0.005),
                       child: Text(
-                        "Product Details",
+                        widget.product['name'],
                         style: TextStyle(
-                            color: headingColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.025),
+                          color: headingColor,
+                          fontWeight: FontWeight.w500,
+                          fontSize: MediaQuery.of(context).size.height * 0.023,
+                        ),
                       ),
                     ),
                   ),
@@ -170,45 +149,62 @@ class _DetailPageState extends State<DetailPage> {
                     thickness: 1.5,
                     color: Colors.black,
                   ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.015,
+                  ),
                   Column(
                     children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
-                      ),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.55,
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        padding: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.027),
-                        decoration: const BoxDecoration(
-                          color: cardColor,
-                          // borderRadius: BorderRadius.circular(10),///////////
-                          boxShadow: [
+                        // height: MediaQuery.of(context).size.height * 0.55,
+                        // width: MediaQuery.of(context).size.width * 0.85,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: MediaQuery.of(context).size.width * 0.035,
+                          //  vertical: MediaQuery.of(context).size.height*0.01
+                        ),
+                        decoration: BoxDecoration(
+                          // color: const Color.fromARGB(255, 242, 244, 245),
+                          color: const Color.fromARGB(255, 228, 229, 230),
+                          borderRadius: BorderRadius.circular(5),
+                          boxShadow: const [
                             BoxShadow(
                                 color: Colors.grey,
-                                blurRadius: 10.0,
-                                spreadRadius: 2.0,
-                                offset: Offset(2.0, 5.0))
+                                blurRadius: 6.0,
+                                offset: Offset(2.0, 4.0))
                           ],
                         ),
-                        margin: EdgeInsets.all(
-                            MediaQuery.of(context).size.width * 0.04),
+                        // margin: EdgeInsets.all(
+                        //     MediaQuery.of(context).size.width * 0.04),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            //  SizedBox(height: 10),////////////
-                            Text(
-                              widget.product['name'],
-                              style: TextStyle(
-                                color: headingColor,
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.02,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                IconButton(
+                                  onPressed:
+                                      saved ? unlikeProduct : likeProduct,
+                                  icon: saved
+                                      ? const Icon(Icons.favorite)
+                                      : const Icon(Icons.favorite_outline),
+                                  color: saved
+                                      ? primaryColor
+                                      : const Color.fromARGB(255, 75, 75, 75),
+                                  iconSize: 30,
+                                ),
+                              ],
                             ),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.01),
+                            // Text(
+                            //   widget.product['name'],
+                            //   style: TextStyle(
+                            //     color: headingColor,
+                            //     fontSize:
+                            //         MediaQuery.of(context).size.height * 0.022,
+                            //     fontWeight: FontWeight.bold,
+                            //   ),
+                            // ),
+                            // SizedBox(
+                            //     height:
+                            //         MediaQuery.of(context).size.height * 0.01),
                             Container(
                               decoration: BoxDecoration(
                                 border:
@@ -229,95 +225,126 @@ class _DetailPageState extends State<DetailPage> {
                                   Radius.circular(12.0),
                                 ),
                                 child: Image.asset(
-                                  widget.product['description'],
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.32,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.6,
-                                  fit: BoxFit.cover,
+                                  ('assets/walchand.jfif'),
+                                  alignment: Alignment.center,
+                                  // height:
+                                  //     MediaQuery.of(context).size.height * 0.18,
+                                  // width: MediaQuery.of(context).size.height * 0.20,
+                                  fit: BoxFit.fill,
                                 ),
                               ),
                             ),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.01),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "Quantity ",
-                                    style: TextStyle(
-                                      color: headingColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.015, /////////
-                                    ),
-                                  ),
-                                  Text(
-                                    widget.product['quantity'].toString(),
-                                    style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.015,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                    MediaQuery.of(context).size.height * 0.02),
+                            // Row(
+                            //   children: [
+                            //     Text(widget.product['description'], style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.02),),
+                            //   ],
+                            // ),
+                            HeadingAndField(
+                                heading: "Details:",
+                                field: widget.product['description']),
                             SizedBox(
                                 height:
-                                    MediaQuery.of(context).size.height * 0.005),
-                            Align(
-                              alignment: Alignment.topLeft,
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "Price ",
-                                    style: TextStyle(
-                                      color: headingColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.015,
-                                    ),
-                                  ),
-                                  Text(
-                                    widget.product['price'].toString(),
-                                    style: TextStyle(
-                                        color: Colors.grey,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.015 /////////
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.005),
-                            Align(
-                              alignment: Alignment.bottomRight,
-                              child: ElevatedButton(
-                                onPressed: null,
-                                style: buttonStyle,
-                                child: const Text(
-                                  "Contact Seller",
+                                    MediaQuery.of(context).size.width * 0.03),
+                            Row(
+                              children: [
+                                Text(
+                                  "Price: ",
                                   style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.019),
                                 ),
-                              ),
+                                Text(
+                                  "Rs. ",
+                                  style: TextStyle(
+                                    color: headingColor,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.02,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  widget.product['price'].toString(),
+                                  style: TextStyle(
+                                    color: headingColor,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.02,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.width * 0.03),
+                            Row(
+                              children: [
+                                Text(
+                                  "Available Quantity: ${widget.product['quantity']}",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.019),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.012),
+                            !sameuser
+                                ? Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ViewProfile()));
+                                      },
+                                      style: buttonStyle,
+                                      child: const Text(
+                                        "Contact Seller",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.012),
                           ],
                         ),
-                      )
+                      ),
+                      sameuser
+                          ? SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.04)
+                          : SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.007),
+                      sameuser
+                          ? ElevatedButton.icon(
+                              onPressed: deleteProduct,
+                              icon: const Icon(Icons.delete),
+                              label: const Text("Delete Product"),
+                              style: ElevatedButton.styleFrom(
+                                foregroundColor: Colors.white,
+                                backgroundColor: Colors.red,
+                                elevation: 5,
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(25.0))),
+                              ),
+                            )
+                          : const SizedBox()
                     ],
                   ),
                 ],

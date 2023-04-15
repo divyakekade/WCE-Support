@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class ChangePassword extends StatefulWidget {
@@ -18,10 +19,9 @@ class _ChangePasswordState extends State<ChangePassword> {
   String newPassword = "";
 
   Future<void> changePassword() async {
-    print(password);
-    print(newPassword);
     try {
       await Provider.of<Auth>(context,listen: false).changePassword(password, newPassword);
+      showCustomSnackbar(1, "Password changed successfully!", context);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }

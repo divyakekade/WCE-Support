@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/ChangePassword.dart';
+import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class EditProfile extends StatefulWidget {
@@ -58,6 +59,7 @@ class _EditProfileState extends State<EditProfile> {
       try {
         await Provider.of<Auth>(context, listen: false)
             .updateProfile(mobileNo, department, year);
+        showCustomSnackbar(1, "Profile updated successfully!", context);
         setState(() {
           editing = false;
         });

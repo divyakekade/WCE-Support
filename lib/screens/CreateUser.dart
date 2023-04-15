@@ -3,6 +3,8 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class CreateUser extends StatefulWidget {
@@ -47,16 +49,6 @@ class _CreateUserState extends State<CreateUser> {
   List<String> rolesList = <String>["select role", "Student", "Management"];
 
   Future<void> createUser() async {
-    print(firstName);
-    print(lastName);
-    print(username);
-    print(email);
-    print(password);
-    print(role);
-    print(department);
-    print(year);
-    print(mobileNo);
-
     final user = {
       "firstName": firstName,
        "lastName": lastName,
@@ -70,6 +62,9 @@ class _CreateUserState extends State<CreateUser> {
     };
     try {
       await Provider.of<Auth>(context, listen: false).createUser(user);
+      showCustomSnackbar(1, "New user created successfully!", context);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => SideMenuNavigation(loadedPage: 'create_user')));
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }

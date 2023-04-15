@@ -3,7 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleUserPastProducts.dart';
+import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class SellProduct extends StatefulWidget {
@@ -20,14 +22,13 @@ class _SellProductState extends State<SellProduct> {
   late double price=0.0;
 
   Future<void> addProduct() async {
-    print(productname);
-    print(description);
-    print(quantity);
-    print(price);
     try {
       String? id = await Provider.of<Auth>(context, listen: false).user_id;
       await Provider.of<Prod>(context, listen: false)
           .addProduct(productname, description, quantity, price, id);
+      showCustomSnackbar(1,"Product added successfully!", context);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => SideMenuNavigation(loadedPage: 'buy_products')));
     } catch (e) {
       showErrorDialogBox2(e.toString(), context);
     }
@@ -191,43 +192,36 @@ class _SellProductState extends State<SellProduct> {
                             height: width10 * 2,
                           ),
                           //button
-                          Container(
-                            margin: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.width * 0.039,
-                                vertical:
-                                    MediaQuery.of(context).size.height * 0.014),
-                            child: ElevatedButton(
-                                onPressed: null,
+                          Row(children: [
+                            ElevatedButton(
+                                onPressed: (){},
                                 style: secondButtonStyle,
                                 child: Text(
                                   "Add Image",
                                   style: TextStyle(
                                       fontSize:
                                           MediaQuery.of(context).size.width *
-                                              0.04),
+                                              0.045),
                                 )),
-                          ),
+                          ]),
                           SizedBox(
                             height: width10 * 2,
                           ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: ElevatedButton(
-                              onPressed: addProduct,
-                              style: buttonStyle,
-                              child: Text(
-                                "Save",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: MediaQuery.of(context).size.height *
-                                        0.025),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              ElevatedButton(
+                                onPressed: addProduct,
+                                style: buttonStyle,
+                                child: Text(
+                                  "Save",
+                                  style: TextStyle(
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.023),
+                                ),
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: width10 * 2,
+                            ],
                           ),
                         ],
                       ),
@@ -235,7 +229,7 @@ class _SellProductState extends State<SellProduct> {
                   ),
                 // )),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 const Divider(height: 1, thickness: 3, color: Colors.grey),
                 SizedBox(

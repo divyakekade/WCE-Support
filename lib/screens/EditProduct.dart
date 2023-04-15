@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
+import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/CustomSnackbar.dart';
 
 import '../Provider/Auth provider.dart';
 import '../Provider/productProvider.dart';
@@ -29,8 +31,9 @@ class _EditProductDetailsState extends State<EditProductDetails> {
       dynamic user = await Provider.of<Auth>(context, listen: false).user;
       await Provider.of<Prod>(context, listen: false)
           .updateProduct(productName, "Good product", productQuantity.toString(), productPrice, user['_id'] ,widget.product[4]);
+      showCustomSnackbar(1, "Details updated successfully!", context);
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const BuyProducts()));
+          .push(MaterialPageRoute(builder: (context) => SideMenuNavigation(loadedPage: 'create_user')));
     } catch (e) {
       showErrorDialogBox2(e.toString(), context);
     }

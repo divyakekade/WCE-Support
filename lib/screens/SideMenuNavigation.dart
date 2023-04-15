@@ -7,6 +7,7 @@ import 'package:wce_support/screens/FavouriteProducts.dart';
 import 'package:wce_support/screens/HomePage.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
 import 'package:wce_support/screens/HomeScreen.dart';
+import 'package:wce_support/screens/LogoutPage.dart';
 import 'package:wce_support/screens/PutGrievance.dart';
 import 'package:wce_support/screens/SellProducts.dart';
 import 'package:wce_support/screens/ViewGrievances.dart';
@@ -60,7 +61,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
     } else if (currentPage == "create_user") {
       container = const CreateUser();
     } else if (currentPage == "logout") {
-      container = const HomePage();
+      container = const LogoutPage();
       // QuickAlert.show(context: context, type: QuickAlertType.success);
     }
 
