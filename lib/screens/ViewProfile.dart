@@ -5,8 +5,8 @@ import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/HeadingAndField.dart';
 
 class ViewProfile extends StatefulWidget {
-  const ViewProfile({super.key});
-
+  ViewProfile({super.key,required this.user});
+  dynamic user ; 
   @override
   State<ViewProfile> createState() => _ViewProfileState();
 }
@@ -14,6 +14,7 @@ class ViewProfile extends StatefulWidget {
 class _ViewProfileState extends State<ViewProfile> {
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: const Appbar(),
       body: Stack(children: [
@@ -70,44 +71,44 @@ class _ViewProfileState extends State<ViewProfile> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.009,
                         ),
-                        const HeadingAndField(
+                         HeadingAndField(
                           heading: "Name: ",
-                          field: "Divya Kekade",
+                          field:"${widget.user['firstname']} ${widget.user['lastname']}",
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        const HeadingAndField(
+                         HeadingAndField(
                           heading: "Username: ",
-                          field: "2020BTECS00038",
+                          field: "${widget.user['username']}",
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        const HeadingAndField(
+                         HeadingAndField(
                           heading: "Email: ",
-                          field: "divya.kekade@walchandsangli.ac.in",
+                          field: "${widget.user['email']}",
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        const HeadingAndField(
+                         HeadingAndField(
                           heading: "Department: ",
-                          field: "Computer Science & Engineering",
+                          field: "${widget.user['department']}",
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        const HeadingAndField(
+                         HeadingAndField(
                           heading: "Year: ",
-                          field: "Third Year",
+                          field: "${widget.user['year']}",
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,
                         ),
-                        const HeadingAndField(
+                        HeadingAndField(
                           heading: "Mobile No.: ",
-                          field: "8626061856",
+                          field: "${widget.user['mobile']}",
                         ),
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.02,

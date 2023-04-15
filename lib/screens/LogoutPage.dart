@@ -6,6 +6,8 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
+import 'SideMenuNavigation.dart';
+
 class LogoutPage extends StatefulWidget {
   const LogoutPage({Key? key}) : super(key: key);
 
@@ -14,6 +16,12 @@ class LogoutPage extends StatefulWidget {
 }
 
 class _LogoutPageState extends State<LogoutPage> {
+  Future<void> logout() async {
+    await Provider.of<Auth>(context,listen: false).logout();
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+  }
+
   Widget build(BuildContext context) {
     double width10 = MediaQuery.of(context).size.width * 0.025;
     double heightc = MediaQuery.of(context).size.width * 0.053;
@@ -84,7 +92,7 @@ class _LogoutPageState extends State<LogoutPage> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: logout,
                                     style: buttonStyle,
                                     child: Text(
                                       "Logout",

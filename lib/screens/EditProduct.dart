@@ -28,7 +28,7 @@ class _EditProductDetailsState extends State<EditProductDetails> {
     print(productPrice);
     print(productQuantity);
     try {
-      dynamic user = await Provider.of<Auth>(context, listen: false).user;
+      dynamic user =  Provider.of<Auth>(context, listen: false).user;
       await Provider.of<Prod>(context, listen: false)
           .updateProduct(productName, "Good product", productQuantity.toString(), productPrice, user['_id'] ,widget.product[4]);
       showCustomSnackbar(1, "Details updated successfully!", context);

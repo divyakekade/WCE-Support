@@ -24,28 +24,21 @@ class DetailPage extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  bool sameuser = true;
+  bool sameuser = false;
   bool saved = false;
   var user;
   @override
   void initState() {
     user = Provider.of<Auth>(context, listen: false).user;
-    sameuser = widget.product['userID'] == user['_id'];
-    for (int i = 0; i < user['bookmark'].length; i++) {
-      if (user['bookmark'][i] == widget.product['_id']) {
-        saved = true;
+    String? id = Provider.of<Auth>(context, listen: false).user_id;
+    if (id != null) {
+      sameuser = widget.product['userID'] == user['_id'];
+      for (int i = 0; i < user['bookmark'].length; i++) {
+        if (user['bookmark'][i] == widget.product['_id']) {
+          saved = true;
+        }
       }
     }
-    // var product = user['bookmark'].map((pid) => pid == widget.product['_id']);
-    // print("product");
-    // print(product);
-    // if (product.lengt) {
-    //   saved = true;
-
-    // }
-    // else{
-    //   saved = false;
-    // }
   }
 
   Future<void> deleteProduct() async {
@@ -68,7 +61,8 @@ class _DetailPageState extends State<DetailPage> {
     dynamic user = Provider.of<Auth>(context, listen: false).user;
     try {
       dynamic newuser = await Provider.of<Prod>(context, listen: false)
-          .addBookmark(widget.product['_id'], user['_id']);
+          .addBookmark(user['_id'], widget.product['_id']);
+      await Provider.of<Auth>(context, listen: false).setUser(newuser);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -81,10 +75,25 @@ class _DetailPageState extends State<DetailPage> {
     dynamic user = Provider.of<Auth>(context, listen: false).user;
     try {
       dynamic newuser = await Provider.of<Prod>(context, listen: false)
-          .removeBookmark(widget.product['_id'], user['_id']);
+          .removeBookmark(user['_id'], widget.product['_id']);
+      await Provider.of<Auth>(context, listen: false).setUser(newuser);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
+  }
+
+  void viewuserdetails() async {
+   try{
+     var productowner = await Provider.of<Auth>(context, listen: false).getuser(widget.product['userID']);
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ViewProfile(
+              user:productowner
+            )));
+   }
+   catch(error)
+   {
+    showErrorDialogBox2(error.toString(), context);
+   }
   }
 
   @override
@@ -302,12 +311,7 @@ class _DetailPageState extends State<DetailPage> {
                                 ? Align(
                                     alignment: Alignment.bottomRight,
                                     child: ElevatedButton(
-                                      onPressed: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ViewProfile()));
-                                      },
+                                      onPressed: viewuserdetails,
                                       style: buttonStyle,
                                       child: const Text(
                                         "Contact Seller",

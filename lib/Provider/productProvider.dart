@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 class Prod with ChangeNotifier {
   static const ip = "10.40.7.176";
   var products = [];
+  var favproducts = [];
   Future<void> addProduct(String name, String description, int quantity,
       double price, String? id) async {
     final url = Uri.parse("http://${ip}:5000/product/add");
@@ -113,6 +114,7 @@ class Prod with ChangeNotifier {
       }
       return extractedData['newuser'];
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
@@ -129,10 +131,39 @@ class Prod with ChangeNotifier {
       final extractedData = json.decode(response.body);
       print(extractedData);
       if (response.statusCode != 200) {
+        // print(HttpException(extractedData['message']));
         throw HttpException(extractedData['message']);
       }
-       return extractedData['newuser'];
+      return extractedData['newuser'];
     } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<void> getfavouriteList(String uid) async {
+    try {
+      
+      final url = Uri.parse("http://${ip}:5000/user/favourite");
+      final response = await http.get(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+        'id': uid
+      });
+      final extractedData = json.decode(response.body);
+      if (response.statusCode != 200) {
+        // print(HttpException(extractedData['message']));
+        throw HttpException(extractedData['message']);
+      }
+
+       favproducts = extractedData['favourite'];
+      // for (int i = 0; i < favproductsid.length; i++) {
+      //   final product =
+      //       products.firstWhere((prod) => prod['_id'] == favproductsid[i]);
+            
+      //   favproducts.add(product);
+      // }
+      notifyListeners();
+    } catch (error) {
       rethrow;
     }
   }

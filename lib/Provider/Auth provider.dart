@@ -21,6 +21,15 @@ class Auth with ChangeNotifier {
     this.user_id = user_id;
   }
 
+  Future<void> setUser(dynamic user) async {
+    this.user = user;
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    final userv = json.encode({
+      "details": user,
+    });
+    pref.setString("user", userv);
+  }
+
   Future<void> login(String username, String password) async {
     final url = Uri.parse("http://${ip}:5000/user/login");
     print("Hello");
@@ -123,6 +132,32 @@ class Auth with ChangeNotifier {
       }
       user = extractedData['user'];
       ChangeNotifier();
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  Future<void> logout() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.clear();
+    user = null;
+    user_id = null;
+    token = null;
+    notifyListeners();
+  }
+
+  Future<dynamic> getuser(String uid) async {
+    final url = Uri.parse("http://${ip}:5000/user/getuser/${uid}");
+    try {
+      final response = await http.get(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+      });
+      final extractedData = json.decode(response.body);
+      if (response.statusCode != 200) {
+        // print(HttpException(extractedData['message']));
+        throw HttpException(extractedData['message']);
+      }
+      return extractedData['user'];
     } catch (error) {
       rethrow;
     }
