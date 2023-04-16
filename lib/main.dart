@@ -6,9 +6,18 @@ import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/BuyProducts.dart';
+import 'package:wce_support/screens/CreateUser.dart';
+import 'package:wce_support/screens/EditProfile.dart';
+import 'package:wce_support/screens/FavouriteProducts.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/LoginPage.dart';
+import 'package:wce_support/screens/LogoutPage.dart';
+import 'package:wce_support/screens/PutGrievance.dart';
+import 'package:wce_support/screens/SellProducts.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:wce_support/screens/ViewGrievances.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -56,7 +65,17 @@ class MyApp extends StatelessWidget {
               : SideMenuNavigation(
                   loadedPage: "home",
                 ),
-          routes: {}),
+          routes: {
+            BuyProducts.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'buy_products',),
+            HomeScreen.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'home',),
+            CreateUser.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'create_user',),
+            SellProduct.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'sell_products',),
+            FavouriteProducts.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'favourite_products',),
+            ViewGrievances.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'view_grievances',),
+            PutGrievance.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'put_grievance',),
+            LogoutPage.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'logout',),
+            EditProfile.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'view_profile',),
+          }),
     );
   }
 }

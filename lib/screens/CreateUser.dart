@@ -3,12 +3,14 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class CreateUser extends StatefulWidget {
   const CreateUser({super.key});
+  static String routeUrl = "./create-user";
 
   @override
   State<CreateUser> createState() => _CreateUserState();
@@ -70,8 +72,7 @@ class _CreateUserState extends State<CreateUser> {
     }
   }
   Future<bool> backNavigation() async {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
        return false;
   }
 

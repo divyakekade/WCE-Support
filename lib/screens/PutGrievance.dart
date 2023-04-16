@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/grievancesProvider.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
@@ -17,6 +18,7 @@ import 'package:image_picker/image_picker.dart';
 
 class PutGrievance extends StatefulWidget {
   const PutGrievance({super.key});
+  static String routeUrl = "./put-grievance";
 
   @override
   State<PutGrievance> createState() => _PutGrievanceState();
@@ -99,8 +101,7 @@ class _PutGrievanceState extends State<PutGrievance> {
     });
   }
   Future<bool> backNavigation() async {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
        return false;
   }
 

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleUserPastProducts.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
@@ -13,6 +14,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class SellProduct extends StatefulWidget {
   const SellProduct({super.key});
+  static String routeUrl = "./sell-products";
 
   @override
   State<SellProduct> createState() => _SellProductState();
@@ -75,8 +77,7 @@ class _SellProductState extends State<SellProduct> {
     });
   }
   Future<bool> backNavigation() async {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
        return false;
   }
 

@@ -6,12 +6,14 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/ChangePassword.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});
+  static String routeUrl = "./profile-settings";
 
   @override
   State<EditProfile> createState() => _EditProfileState();
@@ -92,8 +94,7 @@ class _EditProfileState extends State<EditProfile> {
     year = user['year'];
   }
   Future<bool> backNavigation() async {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
        return false;
   }
   

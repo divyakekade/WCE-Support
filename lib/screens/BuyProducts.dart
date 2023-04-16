@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleProduct.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
@@ -10,6 +11,7 @@ import '../widgets/errorDialogBox.dart';
 
 class BuyProducts extends StatefulWidget {
   const BuyProducts({super.key});
+  static String routeUrl = "./buy-products";
 
   @override
   State<BuyProducts> createState() => _BuyproductState();
@@ -37,8 +39,7 @@ class _BuyproductState extends State<BuyProducts> {
     super.didChangeDependencies();
   }
   Future<bool> backNavigation() async {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+        Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
        return false;
   }
   @override

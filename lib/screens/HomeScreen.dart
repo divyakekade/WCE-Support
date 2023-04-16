@@ -18,6 +18,7 @@ class HomeScreen extends StatefulWidget {
   String? user;
   String? userid;
   HomeScreen({super.key, this.token, this.user, this.userid});
+  static String routeUrl = "./home";
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -36,38 +37,42 @@ class _HomeScreenState extends State<HomeScreen> {
         .setuser(widget.token, widget.user, widget.userid);
     // }
   }
-  viewYourGrievances(){
+
+  viewYourGrievances() {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => SideMenuNavigation(loadedPage: 'put_grievance')));
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const SingleUserPastGrievances()));
   }
-  viewYourProducts(){
+
+  viewYourProducts() {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => SideMenuNavigation(loadedPage: 'sell_products')));
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const SingleUserPastProducts()));
   }
-  
+
   Future<bool> backNavigation() async {
-      return await showDialog( 
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Exit App'),
-          content: const Text('Do you want to exit an App?'),
-          actions:[
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child:const Text('No'),
-            ),
-            TextButton(
-              onPressed: () => exit(0), 
-              child:const Text('Yes'),
-            ),
-          ],
-        ),
-      )??false;
+    return await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Exit App'),
+            content: const Text('Do you want to exit an App?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('No'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
   }
+
   @override
   Widget build(BuildContext context) {
     final authtoken = Provider.of<Auth>(context, listen: false).token;
@@ -135,14 +140,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 authtoken == null
                     ? const LoginPage()
                     : Container(
-                       child: Column(
-                        children: [
-                          ContainerWithBlueBorder(content: "View Your Grievances", function: viewYourGrievances,),
-                          ContainerWithBlueBorder(content: "View Your Products", function: viewYourProducts),
-                        ],
-                       ),
-                    )
-                    // : const Center(child: Text("You are logged in")),
+                        child: Column(
+                          children: [
+                            ContainerWithBlueBorder(
+                              content: "View Your Grievances",
+                              function: viewYourGrievances,
+                            ),
+                            ContainerWithBlueBorder(
+                                content: "View Your Products",
+                                function: viewYourProducts),
+                          ],
+                        ),
+                      )
+                // : const Center(child: Text("You are logged in")),
               ],
             ),
           ),

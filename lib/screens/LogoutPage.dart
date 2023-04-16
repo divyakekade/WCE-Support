@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -10,6 +11,7 @@ import 'SideMenuNavigation.dart';
 
 class LogoutPage extends StatefulWidget {
   const LogoutPage({Key? key}) : super(key: key);
+  static String routeUrl = "./logout";
 
   @override
   State<LogoutPage> createState() => _LogoutPageState();
@@ -23,8 +25,7 @@ class _LogoutPageState extends State<LogoutPage> {
         builder: (context) => SideMenuNavigation(loadedPage: 'home')));
   }
   Future<bool> backNavigation() async {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
        return false;
   }
 

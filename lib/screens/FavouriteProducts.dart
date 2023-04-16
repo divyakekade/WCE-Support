@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleProduct.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
@@ -12,6 +13,7 @@ import '../Provider/grievancesProvider.dart';
 
 class FavouriteProducts extends StatefulWidget {
   const FavouriteProducts({super.key});
+  static String routeUrl = "./favourite-products";
 
   @override
   State<FavouriteProducts> createState() => _FavouriteProductsState();
@@ -39,8 +41,7 @@ class _FavouriteProductsState extends State<FavouriteProducts> {
     super.didChangeDependencies();
   }
   Future<bool> backNavigation() async {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
        return false;
   }
   

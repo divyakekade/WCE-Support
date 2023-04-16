@@ -7,12 +7,14 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleGrievance.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class ViewGrievances extends StatefulWidget {
   const ViewGrievances({super.key});
+  static String routeUrl = "./view-grievances";
 
   @override
   State<ViewGrievances> createState() => _ViewGrievancesState();
@@ -60,8 +62,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
   }
 
   Future<bool> backNavigation() async {
-      Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
        return false;
   }
   
