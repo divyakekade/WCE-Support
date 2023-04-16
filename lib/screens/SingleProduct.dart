@@ -6,6 +6,8 @@ import 'package:wce_support/screens/EditProduct.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/ViewProfile.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/ConfirmationDialogBox.dart';
+import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/HeadingAndField.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -13,17 +15,17 @@ import '../Provider/Auth provider.dart';
 import '../Provider/productProvider.dart';
 
 // ignore: must_be_immutable
-class DetailPage extends StatefulWidget implements PreferredSizeWidget {
+class SingleProductPage extends StatefulWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => throw UnimplementedError();
-  DetailPage({Key? key, required this.product}) : super(key: key);
+  SingleProductPage({Key? key, required this.product}) : super(key: key);
 
   dynamic product;
   @override
-  State<DetailPage> createState() => _DetailPageState();
+  State<SingleProductPage> createState() => _SingleProductPageState();
 }
 
-class _DetailPageState extends State<DetailPage> {
+class _SingleProductPageState extends State<SingleProductPage> {
   bool sameuser = false;
   bool saved = false;
   var user;
@@ -46,6 +48,7 @@ class _DetailPageState extends State<DetailPage> {
       var user = Provider.of<Auth>(context, listen: false).user;
       await Provider.of<Prod>(context, listen: false)
           .deleteProduct(user['_id'], widget.product['_id']);
+      showCustomSnackbar(1, "Product deleted successfully!", context);
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
               SideMenuNavigation(loadedPage: 'buy_products')));
@@ -83,17 +86,14 @@ class _DetailPageState extends State<DetailPage> {
   }
 
   void viewuserdetails() async {
-   try{
-     var productowner = await Provider.of<Auth>(context, listen: false).getuser(widget.product['userID']);
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => ViewProfile(
-              user:productowner
-            )));
-   }
-   catch(error)
-   {
-    showErrorDialogBox2(error.toString(), context);
-   }
+    try {
+      var productowner = await Provider.of<Auth>(context, listen: false)
+          .getuser(widget.product['userID']);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ViewProfile(user: productowner)));
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
+    }
   }
 
   @override
@@ -148,7 +148,14 @@ class _DetailPageState extends State<DetailPage> {
                         style: TextStyle(
                           color: headingColor,
                           fontWeight: FontWeight.w500,
-                          fontSize: MediaQuery.of(context).size.height * 0.023,
+                          fontSize: MediaQuery.of(context).size.height * 0.025,
+                          shadows: const [
+                            Shadow(
+                              offset: Offset(2.0, 2.0),
+                              blurRadius: 8.0,
+                              color: Color.fromRGBO(159, 157, 157, 1),
+                            )
+                          ],
                         ),
                       ),
                     ),
@@ -233,8 +240,8 @@ class _DetailPageState extends State<DetailPage> {
                                 borderRadius: const BorderRadius.all(
                                   Radius.circular(12.0),
                                 ),
-                                child: Image.asset(
-                                  ('assets/walchand.jfif'),
+                                child: Image.network(
+                                  widget.product['image'],
                                   alignment: Alignment.center,
                                   // height:
                                   //     MediaQuery.of(context).size.height * 0.18,
@@ -336,7 +343,7 @@ class _DetailPageState extends State<DetailPage> {
                                   MediaQuery.of(context).size.height * 0.007),
                       sameuser
                           ? ElevatedButton.icon(
-                              onPressed: deleteProduct,
+                              onPressed: (){showConfirmationDialogBox("Do you want to delete the product?", deleteProduct, context);},
                               icon: const Icon(Icons.delete),
                               label: const Text("Delete Product"),
                               style: ElevatedButton.styleFrom(

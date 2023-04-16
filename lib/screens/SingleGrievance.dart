@@ -7,6 +7,8 @@ import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/ConfirmationDialogBox.dart';
+import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/HeadingAndField.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -86,6 +88,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     try {
       await Provider.of<Griv>(context, listen: false)
           .deleteGrievance(widget.grievance['userID'], widget.grievance['_id']);
+      showCustomSnackbar(1, "Grievance deleted successfully!", context);
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
               SideMenuNavigation(loadedPage: "view_grievances")));
@@ -129,7 +132,12 @@ class _SingleGrievanceState extends State<SingleGrievance> {
               sameuser
                   ? (Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                       IconButton(
-                        onPressed: deleteGrievance,
+                        onPressed: () {
+                          showConfirmationDialogBox(
+                              "Do you want to delete the grievance?",
+                              deleteGrievance,
+                              context);
+                        },
                         icon: const Icon(Icons.delete),
                         color: const Color.fromARGB(255, 75, 75, 75),
                         iconSize: 32,
@@ -142,7 +150,14 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                     "${widget.grievance["subject"]}",
                     style: TextStyle(
                         color: headingColor,
-                        fontSize: MediaQuery.of(context).size.height * 0.023,
+                        fontSize: MediaQuery.of(context).size.height * 0.025,
+                        shadows: const [
+                          Shadow(
+                            offset: Offset(2.0, 2.0),
+                            blurRadius: 8.0,
+                            color: Color.fromRGBO(159, 157, 157, 1),
+                          )
+                        ],
                         fontWeight: FontWeight.w500),
                   )
                 ],
@@ -212,53 +227,82 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.05),
-                            widget.grievance['image']!=null ? Center(
-                              child: Container(
-                                width: 250,
-                                // height: 250,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Color.fromARGB(255, 7, 65, 79),
-                                      width: 1),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(widget.grievance['image'],
-                                    alignment: Alignment.center,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ):SizedBox(),
+                            widget.grievance['image'] != null
+                                ? Center(
+                                    child: Container(
+                                      width: 250,
+                                      // height: 250,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color:
+                                                Color.fromARGB(255, 7, 65, 79),
+                                            width: 1),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          widget.grievance['image'],
+                                          alignment: Alignment.center,
+                                          fit: BoxFit.cover,
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox(),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.05),
                             widget.grievance['feedback'] != null
                                 ? Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
                                         "Grievant's Feedback:",
                                         style: TextStyle(
                                             fontWeight: FontWeight.w500,
-                                            fontSize:
-                                                MediaQuery.of(context).size.height *
-                                                    0.019),
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.019),
                                       ),
-                                  ],
-                                ): const SizedBox(),
+                                    ],
+                                  )
+                                : const SizedBox(),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.02),
                             widget.grievance['feedback'] != null
-                                    ? HeadingAndField(
-                                        heading: "Is issue resolved?",
-                                        field: widget.grievance['feedback']['review']): const SizedBox(),
+                                ? HeadingAndField(
+                                    heading: "Is issue resolved?",
+                                    field: widget.grievance['feedback']
+                                        ['review'])
+                                : const SizedBox(),
                             widget.grievance['feedback'] != null
-                                    ? HeadingAndField(
-                                        heading: "Comment:",
-                                        field: widget.grievance['feedback']['comment']): const SizedBox(),
+                                ? HeadingAndField(
+                                    heading: "Comment:",
+                                    field: widget.grievance['feedback']
+                                        ['comment'])
+                                : const SizedBox(),
                           ],
                         ),
                       ),

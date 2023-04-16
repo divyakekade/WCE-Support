@@ -6,11 +6,11 @@ import '../Exceptions/httpexception.dart';
 import 'package:http/http.dart' as http;
 
 class Prod with ChangeNotifier {
-  static const ip = "10.40.7.176";
+  static const ip = "192.168.43.193";
   var products = [];
   var favproducts = [];
-  Future<void> addProduct(String name, String description, int quantity,
-      double price, String? id) async {
+  Future<void> addProduct(String name, String description, String quantity,
+      String price,String image, String? id) async {
     final url = Uri.parse("http://${ip}:5000/product/add");
     try {
       if (id == null) {
@@ -22,8 +22,9 @@ class Prod with ChangeNotifier {
       }, body: <String, String>{
         'name': name,
         'description': description,
-        'quantity': quantity.toString(),
-        'price': price.toString()
+        'quantity': quantity,
+        'price': price,
+        'image':image
       });
       final extractedData = json.decode(response.body);
       print(extractedData);
@@ -73,7 +74,7 @@ class Prod with ChangeNotifier {
   }
 
   Future<void> updateProduct(String name, String description, String quantity,
-      String price, String uid, String pid) async {
+      String price, String uid,String image, String pid) async {
     final url = Uri.parse("http://${ip}:5000/product/update");
     try {
       final response = await http.post(url, headers: <String, String>{
@@ -84,6 +85,7 @@ class Prod with ChangeNotifier {
         'description': description,
         'quantity': quantity,
         'price': price,
+        'image':image,
         'pid': pid
       });
       final extractedData = json.decode(response.body);

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
-import 'package:wce_support/screens/DetailPage.dart';
+import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/screens/SingleProduct.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 
 import '../widgets/errorDialogBox.dart';
@@ -35,63 +36,70 @@ class _BuyproductState extends State<BuyProducts> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
+  Future<bool> backNavigation() async {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+       return false;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 238, 245, 248),
-      body: isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints contraints) {
-              return Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.012),
-                    padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.0052,
-                        horizontal: MediaQuery.of(context).size.width * 0.05),
-                    decoration: headingBoxDecoration,
-                    child: Text(
-                      'Pick Up Your Choice',
-                      style: headingTextStyle,
+      body: WillPopScope(
+        onWillPop: backNavigation,
+        child: isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints contraints) {
+                return Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.012),
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.0052,
+                          horizontal: MediaQuery.of(context).size.width * 0.05),
+                      decoration: headingBoxDecoration,
+                      child: Text(
+                        'Pick Up Your Choice',
+                        style: headingTextStyle,
+                      ),
                     ),
-                  ),
-                  // Expanded(
-                  //   child: ListView(
-                  //     children: [
-                  //       ProductCard(imagename: "mas", productname: "Product Name"),
-                  //       ProductCard(imagename: "mas", productname: "Product Name"),
-                  //       ProductCard(imagename: "mas", productname: "Product Name"),
-                  //       ProductCard(imagename: "mas", productname: "Product Name"),
-                  //       ProductCard(imagename: "mas", productname: "Product Name"),
-                  //     ],
-                  //   ),
-                  // )
-                  const Divider(height: 1, thickness: 2, color: Colors.grey),
-                  Expanded(
-                      child: Container(
-                          //  color: Color.fromARGB(255, 238, 245, 248),
-                          color: backgroundColor,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.016,
-                                ),
-                                const GridB(),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.016,
-                                ),
-                              ],
-                            ),
-                          ))),
-                ],
-              );
-            }),
+                    // Expanded(
+                    //   child: ListView(
+                    //     children: [
+                    //       ProductCard(imagename: "mas", productname: "Product Name"),
+                    //       ProductCard(imagename: "mas", productname: "Product Name"),
+                    //       ProductCard(imagename: "mas", productname: "Product Name"),
+                    //       ProductCard(imagename: "mas", productname: "Product Name"),
+                    //       ProductCard(imagename: "mas", productname: "Product Name"),
+                    //     ],
+                    //   ),
+                    // )
+                    const Divider(height: 1, thickness: 2, color: Colors.grey),
+                    Expanded(
+                        child: Container(
+                            //  color: Color.fromARGB(255, 238, 245, 248),
+                            color: backgroundColor,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.016,
+                                  ),
+                                  const GridB(),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.016,
+                                  ),
+                                ],
+                              ),
+                            ))),
+                  ],
+                );
+              }),
+      ),
     );
   }
 }
@@ -124,7 +132,7 @@ class _GridBState extends State<GridB> {
           return InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => DetailPage(product:gridMap[index])));
+                  builder: (context) => SingleProductPage(product:gridMap[index])));
               // Navigator.of(context).push(MaterialPageRoute(
               //     builder: (context) => DetailPage(
               //           productname: "${gridMap.elementAt(index)['title']}",
@@ -160,8 +168,8 @@ class _GridBState extends State<GridB> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(6),
-                      child: Image.asset(
-                        ('assets/walchand.jfif'),
+                      child: Image.network(
+                        gridMap[index]['image'],
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height * 0.18,
                         width: MediaQuery.of(context).size.height * 0.20,

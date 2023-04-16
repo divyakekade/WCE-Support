@@ -21,7 +21,7 @@ class SidebarHeader extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.only(bottom: 12),
-            height: 70,
+            height: 80,
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(

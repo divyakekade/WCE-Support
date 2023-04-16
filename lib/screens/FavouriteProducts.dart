@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
-import 'package:wce_support/screens/DetailPage.dart';
+import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/screens/SingleProduct.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -37,52 +38,60 @@ class _FavouriteProductsState extends State<FavouriteProducts> {
     _isInit = false;
     super.didChangeDependencies();
   }
-
+  Future<bool> backNavigation() async {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+       return false;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Color.fromARGB(255, 238, 245, 248),
-      body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints contraints) {
-        return isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.012),
-                    padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.0052,
-                        horizontal: MediaQuery.of(context).size.width * 0.05),
-                    decoration: headingBoxDecoration,
-                    child: Text(
-                      'Your Favourite Products',
-                      style: headingTextStyle,
+      body: WillPopScope(
+        onWillPop: backNavigation,
+        child: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints contraints) {
+          return isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.012),
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.0052,
+                          horizontal: MediaQuery.of(context).size.width * 0.05),
+                      decoration: headingBoxDecoration,
+                      child: Text(
+                        'Your Favourite Products',
+                        style: headingTextStyle,
+                      ),
                     ),
-                  ),
-                  const Divider(height: 1, thickness: 2, color: Colors.grey),
-                  Expanded(
-                      child: Container(
-                          //  color: Color.fromARGB(255, 238, 245, 248),
-                          color: backgroundColor,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.016,
-                                ),
-                                const GridB(),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.height *
-                                      0.016,
-                                ),
-                              ],
-                            ),
-                          ))),
-                ],
-              );
-      }),
+                    const Divider(height: 1, thickness: 2, color: Colors.grey),
+                    Expanded(
+                        child: Container(
+                            //  color: Color.fromARGB(255, 238, 245, 248),
+                            color: backgroundColor,
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.016,
+                                  ),
+                                  const GridB(),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.016,
+                                  ),
+                                ],
+                              ),
+                            ))),
+                  ],
+                );
+        }),
+      ),
     );
   }
 }
@@ -114,7 +123,7 @@ class _GridBState extends State<GridB> {
           return InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => DetailPage(product: gridMap[index])));
+                  builder: (context) => SingleProductPage(product: gridMap[index])));
             },
             child: Container(
               margin: EdgeInsets.symmetric(

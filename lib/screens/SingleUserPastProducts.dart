@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:wce_support/constants/ColorsAndStyles.dart';
-import 'package:wce_support/screens/DetailPage.dart';
+import 'package:wce_support/screens/SingleProduct.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:wce_support/widgets/Appbar.dart';
 
@@ -129,7 +129,7 @@ class _GridBState extends State<GridB> {
           return InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => DetailPage(product:gridMap[index])));
+                  builder: (context) => SingleProductPage(product:gridMap[index])));
             },
             child: Container(
               margin: EdgeInsets.symmetric(
