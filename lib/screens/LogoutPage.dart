@@ -4,6 +4,7 @@ import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:wce_support/screens/HomeScreen.dart';
+import 'package:wce_support/screens/LoginPage.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -19,14 +20,14 @@ class LogoutPage extends StatefulWidget {
 
 class _LogoutPageState extends State<LogoutPage> {
   Future<void> logout() async {
-    await Provider.of<Auth>(context,listen: false).logout();
+    await Provider.of<Auth>(context, listen: false).logout();
     showCustomSnackbar(1, "You are logged out.", context);
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home')));
+    Navigator.of(context).popAndPushNamed(LoginPage.routeUrl);
   }
+
   Future<bool> backNavigation() async {
-      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
-       return false;
+    Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
+    return false;
   }
 
   Widget build(BuildContext context) {

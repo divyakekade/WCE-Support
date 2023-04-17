@@ -153,8 +153,8 @@ class _GridBState extends State<GridB> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(6),
-                      child: Image.asset(
-                        ('assets/walchand.jfif'),
+                      child: Image.network(
+                        gridMap[index]['image'],
                         alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height * 0.18,
                         width: MediaQuery.of(context).size.height * 0.20,

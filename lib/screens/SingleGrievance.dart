@@ -6,6 +6,7 @@ import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/screens/ViewProfile.dart';
 import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/ConfirmationDialogBox.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
@@ -101,6 +102,23 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     try {
       await Provider.of<Griv>(context, listen: false)
           .putfeedback(id, widget.grievance['_id'], feedback, comment);
+          showCustomSnackbar(1, "Comment posted succesfully ", context);
+      setState(() {
+        openFeedbackForm = false;
+        comment = '';
+      });
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
+     
+    }
+  }
+
+  void viewGrievantDetails() async {
+    try {
+      var productowner = await Provider.of<Auth>(context, listen: false)
+          .getuser(widget.grievance['userID']);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ViewProfile(user: productowner)));
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -216,6 +234,20 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.03),
+                            role == 'Management'
+                                ? Row(children: [
+                                    ElevatedButton(
+                                      onPressed: viewGrievantDetails,
+                                      style: buttonStyle,
+                                      child: const Text("Grievant's Profile"),
+                                    )
+                                  ])
+                                : const SizedBox(),
+                            role == "Management"
+                                ? SizedBox(
+                                    height: MediaQuery.of(context).size.width *
+                                        0.03)
+                                : const SizedBox(),
                             HeadingAndField(
                                 heading: "Status:",
                                 field: (widget.grievance['status'] !=
@@ -234,8 +266,8 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                       // height: 250,
                                       decoration: BoxDecoration(
                                         border: Border.all(
-                                            color:
-                                                Color.fromARGB(255, 7, 65, 79),
+                                            color: const Color.fromARGB(
+                                                255, 7, 65, 79),
                                             width: 1),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
@@ -249,8 +281,9 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                               Widget child,
                                               ImageChunkEvent?
                                                   loadingProgress) {
-                                            if (loadingProgress == null)
+                                            if (loadingProgress == null) {
                                               return child;
+                                            }
                                             return Center(
                                               child: CircularProgressIndicator(
                                                 value: loadingProgress

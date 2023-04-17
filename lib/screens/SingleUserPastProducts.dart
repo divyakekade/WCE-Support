@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:provider/provider.dart';
+import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SingleProduct.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+
+import '../Provider/productProvider.dart';
+import '../widgets/errorDialogBox.dart';
+import 'HomeScreen.dart';
 
 class SingleUserPastProducts extends StatefulWidget {
   const SingleUserPastProducts({super.key});
@@ -12,108 +18,103 @@ class SingleUserPastProducts extends StatefulWidget {
 }
 
 class _SingleUserPastProductsState extends State<SingleUserPastProducts> {
+  bool isLoading = false;
+  bool _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      setState(() {
+        isLoading = true;
+      });
+
+      Provider.of<Prod>(context).getProducts().then((_) {
+        setState(() {
+          isLoading = false;
+        });
+      }).catchError((error) {
+        showErrorDialogBox2(error.toString(), context);
+        setState(() {
+          isLoading = false;
+        });
+      });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
+  Future<bool> backNavigation() async {
+    Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const Appbar(),
-        // backgroundColor: Color.fromARGB(255, 238, 245, 248),
-        body: LayoutBuilder(
-            builder: (BuildContext context, BoxConstraints contraints) {
-          return Column(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.012),
-                padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.0052,
-                    horizontal: MediaQuery.of(context).size.width * 0.05),
-                decoration: headingBoxDecoration,
-                child: Text(
-                  'Your Products',
-                  style: headingTextStyle,
-                ),
-              ),
-              const Divider(height: 1, thickness: 2, color: Colors.grey),
-              Expanded(
-                  child: Container(
-                      //  color: Color.fromARGB(255, 238, 245, 248),
-                      color: backgroundColor,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(height: MediaQuery.of(context).size.height*0.016,),
-                            const GridB(),
-                            SizedBox(height: MediaQuery.of(context).size.height*0.016,),
-                          ],
-                        ),
-                      ))),
-            ],
-          );
-        }),
-      );
+      appBar: const Appbar(),
+      // backgroundColor: Color.fromARGB(255, 238, 245, 248),
+      body: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints contraints) {
+              return Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.012),
+                    padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.0052,
+                        horizontal: MediaQuery.of(context).size.width * 0.05),
+                    decoration: headingBoxDecoration,
+                    child: Text(
+                      'Your Products',
+                      style: headingTextStyle,
+                    ),
+                  ),
+                  const Divider(height: 1, thickness: 2, color: Colors.grey),
+                  Expanded(
+                      child: Container(
+                          //  color: Color.fromARGB(255, 238, 245, 248),
+                          color: backgroundColor,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.016,
+                                ),
+                                GridB(),
+                                SizedBox(
+                                  height: MediaQuery.of(context).size.height *
+                                      0.016,
+                                ),
+                              ],
+                            ),
+                          ))),
+                ],
+              );
+            }),
+    );
   }
 }
 
 class GridB extends StatefulWidget {
-  const GridB({Key? key}) : super(key: key);
+  GridB({Key? key}) : super(key: key);
 
   @override
   State<GridB> createState() => _GridBState();
 }
+
 class _GridBState extends State<GridB> {
-  final List<dynamic> gridMap = [
-    {
-      "title": "white T-shirt",
-      "price": "500 Rs",
-      "quantity": "2",
-      "images":
-          "https://tse3.mm.bing.net/th?id=OIP.fvoD8omL8_A_PuPqA8LFVAHaJQ&pid=Api&P=0"
-    },
-    {
-      "title": "Black shoes",
-      "price": "600 Rs",
-      "quantity": "3",
-      "images":
-          "https://tse2.mm.bing.net/th?id=OIP.YWLqzwgxHxFZSlDSM1uMtAHaHn&pid=Api&P=0"
-    },
-    {
-      "title": "black jeans",
-      "price": "1000 Rs",
-      "quantity": "1",
-      "images":
-          "https://tse3.mm.bing.net/th?id=OIP.HaH7d1nBe8h3edK3V-KzNgHaLH&pid=Api&P=0"
-    },
-    {
-      "title": "walakar cooler",
-      "price": "2000 Rs",
-      "quantity": "4",
-      "images":
-          "https://tse3.mm.bing.net/th?id=OIP.rg5SaZIq0C5EKydX4O1g9wHaHC&pid=Api&P=0"
-    },
-    {
-      "title": "Scale or ruler",
-      "price": "100 rs",
-      "quantity": "2",
-      "images":
-          "https://images-na.ssl-images-amazon.com/images/I/81akp8ODxVL._SL1500_.jpg"
-    },
-    {
-      "title": "cooking pot",
-      "price": "300 Rs",
-      "quantity": "2",
-      "images":
-          "https://tse4.mm.bing.net/th?id=OIP.oEhZWwkb0aHEYVWH7UamgAHaHa&pid=Api&P=0"
-    },
-    {
-      "title": "os book(galvin)",
-      "price": "250 Rs",
-      "quantity": "2",
-      "images":
-          "https://tse4.mm.bing.net/th?id=OIP.NRf637IxJAgcBP_u6h1zLgHaD4&pid=Api&P=0"
-    }
-  ];
+  var id ;
+  @override
+  void initState() {
+    id  = Provider.of<Auth>(context,listen: false).user_id; 
+  }
+
   @override
   Widget build(BuildContext context) {
+    final List<dynamic> gridMap =
+        Provider.of<Prod>(context, listen: false).products;
     return SingleChildScrollView(
       child: GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
@@ -126,10 +127,11 @@ class _GridBState extends State<GridB> {
         ),
         itemCount: gridMap.length,
         itemBuilder: (_, index) {
-          return InkWell(
+          return (id!=gridMap[index]['userID'])?SizedBox():InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SingleProductPage(product:gridMap[index])));
+                  builder: (context) =>
+                      SingleProductPage(product: gridMap[index])));
             },
             child: Container(
               margin: EdgeInsets.symmetric(
@@ -159,19 +161,19 @@ class _GridBState extends State<GridB> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(6),
                       child: Image.network(
-                      "${gridMap.elementAt(index)['images']}",
-                      alignment: Alignment.center,
+                        gridMap[index]['image'],
+                        alignment: Alignment.center,
                         height: MediaQuery.of(context).size.height * 0.18,
                         width: MediaQuery.of(context).size.height * 0.20,
                         fit: BoxFit.fill,
-                    ),
+                      ),
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.01,
                     ),
                     Center(
                       child: Text(
-                        "${gridMap.elementAt(index)['title']}",
+                        gridMap[index]['name'],
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize:
@@ -183,7 +185,7 @@ class _GridBState extends State<GridB> {
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height*0.001,
+                        vertical: MediaQuery.of(context).size.height * 0.001,
                       ),
                       decoration: BoxDecoration(
                         border: Border.all(width: 0.5, color: headingColor),
@@ -201,7 +203,7 @@ class _GridBState extends State<GridB> {
                                     MediaQuery.of(context).size.height * 0.018),
                           ),
                           Text(
-                            "${gridMap.elementAt(index)['price']}",
+                            gridMap[index]['price'].toString(),
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize:

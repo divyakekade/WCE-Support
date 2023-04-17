@@ -27,13 +27,13 @@ class PutGrievance extends StatefulWidget {
 class _PutGrievanceState extends State<PutGrievance> {
   String subject = "";
   String description = "";
-  String selectedOption = "Hostel Supervisor";
+  String selectedOption = "Hostel";
   String image = '';
   bool isloading = false;
   // final network = NetworkHandler();
   List<String> sectionList = <String>[
-    "Hostel Supervisor",
-    "Hostel Chief Rector",
+    "Hostel",
+
     "Exam Cell",
     "My Department"
   ];

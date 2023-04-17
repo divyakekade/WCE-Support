@@ -19,7 +19,7 @@ class SideMenuNavigation extends StatefulWidget {
   static const routeurl = "/sidemenunavigation";
   final String loadedPage;
   String? token;
-  String? user;
+  dynamic? user;
   String? userid;
   SideMenuNavigation(
       {super.key,
@@ -34,9 +34,13 @@ class SideMenuNavigation extends StatefulWidget {
 
 class SideMenuNavigationState extends State<SideMenuNavigation> {
   dynamic currentPage;
+  dynamic user;
   @override
   void initState() {
     super.initState();
+    Provider.of<Auth>(context, listen: false)
+        .setuser(widget.token, widget.user, widget.userid);
+    user = Provider.of<Auth>(context, listen: false).user;
     currentPage = widget.loadedPage;
   }
 
@@ -50,7 +54,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
       container = const BuyProducts();
     } else if (currentPage == "sell_products") {
       container = const SellProduct();
-    } else if(currentPage == "favourite_products") {
+    } else if (currentPage == "favourite_products") {
       container = const FavouriteProducts();
     } else if (currentPage == "view_grievances") {
       container = const ViewGrievances();
@@ -91,15 +95,18 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
               currentPage == "buy_products"),
           menuItem(3, "Sell Products", Icons.sell_outlined,
               currentPage == "sell_products"),
-          menuItem(4, "Favourite Products", Icons.favorite_border_outlined, currentPage=="favourite_products"),
+          menuItem(4, "Favourite Products", Icons.favorite_border_outlined,
+              currentPage == "favourite_products"),
           menuItem(5, "View Grievances", Icons.notes,
               currentPage == "view_grievances"),
           menuItem(6, "Put Grievance", Icons.feedback_outlined,
               currentPage == "put_grievance"),
           menuItem(7, "Profile Settings", Icons.settings_outlined,
               currentPage == "view_profile"),
-          menuItem(8, "Create New User", Icons.person_add_outlined,
-              currentPage == "create_user"),
+          user['isadmin']==true
+              ? menuItem(8, "Create New User", Icons.person_add_outlined,
+                  currentPage == "create_user")
+              : const SizedBox(),
           menuItem(9, "Logout", Icons.logout, currentPage == "logout"),
         ],
       ),
@@ -120,7 +127,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
               currentPage = "buy_products";
             } else if (id == 3) {
               currentPage = "sell_products";
-            } else if (id==4) {
+            } else if (id == 4) {
               currentPage = "favourite_products";
             } else if (id == 5) {
               currentPage = "view_grievances";
@@ -137,9 +144,6 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
             } else if (id == 9) {
               currentPage = "logout";
             }
-             
-            
-            
           });
         },
         child: Padding(

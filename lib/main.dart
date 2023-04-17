@@ -62,9 +62,7 @@ class MyApp extends StatelessWidget {
                   user: user,
                   userid: id,
                 )
-              : SideMenuNavigation(
-                  loadedPage: "home",
-                ),
+              : const LoginPage(),
           routes: {
             BuyProducts.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'buy_products',),
             HomeScreen.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'home',),
@@ -75,6 +73,7 @@ class MyApp extends StatelessWidget {
             PutGrievance.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'put_grievance',),
             LogoutPage.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'logout',),
             EditProfile.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'view_profile',),
+            LoginPage.routeUrl: (ctx) => LoginPage(),
           }),
     );
   }
