@@ -9,7 +9,7 @@ class Auth with ChangeNotifier {
   String? token;
   String? user_id;
   dynamic user;
-  String? ip = "192.168.43.193";
+  String? ip = "192.168.43.89";
   void setuser(String? token, String? user, String? user_id) {
     if (user == null || token == null) {
       return;
