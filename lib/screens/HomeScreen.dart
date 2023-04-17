@@ -40,14 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   viewYourGrievances() {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'put_grievance')));
-    Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const SingleUserPastGrievances()));
   }
 
   viewYourProducts() {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'sell_products')));
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const SingleUserPastProducts()));
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
-import 'package:wce_support/screens/BuyProducts.dart';
 import 'package:wce_support/screens/EditProduct.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/ViewProfile.dart';
@@ -209,18 +208,6 @@ class _SingleProductPageState extends State<SingleProductPage> {
                                 ),
                               ],
                             ),
-                            // Text(
-                            //   widget.product['name'],
-                            //   style: TextStyle(
-                            //     color: headingColor,
-                            //     fontSize:
-                            //         MediaQuery.of(context).size.height * 0.022,
-                            //     fontWeight: FontWeight.bold,
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //     height:
-                            //         MediaQuery.of(context).size.height * 0.01),
                             Container(
                               decoration: BoxDecoration(
                                 border:
@@ -243,21 +230,30 @@ class _SingleProductPageState extends State<SingleProductPage> {
                                 child: Image.network(
                                   widget.product['image'],
                                   alignment: Alignment.center,
-                                  // height:
-                                  //     MediaQuery.of(context).size.height * 0.18,
-                                  // width: MediaQuery.of(context).size.height * 0.20,
                                   fit: BoxFit.fill,
+                                  loadingBuilder: (BuildContext context,
+                                      Widget child,
+                                      ImageChunkEvent? loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                loadingProgress
+                                                    .expectedTotalBytes!
+                                            : null,
+                                      ),
+                                    );
+                                  },
                                 ),
                               ),
                             ),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.02),
-                            // Row(
-                            //   children: [
-                            //     Text(widget.product['description'], style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.02),),
-                            //   ],
-                            // ),
                             HeadingAndField(
                                 heading: "Details:",
                                 field: widget.product['description']),
@@ -343,7 +339,12 @@ class _SingleProductPageState extends State<SingleProductPage> {
                                   MediaQuery.of(context).size.height * 0.007),
                       sameuser
                           ? ElevatedButton.icon(
-                              onPressed: (){showConfirmationDialogBox("Do you want to delete the product?", deleteProduct, context);},
+                              onPressed: () {
+                                showConfirmationDialogBox(
+                                    "Do you want to delete the product?",
+                                    deleteProduct,
+                                    context);
+                              },
                               icon: const Icon(Icons.delete),
                               label: const Text("Delete Product"),
                               style: ElevatedButton.styleFrom(
@@ -362,61 +363,6 @@ class _SingleProductPageState extends State<SingleProductPage> {
               ),
             ),
           ),
-        ])
-        //ProductDetails(p: productname, pr: price, q: quantity, i: imageaddress, ),
-        );
+        ]));
   }
 }
-
-// class ProductDetails extends StatefulWidget{
-//   const ProductDetails({Key? key,
-//     required this.p,
-//     required this.pr,
-//     required this.q,
-//     required this.i,
-//   }) : super(key: key);
-//
-//   final String p;
-//   final String pr;
-//   final String q;
-//   final String i;
-//
-//
-//   @override
-//   State<ProductDetails> createState() => _ProductPageState();
-// }
-//
-// class _ProductPageState extends State<ProductDetails>{
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       children: [
-//         Align(
-//           alignment: Alignment.topLeft,
-//           child: Padding(
-//             padding: EdgeInsets.only(left: 10, top: 10),
-//             child: Text("Product Details",
-//               style: TextStyle(
-//                   fontWeight: FontWeight.bold,
-//                   fontSize: 25
-//               ),
-//             ),
-//           ),
-//         ),
-//         const Divider(height: 1, thickness: 2, color: Colors.grey),
-//         Container(
-//           color: greyColor,
-//           margin: EdgeInsets.all(20),
-//           child: Column(
-//             children: [
-//               Text(p),
-//             ],
-//           ),
-//         )
-//       ],
-//     )
-//     // TODO: implement build
-//     throw UnimplementedError();
-//   }
-//
-// }
