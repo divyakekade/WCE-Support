@@ -256,10 +256,11 @@ class _SellProductState extends State<SellProduct> {
                                 ),
                                 //button
                                 Row(children: [
-                                  ElevatedButton(
+                                  ElevatedButton.icon(
                                       onPressed: pickImage,
                                       style: secondButtonStyle,
-                                      child: Text(
+                                      icon: const Icon(Icons.add_a_photo_outlined),
+                                      label: Text(
                                         "Add Image",
                                         style: TextStyle(
                                             fontSize: MediaQuery.of(context)

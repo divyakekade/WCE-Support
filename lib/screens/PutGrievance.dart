@@ -241,10 +241,11 @@ class _PutGrievanceState extends State<PutGrievance> {
                                       MediaQuery.of(context).size.height * 0.012,
                                 ),
                                 Row(children: [
-                                  ElevatedButton(
+                                  ElevatedButton.icon(
                                       onPressed: pickImage,
                                       style: secondButtonStyle,
-                                      child: Text(
+                                      icon: const Icon(Icons.add_a_photo_outlined),
+                                      label: Text(
                                         "Add Image",
                                         style: TextStyle(
                                             fontSize: MediaQuery.of(context)

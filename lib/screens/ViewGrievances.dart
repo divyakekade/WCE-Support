@@ -239,7 +239,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                                                                           context)
                                                                       .size
                                                                       .height *
-                                                                  0.016,
+                                                                  0.015,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500),
@@ -250,14 +250,14 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                                                               ? "${l['status']}"
                                                               : (l['feedback'] ==
                                                                       null)
-                                                                  ? "${l['status']} and  not Feedbacked"
-                                                                  : "${l['status']} and  Feedbacked",
+                                                                  ? "${l['status']} and not Feedbacked"
+                                                                  : "${l['status']} and Feedbacked",
                                                           style: TextStyle(
                                                               fontSize: MediaQuery.of(
                                                                           context)
                                                                       .size
                                                                       .height *
-                                                                  0.016,
+                                                                  0.015,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .w500),

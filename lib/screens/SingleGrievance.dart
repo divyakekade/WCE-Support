@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
@@ -122,6 +123,12 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
+  }
+
+  showImageFullScreen(){
+    final imageProvider = Image.network(widget.grievance['image']).image;
+    showImageViewer(context, imageProvider, onViewerDismissed: () {
+    });
   }
 
   @override
@@ -261,47 +268,39 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                     MediaQuery.of(context).size.width * 0.05),
                             widget.grievance['image'] != null
                                 ? Center(
-                                    child: Container(
-                                      width: 250,
-                                      // height: 250,
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: const Color.fromARGB(
-                                                255, 7, 65, 79),
-                                            width: 1),
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          widget.grievance['image'],
-                                          alignment: Alignment.center,
-                                          fit: BoxFit.cover,
-                                          loadingBuilder: (BuildContext context,
-                                              Widget child,
-                                              ImageChunkEvent?
-                                                  loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return Center(
-                                              child: CircularProgressIndicator(
-                                                value: loadingProgress
-                                                            .expectedTotalBytes !=
-                                                        null
-                                                    ? loadingProgress
-                                                            .cumulativeBytesLoaded /
-                                                        loadingProgress
-                                                            .expectedTotalBytes!
-                                                    : null,
-                                              ),
-                                            );
-                                          },
+                                    child: InkWell(
+                                        onTap: showImageFullScreen,
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+                                          child: Image.network(
+                                            widget.grievance['image'],
+                                            alignment: Alignment.center,
+                                            fit: BoxFit.cover,
+                                            loadingBuilder: (BuildContext context,
+                                                Widget child,
+                                                ImageChunkEvent?
+                                                    loadingProgress) {
+                                              if (loadingProgress == null) {
+                                                return child;
+                                              }
+                                              return Center(
+                                                child: CircularProgressIndicator(
+                                                  value: loadingProgress
+                                                              .expectedTotalBytes !=
+                                                          null
+                                                      ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProgress
+                                                              .expectedTotalBytes!
+                                                      : null,
+                                                ),
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ),
-                                    ),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.05),
