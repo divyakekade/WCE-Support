@@ -48,6 +48,10 @@ dependencies:
   firebase_storage: ^11.1.0
   firebase_core: ^2.9.0
   easy_image_viewer: ^1.2.0
+  file_picker: ^5.2.10
+  excel: ^2.1.0
+  flutter_excel: ^1.0.1
+  csv: ^5.0.2
 
 dev_dependencies:
   flutter_test:

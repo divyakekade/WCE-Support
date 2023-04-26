@@ -6,7 +6,7 @@ import '../Exceptions/httpexception.dart';
 import 'package:http/http.dart' as http;
 
 class Prod with ChangeNotifier {
-  static const ip = "192.168.43.89";
+  static const ip = "192.168.43.95";
   static const url1="";
   static const url2="";
   var products = [];
