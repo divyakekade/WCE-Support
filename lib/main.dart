@@ -17,6 +17,8 @@ import 'package:wce_support/screens/PutGrievance.dart';
 import 'package:wce_support/screens/SellProducts.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:wce_support/screens/UploadUsersData.dart';
+import 'package:wce_support/screens/UsersManagement.dart';
 import 'package:wce_support/screens/ViewGrievances.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -66,14 +68,14 @@ class MyApp extends StatelessWidget {
           routes: {
             BuyProducts.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'buy_products',),
             HomeScreen.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'home',),
-            CreateUser.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'create_user',),
             SellProduct.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'sell_products',),
             FavouriteProducts.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'favourite_products',),
             ViewGrievances.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'view_grievances',),
             PutGrievance.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'put_grievance',),
             LogoutPage.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'logout',),
             EditProfile.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'view_profile',),
-            LoginPage.routeUrl: (ctx) => LoginPage(),
+            LoginPage.routeUrl: (ctx) => const LoginPage(),
+            UsersManagement.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'users_management'),
           }),
     );
   }

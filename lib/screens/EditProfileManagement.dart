@@ -1,25 +1,22 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
-import 'package:wce_support/screens/ChangePassword.dart';
-import 'package:wce_support/screens/HomeScreen.dart';
-import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
-  static String routeUrl = "./profile-settings";
+class EditProfileManagement extends StatefulWidget {
+  EditProfileManagement({super.key,required this.user});
+  dynamic user ; 
+  static String routeUrl = "./edit-profile-management";
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<EditProfileManagement> createState() => _EditProfileManagementState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _EditProfileManagementState extends State<EditProfileManagement> {
   String firstName = "Divya";
   String lastName = "Kekade";
   String username = "2020BTECS00038";
@@ -29,8 +26,8 @@ class _EditProfileState extends State<EditProfile> {
   String department = "Computer Science & Engineering";
   String year = "Third Year";
   String mobileNo = "8626061856";
-  bool showYearBranch = false;
-  bool editing = false;
+  bool showYearBranch = true;
+  bool editing = true;
   dynamic user;
 
   List<String> departmentsList = <String>[
@@ -56,9 +53,9 @@ class _EditProfileState extends State<EditProfile> {
   List<String> rolesList = <String>["select role", "Student", "Management"];
 
   Future<void> editProfile() async {
-    if (mobileNo != user['mobile'] ||
-        year != user['year'] ||
-        department != user['department']) {
+    if (mobileNo != widget.user['mobile'] ||
+        year != widget.user['year'] ||
+        department != widget.user['department']) {
       try {
         await Provider.of<Auth>(context, listen: false)
             .updateProfile(mobileNo, department, year);
@@ -82,20 +79,15 @@ class _EditProfileState extends State<EditProfile> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    user = Provider.of<Auth>(context, listen: false).user;
-    print(user);
-    firstName = user['firstname'];
-    lastName = user['lastname'];
-    username = user['username'];
-    email = user['email'];
-    mobileNo = user['mobile'];
-    role = user['role'];
-    department = user['department'];
-    year = user['year'];
-  }
-  Future<bool> backNavigation() async {
-      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
-       return false;
+    // user = Provider.of<Auth>(context, listen: false).user;
+    // print(widget.user);
+    firstName = widget.user['firstname'];
+    lastName = widget.user['lastname'];
+    username = widget.user['username'];
+    email = widget.user['email'];
+    mobileNo = widget.user['mobile'];
+    department = widget.user['department'];
+    year = widget.user['year'];
   }
   
   @override
@@ -106,10 +98,8 @@ class _EditProfileState extends State<EditProfile> {
     //   });
     // }
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
-      body: WillPopScope(
-        onWillPop: backNavigation,
-        child: Stack(children: [
+      appBar: const Appbar(),
+      body: Stack(children: [
           Container(
               width: double.infinity,
               height: double.infinity,
@@ -124,7 +114,7 @@ class _EditProfileState extends State<EditProfile> {
                     horizontal: MediaQuery.of(context).size.width * 0.05),
                 decoration: headingBoxDecoration,
                 child: Text(
-                  'Your Profile',
+                  'Edit User Profile',
                   style: headingTextStyle,
                 ),
               ),
@@ -153,12 +143,8 @@ class _EditProfileState extends State<EditProfile> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          editing = true;
-                                        });
-                                      },
-                                      icon: const Icon(Icons.edit),
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.delete),
                                       color:
                                           const Color.fromARGB(255, 75, 75, 75),
                                       iconSize: 28,
@@ -185,6 +171,34 @@ class _EditProfileState extends State<EditProfile> {
                                 height:
                                     MediaQuery.of(context).size.height * 0.009,
                               ),
+                              TextFormField(
+                                style: !editing
+                                    ? const TextStyle(color: Colors.grey)
+                                    : null,
+                                initialValue: username,
+                                onChanged: (un) {
+                                  setState(() {
+                                    username=un;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                    enabled: editing,
+                                    labelText: 'username',
+                                    contentPadding: const EdgeInsets.all(12),
+                                    border: const OutlineInputBorder(
+                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                        borderSide: BorderSide(
+                                            color: Colors.black, width: 2.0)),
+                                    focusedBorder: const OutlineInputBorder(
+                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                        borderSide: BorderSide(
+                                      color: Colors.black,
+                                    ))),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.025,
+                              ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -192,24 +206,24 @@ class _EditProfileState extends State<EditProfile> {
                                     width:
                                         MediaQuery.of(context).size.width * 0.4,
                                     child: TextFormField(
-                                      style: const TextStyle(color: Colors.grey),
+                                      // style: const TextStyle(color: Colors.grey),
                                       initialValue: firstName,
                                       onChanged: (name) {
                                         setState(() {
                                           firstName = name;
                                         });
                                       },
-                                      decoration: const InputDecoration(
-                                          enabled: false,
+                                      decoration: InputDecoration(
+                                          enabled: editing,
                                           labelText: 'first name',
                                           contentPadding:
-                                              EdgeInsets.all(12),
-                                          border: OutlineInputBorder(
+                                              const EdgeInsets.all(12),
+                                          border: const OutlineInputBorder(
                                               // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                               borderSide: BorderSide(
                                                   color: Colors.black,
                                                   width: 2.0)),
-                                          focusedBorder: OutlineInputBorder(
+                                          focusedBorder: const OutlineInputBorder(
                                               // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                               borderSide: BorderSide(
                                             color: Colors.black,
@@ -221,23 +235,23 @@ class _EditProfileState extends State<EditProfile> {
                                         MediaQuery.of(context).size.width * 0.4,
                                     child: TextFormField(
                                       initialValue: lastName,
-                                      style: const TextStyle(color: Colors.grey),
+                                      // style: const TextStyle(color: Colors.grey),
                                       onChanged: (name) {
                                         setState(() {
                                           lastName = name;
                                         });
                                       },
-                                      decoration: const InputDecoration(
-                                          enabled: false,
+                                      decoration: InputDecoration(
+                                          enabled: editing,
                                           labelText: 'last name',
                                           contentPadding:
-                                               EdgeInsets.all(12),
-                                          border: OutlineInputBorder(
+                                               const EdgeInsets.all(12),
+                                          border: const OutlineInputBorder(
                                               // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                               borderSide: BorderSide(
                                                   color: Colors.black,
                                                   width: 2.0)),
-                                          focusedBorder: OutlineInputBorder(
+                                          focusedBorder: const OutlineInputBorder(
                                               // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                               borderSide: BorderSide(
                                             color: Colors.black,
@@ -251,22 +265,22 @@ class _EditProfileState extends State<EditProfile> {
                                     MediaQuery.of(context).size.height * 0.025,
                               ),
                               TextFormField(
-                                style: const TextStyle(color: Colors.grey),
+                                // style: const TextStyle(color: Colors.grey),
                                 initialValue: email,
                                 onChanged: (mail) {
                                   setState(() {
                                     email = mail;
                                   });
                                 },
-                                decoration: const InputDecoration(
-                                    enabled: false,
+                                decoration: InputDecoration(
+                                    enabled: editing,
                                     labelText: 'email',
-                                    contentPadding: EdgeInsets.all(12),
-                                    border: OutlineInputBorder(
+                                    contentPadding: const EdgeInsets.all(12),
+                                    border: const OutlineInputBorder(
                                         // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                         borderSide: BorderSide(
                                             color: Colors.black, width: 2.0)),
-                                    focusedBorder: OutlineInputBorder(
+                                    focusedBorder: const OutlineInputBorder(
                                         // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                         borderSide: BorderSide(
                                       color: Colors.black,
@@ -312,7 +326,7 @@ class _EditProfileState extends State<EditProfile> {
                               //       child: Text(
                               //         value,
                               //         overflow: TextOverflow.ellipsis,
-                              //         style: const TextStyle(color: Colors.grey),
+                              //         // style: const TextStyle(color: Colors.grey),
                               //       ),
                               //     );
                               //   }).toList(),
@@ -451,13 +465,6 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.003,
                       ),
-                      ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const ChangePassword()));
-                          },
-                          style: buttonStyle,
-                          child: const Text("Change Password"))
                     ],
                   ),
                 ),
@@ -465,7 +472,6 @@ class _EditProfileState extends State<EditProfile> {
             ],
           ),
         ]),
-      ),
     );
   }
 }

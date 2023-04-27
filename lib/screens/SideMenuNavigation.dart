@@ -10,6 +10,7 @@ import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/LogoutPage.dart';
 import 'package:wce_support/screens/PutGrievance.dart';
 import 'package:wce_support/screens/SellProducts.dart';
+import 'package:wce_support/screens/UsersManagement.dart';
 import 'package:wce_support/screens/ViewGrievances.dart';
 import 'package:wce_support/widgets/SidebarHeader.dart';
 import '../Provider/Auth provider.dart';
@@ -62,8 +63,8 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
       container = const PutGrievance();
     } else if (currentPage == "view_profile") {
       container = const EditProfile();
-    } else if (currentPage == "create_user") {
-      container = const CreateUser();
+    } else if (currentPage == "users_management") {
+      container = const UsersManagement();
     } else if (currentPage == "logout") {
       container = const LogoutPage();
       // QuickAlert.show(context: context, type: QuickAlertType.success);
@@ -104,8 +105,8 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
           menuItem(7, "Profile Settings", Icons.settings_outlined,
               currentPage == "view_profile"),
           user['isadmin']==true
-              ? menuItem(8, "Create New User", Icons.person_add_outlined,
-                  currentPage == "create_user")
+              ? menuItem(8, "Users Management", Icons.person_add_outlined,
+                  currentPage == "users_management")
               : const SizedBox(),
           menuItem(9, "Logout", Icons.logout, currentPage == "logout"),
         ],
@@ -140,7 +141,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
             } else if (id == 7) {
               currentPage = "view_profile";
             } else if (id == 8) {
-              currentPage = "create_user";
+              currentPage = "users_management";
             } else if (id == 9) {
               currentPage = "logout";
             }

@@ -53,7 +53,7 @@ final headingTextStyle = TextStyle(
   ],
   color: headingColor,
   fontWeight: FontWeight.w500,
-  fontSize: MediaQueryData.fromWindow(ui.window).size.height * 0.028,
+  fontSize: MediaQueryData.fromWindow(ui.window).size.height * 0.026,
 );
 
 // final buttonStyle = ElevatedButton.styleFrom(

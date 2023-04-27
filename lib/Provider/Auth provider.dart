@@ -9,7 +9,7 @@ class Auth with ChangeNotifier {
   String? token;
   String? user_id;
   dynamic user;
-  String? ip = "192.168.43.95";
+  String? ip = "10.40.1.26";
   void setuser(String? token, String? user, String? user_id) {
     if (user == null || token == null) {
       return;
@@ -77,7 +77,6 @@ class Auth with ChangeNotifier {
         'username': userdetails["username"],
         'password': userdetails["password"],
         'email': userdetails["email"],
-        'role': userdetails["role"],
         'department': userdetails["department"],
         'year': userdetails["year"],
         'mobile': userdetails["mobileNo"]
@@ -92,7 +91,31 @@ class Auth with ChangeNotifier {
       rethrow;
     }
   }
+  Future<void>storeAllUsers(List<dynamic> users,String uid)async{
+        var url = Uri.parse("http://${ip}:5000/user/storeusers");
+        print(users);
+      try {
+      var response = await http.post(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+         'id':uid
+      }, body: <String, String>{
+        "users":users.toString()
+      });
+      final extractedData = json.decode(response.body);
+      final statusCode = response.statusCode;
+      // print(statusCode);
+      if (statusCode != 200) {
+        // throw HttpException(extractedData['message']);
+      }
+      // print(extractedData);
+    
+  }
+  catch(error)
+  {
+    rethrow ;
+  }
 
+  }
   // Future<void>createManagment(String )
   Future<void> changePassword(String oldpassword, String newpassword) async {
     final url = Uri.parse("http://${ip}:5000/user/changepassword");
@@ -157,6 +180,27 @@ class Auth with ChangeNotifier {
         // print(HttpException(extractedData['message']));
         throw HttpException(extractedData['message']);
       }
+      return extractedData['user'];
+    } catch (error) {
+      rethrow;
+    }
+  }
+  Future<dynamic>fetchUserByPrn(String username,String uid)async{
+
+    final url = Uri.parse("http://${ip}:5000/user/getuserbyprn/${username}");
+    try {
+      final response = await http.get(url, headers: <String, String>{
+        'Context-Type': 'application/json;charSet=UTF-8',
+        'id':uid
+      });
+      final extractedData = json.decode(response.body);
+      print(extractedData);
+      if (response.statusCode != 200) {
+        // print(extractedData['message']);
+        throw HttpException(extractedData['message']);
+        // return null ; 
+      }
+      // print(extractedData['user']);
       return extractedData['user'];
     } catch (error) {
       rethrow;

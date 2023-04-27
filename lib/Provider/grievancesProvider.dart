@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:wce_support/Exceptions/httpexception.dart';
 
 class Griv with ChangeNotifier {
-  static const ip = "192.168.43.95";
+  static const ip = "10.40.1.26";
   var grievance = [];
   Future<void> putGrievance(String subject, String description,
       String selectedOption,String image, String? id) async {

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:provider/provider.dart';
-import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:wce_support/widgets/CustomSnackbar.dart';
-import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class ContainerWithBlueBorder extends StatefulWidget {
   const ContainerWithBlueBorder({Key? key, required this.content, required this.function}) : super(key: key);
@@ -15,6 +11,7 @@ class ContainerWithBlueBorder extends StatefulWidget {
 }
 
 class _ContainerWithBluwBorderState extends State<ContainerWithBlueBorder> {
+  @override
   Widget build(BuildContext context) {
     double width10 = MediaQuery.of(context).size.width * 0.025;
     double heightc = MediaQuery.of(context).size.width * 0.053;
@@ -23,8 +20,8 @@ class _ContainerWithBluwBorderState extends State<ContainerWithBlueBorder> {
                   vertical: MediaQuery.of(context).size.height * 0.02,
                   horizontal: MediaQuery.of(context).size.width * 0.06),
               padding: EdgeInsets.symmetric(
-                  vertical: MediaQuery.of(context).size.height * 0.02,
-                  horizontal: MediaQuery.of(context).size.width * 0.015),
+                  vertical: MediaQuery.of(context).size.height * 0.016,
+                  horizontal: MediaQuery.of(context).size.width * 0.009),
               decoration: BoxDecoration(
                 color: const Color(0x9d47b6d2),
                 border: Border.all(
@@ -55,7 +52,7 @@ class _ContainerWithBluwBorderState extends State<ContainerWithBlueBorder> {
                                 style: TextStyle(
                                     fontSize:
                                         MediaQuery.of(context).size.height *
-                                            0.022,
+                                            0.019,
                                     fontWeight: FontWeight.w500),
                               ),
                               SizedBox(
@@ -73,7 +70,7 @@ class _ContainerWithBluwBorderState extends State<ContainerWithBlueBorder> {
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: heightc * 0.9),
+                                          fontSize: heightc * 0.8),
                                     ),
                                   ),
                                 ],
