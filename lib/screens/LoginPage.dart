@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:wce_support/screens/LoginCard.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
@@ -26,25 +27,28 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  Widget build(BuildContext context) {
-    double width10 = MediaQuery.of(context).size.width * 0.025;
-    double heightc = MediaQuery.of(context).size.width * 0.053;
-    // double hc = MediaQuery.of(context).size.height * 0.45;
-    // double wc = MediaQuery.of(context).size.width * 0.9;
-    Future<void> login() async {
-      print(_emailController.text);
-      print(_passwordController.text);
-      try {
-        await Provider.of<Auth>(context, listen: false)
-            .login(_emailController.text, _passwordController.text);
-        showCustomSnackbar(1, "Logged in successfully!", context);
-        Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => SideMenuNavigation(loadedPage: 'home',)));
-      } catch (error) {
-        showErrorDialogBox2(error.toString(), context);
-      }
-    }
+  Future<bool> backNavigation() async {
+    return await showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Exit App'),
+            content: const Text('Do you want to exit an App?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('No'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child: const Text('Yes'),
+              ),
+            ],
+          ),
+        ) ??
+        false;
+  }
 
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -54,164 +58,91 @@ class _LoginPageState extends State<LoginPage> {
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          margin: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.height * 0.1,
-              horizontal: MediaQuery.of(context).size.width * 0.06),
-          padding: EdgeInsets.symmetric(
-              // vertical: MediaQuery.of(context).size.height * 0.1,
-              horizontal: MediaQuery.of(context).size.width * 0.015),
-          decoration: BoxDecoration(
-            color: const Color(0x9d47b6d2),
-            border:
-                Border.all(color: const Color.fromARGB(255, 7, 65, 79), width: 1),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: width10 * 0.001),
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                  margin: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.02),
-                  padding: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.height * 0.0052,
-                      horizontal: MediaQuery.of(context).size.width * 0.18),
-                  decoration: headingBoxDecoration,
-                  child: Text(
-                    'Login',
-                    style: headingTextStyle,
-                  ),
+      body: WillPopScope(
+        onWillPop: backNavigation,
+        child: Stack(children: [
+            ClipRRect(
+                child: Image.asset(
+              "assets/walchand.jfif",
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.fill,
+              opacity: const AlwaysStoppedAnimation(.36),
+            )),
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.02,
                 ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                        vertical: heightc / 2, horizontal: width10 * 2),
-                    margin: EdgeInsets.symmetric(horizontal: width10),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 247, 246, 246),
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(width: 1, color: Colors.grey),
-                      // boxShadow: const [
-                      //   // BoxShadow(
-                      //   //     color: Colors.grey,
-                      //   //     blurRadius: 10.0,
-                      //   //     spreadRadius: 2.0,
-                      //   //     offset: Offset(2.0, 5.0))
-                      // ],
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: width10 * 2,
-                          ),
-                          // TextField(
-                          //   controller: _emailController,
-                          //   decoration: const InputDecoration(
-                          //     hintText: 'email',
-                          //     border: UnderlineInputBorder(),
-                          //   ),
-                          // ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            child: TextField(
-                              controller: _emailController,
-                              decoration: const InputDecoration(
-                                  labelText: 'username',
-                                  contentPadding: EdgeInsets.all(12),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.black, width: 2.0)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                    color: Colors.black,
-                                  ))),
-                            ),
-                          ),
-                          SizedBox(
-                            height: width10 * 2,
-                          ),
-                          //password
-                          // TextField(
-                          //   controller: _passwordController,
-                          //   obscureText: true,
-                          //   decoration: const InputDecoration(
-                          //     border: UnderlineInputBorder(),
-                          //     hintText: 'Password',
-                          //   ),
-                          // ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 1,
-                            child: TextField(
-                              obscureText: true,
-                              controller: _passwordController,
-                              decoration: const InputDecoration(
-                                  labelText: 'password',
-                                  contentPadding: EdgeInsets.all(12),
-                                  border: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.black, width: 2.0)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                    color: Colors.black,
-                                  ))),
-                            ),
-                          ),
-                          SizedBox(
-                            height: width10 * 5,
-                          ),
-                          //button
-                          ElevatedButton(
-                            onPressed: login,
-                            style: buttonStyle,
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.white, fontWeight: FontWeight.bold, fontSize: heightc*0.9),
-                            ),
-                          ),
-                          // SizedBox(
-                          //   height: width10 * 9,
-                          // ),
-                          //not a member? register now
-      
-                          // Text(
-                          //   "Account doesn't exist?",
-                          //   style: TextStyle(
-                          //     //  fontWeight: FontWeight.bold,
-                          //     fontSize: heightc / 1.2,
-                          //   ),
-                          // ),
-                          // SizedBox(height: width10),
-                          // GestureDetector(
-                          //     onTap: null,
-                          //     child: Text(
-                          //       "SignUp",
-                          //       style: TextStyle(
-                          //         color: primaryColor,
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: heightc / 1.2,
-                          //       ),
-                          //     )),
-                          // SizedBox(
-                          //   height: width10,
-                          // ),
-                        ],
+                Text(
+                  'Welcome To',
+                  style: TextStyle(
+                    shadows: const <Shadow>[
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 8.0,
+                        color: Color.fromARGB(121, 79, 80, 97),
                       ),
-                    ),
+                    ],
+                    color: headingColor,
+                    fontFamily: 'Schyler',
+                    fontWeight: FontWeight.bold,
+                    fontSize: MediaQuery.of(context).size.height * 0.022,
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.015,
-                  )
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                Text(
+                  'Walchand College Of Engineering, Sangli.',
+                  style: TextStyle(
+                    shadows: const <Shadow>[
+                      Shadow(
+                        offset: Offset(2.0, 2.0),
+                        blurRadius: 8.0,
+                        color: Color.fromARGB(121, 79, 80, 97),
+                      ),
+                    ],
+                    color: headingColor,
+                    fontWeight: FontWeight.bold,
+                    fontSize: MediaQuery.of(context).size.height * 0.022,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.004,
+                ),
+                // Container(
+                //   margin: EdgeInsets.symmetric(
+                //       horizontal: MediaQuery.of(context).size.width * 0.03),
+                //   decoration: const BoxDecoration(
+                //       // border: Border.all(color: const Color(0xff5a2f2f), width: 1),
+                //       // borderRadius: BorderRadius.circular(15),
+                //       borderRadius: BorderRadius.vertical(
+                //         bottom: Radius.circular(20),
+                //       ),
+                //       boxShadow: [
+                //         BoxShadow(
+                //             color: Colors.grey,
+                //             offset: Offset(2, 2),
+                //             blurRadius: 5)
+                //       ]),
+                //   child: ClipRRect(
+                //     borderRadius: BorderRadius.circular(20),
+                //     child: Image.asset(
+                //       'assets/walchand.jfif',
+                //       // alignment: Alignment.center,
+                //       width: double.infinity,
+                //       height: MediaQuery.of(context).size.height * 0.35,
+                //       fit: BoxFit.cover,
+                //     ),
+                //   ),
+                // ),
+                LoginCard()
+              ],
             ),
           ),
-        ),
+        ]),
       ),
     );
   }

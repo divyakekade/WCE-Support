@@ -1,12 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
-import 'package:wce_support/screens/HomeScreen.dart';
-import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
@@ -38,10 +35,8 @@ class _UploadUsersDataState extends State<UploadUsersData> {
   List users = [];
   List<String> rolesList = <String>["select role", "Student", "Management"];
   Future<void> pickfile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['csv']
-    );
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.custom, allowedExtensions: ['csv']);
     if (result == null) {
       return;
     }
@@ -99,18 +94,60 @@ class _UploadUsersDataState extends State<UploadUsersData> {
       var reentry = await Provider.of<Auth>(context, listen: false)
           .storeAllUsers(users, user['_id']);
       print(reentry);
-      
-      showCustomSnackbar(1, "All user created successfully!", context);
+      showCustomSnackbar(1, "Users added successfully!", context);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
+  }
+
+  openInfo() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Container(
+              height: MediaQuery.of(context).size.height*0.3,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(2.0),
+                        decoration: BoxDecoration(
+                            color: imagebutton,
+                            borderRadius: BorderRadius.circular(50)),
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Icon(
+                              Icons.close,
+                              size: 28,
+                              color: headingColor,
+                            )),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.03,
+                  ),
+                  const Text("How to upload CSV file?", style: TextStyle(fontWeight: FontWeight.w500),),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.02,
+                  ),
+                  const Text("Instructions to upload CSV file.")
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const Appbar(),
-      // resizeToAvoidBottomInset: false,
       body: Stack(children: [
         Container(
             width: double.infinity,
@@ -148,6 +185,16 @@ class _UploadUsersDataState extends State<UploadUsersData> {
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                onPressed: openInfo,
+                                icon: const Icon(Icons.info),
+                                color: const Color.fromARGB(255, 75, 75, 75),
+                                iconSize: 30,
+                              ),
+                            ]),
                         Row(
                           children: [
                             SizedBox(

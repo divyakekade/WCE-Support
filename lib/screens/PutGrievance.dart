@@ -27,13 +27,12 @@ class PutGrievance extends StatefulWidget {
 class _PutGrievanceState extends State<PutGrievance> {
   String subject = "";
   String description = "";
-  String selectedOption = "Hostel";
+  String selectedOption = "Grievance Committee";
   String image = '';
   bool isloading = false;
   // final network = NetworkHandler();
   List<String> sectionList = <String>[
     "Hostel",
-
     "Exam Cell",
     "My Department"
   ];
@@ -283,55 +282,55 @@ class _PutGrievanceState extends State<PutGrievance> {
                                   height:
                                       MediaQuery.of(context).size.height * 0.025,
                                 ):const SizedBox(),
-                                Row(
-                                  children: [
-                                    Text('Choose department for your grievance',
-                                        style: TextStyle(
-                                            color: headingColor,
-                                            fontSize: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.036)),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.025,
-                                ),
-                                DropdownButtonFormField(
-                                  isExpanded: true,
-                                  items: sectionList.map((value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(
-                                        value,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    );
-                                  }).toList(),
-                                  value: selectedOption,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      selectedOption = value!;
-                                    });
-                                  },
-                                  decoration: const InputDecoration(
-                                      labelText: 'select department',
-                                      contentPadding: EdgeInsets.all(12),
-                                      border: OutlineInputBorder(
-                                          // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                          borderSide: BorderSide(
-                                              color: Colors.black, width: 2.0)),
-                                      focusedBorder: OutlineInputBorder(
-                                          // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                          borderSide: BorderSide(
-                                        color: Colors.black,
-                                      ))),
-                                ),
-                                SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.025,
-                                ),
+                                // Row(
+                                //   children: [
+                                //     Text('Choose department for your grievance',
+                                //         style: TextStyle(
+                                //             color: headingColor,
+                                //             fontSize: MediaQuery.of(context)
+                                //                     .size
+                                //                     .width *
+                                //                 0.036)),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height:
+                                //       MediaQuery.of(context).size.height * 0.025,
+                                // ),
+                                // DropdownButtonFormField(
+                                //   isExpanded: true,
+                                //   items: sectionList.map((value) {
+                                //     return DropdownMenuItem<String>(
+                                //       value: value,
+                                //       child: Text(
+                                //         value,
+                                //         overflow: TextOverflow.ellipsis,
+                                //       ),
+                                //     );
+                                //   }).toList(),
+                                //   value: selectedOption,
+                                //   onChanged: (String? value) {
+                                //     setState(() {
+                                //       selectedOption = value!;
+                                //     });
+                                //   },
+                                //   decoration: const InputDecoration(
+                                //       labelText: 'select department',
+                                //       contentPadding: EdgeInsets.all(12),
+                                //       border: OutlineInputBorder(
+                                //           // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                //           borderSide: BorderSide(
+                                //               color: Colors.black, width: 2.0)),
+                                //       focusedBorder: OutlineInputBorder(
+                                //           // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                //           borderSide: BorderSide(
+                                //         color: Colors.black,
+                                //       ))),
+                                // ),
+                                // SizedBox(
+                                //   height:
+                                //       MediaQuery.of(context).size.height * 0.025,
+                                // ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -354,7 +353,7 @@ class _PutGrievanceState extends State<PutGrievance> {
                           )),
                       // )),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.11,
+                        height: MediaQuery.of(context).size.height * 0.26,
                       ),
                       const Divider(height: 1, thickness: 3, color: Colors.grey),
                       SizedBox(
@@ -374,7 +373,7 @@ class _PutGrievanceState extends State<PutGrievance> {
                                     MediaQuery.of(context).size.height * 0.021),
                           )),
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.02,
+                        height: MediaQuery.of(context).size.height * 0.017,
                       ),
                     ],
                   ),

@@ -1,18 +1,14 @@
-import 'dart:io';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
-import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
-import 'package:file_picker/file_picker.dart';
-import 'dart:convert';
-import 'package:csv/csv.dart';
-// import 'package:excel/excel.dart' hide Border;
+// import 'package:file_picker/file_picker.dart';
+// import 'package:csv/csv.dart';
 
 class CreateUser extends StatefulWidget {
   const CreateUser({super.key});
@@ -120,7 +116,7 @@ class _CreateUserState extends State<CreateUser> {
       await Provider.of<Auth>(context, listen: false).createUser(user);
       showCustomSnackbar(1, "New user created successfully!", context);
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => SideMenuNavigation(loadedPage: 'create_user')));
+          builder: (context) => SideMenuNavigation(loadedPage: 'users_management')));
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }

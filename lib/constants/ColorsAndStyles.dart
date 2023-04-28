@@ -30,6 +30,7 @@ const Color imagebutton = Color(0xffAACAD1);
 const Color cardColor = ui.Color.fromARGB(255, 225, 225, 225);
 const Color greyColor = Color(0xffE0E0E0);
 const Color backgroundColor= ui.Color.fromARGB(255, 239, 245, 248);
+// const Color backgroundColor= Colors.white;
 
 final headingBoxDecoration = BoxDecoration(
   color: cardBackground,

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +27,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
   bool openFeedbackForm = false;
   String feedback = "";
   String comment = "";
+  @override
   void initState() {
     print(widget.grievance);
     id = Provider.of<Auth>(context, listen: false).user_id;
@@ -103,7 +102,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     try {
       await Provider.of<Griv>(context, listen: false)
           .putfeedback(id, widget.grievance['_id'], feedback, comment);
-          showCustomSnackbar(1, "Comment posted succesfully ", context);
+          showCustomSnackbar(1, "Feedback posted successfully!", context);
       setState(() {
         openFeedbackForm = false;
         comment = '';
@@ -229,12 +228,12 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.03),
-                            HeadingAndField(
-                                heading: "Grievance Section:",
-                                field: widget.grievance['section']),
-                            SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.width * 0.03),
+                            // HeadingAndField(
+                            //     heading: "Grievance Section:",
+                            //     field: widget.grievance['section']),
+                            // SizedBox(
+                            //     height:
+                            //         MediaQuery.of(context).size.width * 0.03),
                             HeadingAndField(
                                 heading: "Grievant:",
                                 field: widget.grievance['createrName']),

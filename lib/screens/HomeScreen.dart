@@ -1,13 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
 import 'package:wce_support/screens/SingleUserPastProducts.dart';
-import 'package:wce_support/widgets/Appbar.dart';
-import 'package:wce_support/widgets/ConfirmationDialogBox.dart';
 import 'package:wce_support/widgets/ContainerWithBlueBorder.dart';
 import '../Provider/Auth provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
@@ -25,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  dynamic user;
   @override
   void initState() {
     super.initState();
@@ -32,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // String token =
     // print(pref.getString('userid'));
     // if(widget.token!=null  && widget.token!=null &&widget.token!=null){
-
+    user = Provider.of<Auth>(context, listen: false).user;
     Provider.of<Auth>(context, listen: false)
         .setuser(widget.token, widget.user, widget.userid);
     // }
@@ -46,6 +42,18 @@ class _HomeScreenState extends State<HomeScreen> {
   viewYourProducts() {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => const SingleUserPastProducts()));
+  }
+
+  manageUsers() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>
+            SideMenuNavigation(loadedPage: 'users_management')));
+  }
+
+  viewManagementGrievances(){
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>
+            SideMenuNavigation(loadedPage: 'view_grievances')));
   }
 
   Future<bool> backNavigation() async {
@@ -74,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final authtoken = Provider.of<Auth>(context, listen: false).token;
     double width10 = MediaQuery.of(context).size.width * 0.025;
     double heightc = MediaQuery.of(context).size.width * 0.053;
+    print(user);
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       body: WillPopScope(
@@ -90,6 +99,10 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          // Container(
+          //   width: double.infinity,
+          //   height: double.infinity,
+          //   color: backgroundColor),
           SingleChildScrollView(
             child: Column(
               children: [
@@ -131,24 +144,69 @@ class _HomeScreenState extends State<HomeScreen> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.12,
+                  height: MediaQuery.of(context).size.height * 0.004,
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.03),
+                  decoration: const BoxDecoration(
+                      // border: Border.all(color: const Color(0xff5a2f2f), width: 1),
+                      // borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.vertical(
+                        bottom: Radius.circular(20),
+                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.grey,
+                            offset: Offset(2, 2),
+                            blurRadius: 5)
+                      ]),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      'assets/walchand.jfif',
+                      // alignment: Alignment.center,
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height * 0.35,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 authtoken == null
                     ? const LoginPage()
                     : Container(
+                        padding: EdgeInsets.symmetric(
+                            // vertical: MediaQuery.of(context).size.height * 0.02,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.05),
                         child: Column(
-                          children: [
-                            ContainerWithBlueBorder(
-                              content: "View Your Grievances",
-                              function: viewYourGrievances,
-                            ),
-                            ContainerWithBlueBorder(
-                                content: "View Your Products",
-                                function: viewYourProducts),
-                          ],
+                          children: user['admintype'] == 'studentAdmin'
+                              ? [
+                                  ContainerWithBlueBorder(
+                                      content:
+                                          "Create, view and edit user profiles",
+                                      btnText: "Manage",
+                                      function: manageUsers)
+                                ]
+                              : user['admintpe']=="NO" ? [
+                                  ContainerWithBlueBorder(
+                                    content: "View Your Grievances",
+                                    btnText: "View",
+                                    function: viewYourGrievances,
+                                  ),
+                                  ContainerWithBlueBorder(
+                                      content: "View Your Products",
+                                      btnText: "View",
+                                      function: viewYourProducts),
+                                ]:[
+                                  ContainerWithBlueBorder(
+                                    content: "View Your Grievances",
+                                    btnText: "View",
+                                    function: viewManagementGrievances,
+                                  ),
+                                ],
                         ),
                       )
-                // : const Center(child: Text("You are logged in")),
               ],
             ),
           ),

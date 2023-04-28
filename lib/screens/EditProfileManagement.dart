@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/ConfirmationDialogBox.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -29,7 +30,7 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
   String year = "Third Year";
   String mobileNo = "8626061856";
   bool showYearBranch = true;
-  bool editing = true;
+  bool editing = false;
   dynamic user;
 
   List<String> departmentsList = <String>[
@@ -95,7 +96,6 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
       dynamic user = Provider.of<Auth>(context, listen: false).user;
       print(widget.user['_id']);
       await Provider.of<Auth>(context, listen: false)
-      
           .deleteUser(user['_id'], widget.user['_id']);
           Navigator.of(context).push(MaterialPageRoute(
           builder: (context) =>
@@ -158,7 +158,24 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   IconButton(
-                                    onPressed: deleteUser,
+                                    onPressed: (){
+                                      setState(() {
+                                        editing=true;
+                                      });
+                                    },
+                                    icon: const Icon(Icons.edit),
+                                    color:
+                                        const Color.fromARGB(255, 75, 75, 75),
+                                    iconSize: 28,
+                                  ),
+                                  IconButton(
+                                    onPressed: (){
+                                      showConfirmationDialogBox(
+                                      "Do you want to delete the user?",
+                                      deleteUser,
+                                      context);
+                                      
+                                    },
                                     icon: const Icon(Icons.delete),
                                     color:
                                         const Color.fromARGB(255, 75, 75, 75),
@@ -201,11 +218,9 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
                                   labelText: 'username',
                                   contentPadding: const EdgeInsets.all(12),
                                   border: const OutlineInputBorder(
-                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                       borderSide: BorderSide(
                                           color: Colors.black, width: 2.0)),
                                   focusedBorder: const OutlineInputBorder(
-                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                       borderSide: BorderSide(
                                     color: Colors.black,
                                   ))),
@@ -221,7 +236,9 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,
                                   child: TextFormField(
-                                    // style: const TextStyle(color: Colors.grey),
+                                    style: !editing
+                                  ? const TextStyle(color: Colors.grey)
+                                  : null,
                                     initialValue: firstName,
                                     onChanged: (name) {
                                       setState(() {
@@ -234,12 +251,10 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
                                         contentPadding:
                                             const EdgeInsets.all(12),
                                         border: const OutlineInputBorder(
-                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
                                                 color: Colors.black,
                                                 width: 2.0)),
                                         focusedBorder: const OutlineInputBorder(
-                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
                                           color: Colors.black,
                                         ))),
@@ -249,8 +264,10 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
                                   width:
                                       MediaQuery.of(context).size.width * 0.4,
                                   child: TextFormField(
+                                    style: !editing
+                                  ? const TextStyle(color: Colors.grey)
+                                  : null,
                                     initialValue: lastName,
-                                    // style: const TextStyle(color: Colors.grey),
                                     onChanged: (name) {
                                       setState(() {
                                         lastName = name;
@@ -262,12 +279,10 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
                                         contentPadding:
                                             const EdgeInsets.all(12),
                                         border: const OutlineInputBorder(
-                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
                                                 color: Colors.black,
                                                 width: 2.0)),
                                         focusedBorder: const OutlineInputBorder(
-                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                             borderSide: BorderSide(
                                           color: Colors.black,
                                         ))),
@@ -280,7 +295,9 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
                                   MediaQuery.of(context).size.height * 0.025,
                             ),
                             TextFormField(
-                              // style: const TextStyle(color: Colors.grey),
+                              style: !editing
+                                  ? const TextStyle(color: Colors.grey)
+                                  : null,
                               initialValue: email,
                               onChanged: (mail) {
                                 setState(() {

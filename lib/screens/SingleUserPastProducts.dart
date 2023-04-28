@@ -2,9 +2,11 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:provider/provider.dart';
 import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
+import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleProduct.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:wce_support/widgets/Appbar.dart';
+import 'package:wce_support/widgets/ContainerWithBlueBorder.dart';
 
 import '../Provider/productProvider.dart';
 import '../widgets/errorDialogBox.dart';
@@ -116,7 +118,11 @@ class _GridBState extends State<GridB> {
     final List<dynamic> gridMap =
         Provider.of<Prod>(context, listen: false).products;
     return SingleChildScrollView(
-      child: GridView.builder(
+      child: gridMap.isEmpty ? ContainerWithBlueBorder(content: "No products are added.", btnText: "Add Product", function: (){
+         Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>
+            SideMenuNavigation(loadedPage: 'sell_products')));
+      }) : GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

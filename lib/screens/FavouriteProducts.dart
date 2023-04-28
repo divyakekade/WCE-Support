@@ -7,9 +7,8 @@ import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleProduct.dart';
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:wce_support/widgets/ContainerWithBlueBorder.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
-
-import '../Provider/grievancesProvider.dart';
 
 class FavouriteProducts extends StatefulWidget {
   const FavouriteProducts({super.key});
@@ -110,7 +109,12 @@ class _GridBState extends State<GridB> {
     final List<dynamic> gridMap =
         Provider.of<Prod>(context, listen: false).favproducts;
     return SingleChildScrollView(
-      child: GridView.builder(
+      child: gridMap.isEmpty ? ContainerWithBlueBorder(content: "No products are liked.", btnText: "View Products", function: (){
+         Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) =>
+            SideMenuNavigation(loadedPage: 'buy_products')));
+      })
+      :GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

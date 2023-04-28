@@ -44,7 +44,6 @@ class _UsersManagementState extends State<UsersManagement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       body: WillPopScope(
         onWillPop: backNavigation,
         child: Stack(children: [
@@ -116,11 +115,11 @@ class _UsersManagementState extends State<UsersManagement> {
                                   ),
                                   SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.04,
+                                        MediaQuery.of(context).size.width * 0.034,
                                   ),
                                   SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.5,
+                                        MediaQuery.of(context).size.width * 0.48,
                                     child: Text(
                                       "Upload the data and add multiple users.",
                                       style: TextStyle(
@@ -194,11 +193,11 @@ class _UsersManagementState extends State<UsersManagement> {
                                   ),
                                   SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.04,
+                                        MediaQuery.of(context).size.width * 0.034,
                                   ),
                                   SizedBox(
                                     width:
-                                        MediaQuery.of(context).size.width * 0.5,
+                                        MediaQuery.of(context).size.width * 0.48,
                                     child: Text(
                                       "Add user deatils and create a user.",
                                       style: TextStyle(
@@ -297,7 +296,7 @@ class _UsersManagementState extends State<UsersManagement> {
                                       width: MediaQuery.of(context).size.width *
                                           0.74,
                                       child: Text(
-                                        "Enter username to edit user deatils",
+                                        "Enter username to view user deatils",
                                         style: TextStyle(
                                             fontSize: MediaQuery.of(context)
                                                     .size
@@ -327,11 +326,9 @@ class _UsersManagementState extends State<UsersManagement> {
                                       labelText: 'username',
                                       contentPadding: EdgeInsets.all(12),
                                       border: OutlineInputBorder(
-                                          // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                           borderSide: BorderSide(
                                               color: Colors.black, width: 2.0)),
                                       focusedBorder: OutlineInputBorder(
-                                          // borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                           borderSide: BorderSide(
                                         color: Colors.black,
                                       ))),
@@ -352,26 +349,6 @@ class _UsersManagementState extends State<UsersManagement> {
                               ],
                             ),
                           ),
-                          // ElevatedButton(
-                          //   onPressed: createUser,
-                          //   style: buttonStyle,
-                          //   child: Text(
-                          //     "Submit",
-                          //     style: TextStyle(
-                          //         fontSize: MediaQuery.of(context).size.height *
-                          //             0.025),
-                          //   ),
-                          // ),
-                          // ElevatedButton(
-                          //   onPressed: pickfile,
-                          //   style: buttonStyle,
-                          //   child: Text(
-                          //     "Upload user ",
-                          //     style: TextStyle(
-                          //         fontSize: MediaQuery.of(context).size.height *
-                          //             0.025),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

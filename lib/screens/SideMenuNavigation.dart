@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quickalert/quickalert.dart';
-import 'package:wce_support/screens/CreateUser.dart';
 import 'package:wce_support/screens/EditProfile.dart';
 import 'package:wce_support/screens/FavouriteProducts.dart';
-import 'package:wce_support/screens/HomePage.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
 import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/LogoutPage.dart';
@@ -71,7 +68,6 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
     }
 
     return Scaffold(
-        // resizeToAvoidBottomInset: false,
         appBar: const Appbar(),
         drawer: Drawer(
           child: SingleChildScrollView(

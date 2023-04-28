@@ -7,7 +7,6 @@ import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/Provider/productProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/BuyProducts.dart';
-import 'package:wce_support/screens/CreateUser.dart';
 import 'package:wce_support/screens/EditProfile.dart';
 import 'package:wce_support/screens/FavouriteProducts.dart';
 import 'package:wce_support/screens/HomeScreen.dart';
@@ -17,9 +16,9 @@ import 'package:wce_support/screens/PutGrievance.dart';
 import 'package:wce_support/screens/SellProducts.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:wce_support/screens/UploadUsersData.dart';
 import 'package:wce_support/screens/UsersManagement.dart';
 import 'package:wce_support/screens/ViewGrievances.dart';
+import 'package:flutter/services.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -44,7 +43,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // initState(context);
-
+      SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(value: Auth()),
