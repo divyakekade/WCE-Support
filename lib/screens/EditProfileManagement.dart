@@ -7,9 +7,11 @@ import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
+import 'SideMenuNavigation.dart';
+
 class EditProfileManagement extends StatefulWidget {
-  EditProfileManagement({super.key,required this.user});
-  dynamic user ; 
+  EditProfileManagement({super.key, required this.user});
+  dynamic user;
   static String routeUrl = "./edit-profile-management";
 
   @override
@@ -66,9 +68,7 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
       } catch (error) {
         showErrorDialogBox2(error.toString(), context);
       }
-
-    }
-    else{
+    } else {
       setState(() {
         editing = false;
       });
@@ -89,7 +89,22 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
     department = widget.user['department'];
     year = widget.user['year'];
   }
-  
+
+  Future<void> deleteUser() async {
+    try {
+      dynamic user = Provider.of<Auth>(context, listen: false).user;
+      print(widget.user['_id']);
+      await Provider.of<Auth>(context, listen: false)
+      
+          .deleteUser(user['_id'], widget.user['_id']);
+          Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              SideMenuNavigation(loadedPage: 'users_management')));
+    } catch (error) {
+      showErrorDialogBox2(error.toString(), context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // if (role == "Student") {
@@ -100,378 +115,376 @@ class _EditProfileManagementState extends State<EditProfileManagement> {
     return Scaffold(
       appBar: const Appbar(),
       body: Stack(children: [
-          Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: backgroundColor),
-          Column(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.02),
-                padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.0052,
-                    horizontal: MediaQuery.of(context).size.width * 0.05),
-                decoration: headingBoxDecoration,
-                child: Text(
-                  'Edit User Profile',
-                  style: headingTextStyle,
-                ),
+        Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: backgroundColor),
+        Column(
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.02),
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.0052,
+                  horizontal: MediaQuery.of(context).size.width * 0.05),
+              decoration: headingBoxDecoration,
+              child: Text(
+                'Edit User Profile',
+                style: headingTextStyle,
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                            // vertical: MediaQuery.of(context).size.height * 0.01,
-                            horizontal: MediaQuery.of(context).size.width * 0.03),
-                        padding: EdgeInsets.symmetric(
-                            vertical: MediaQuery.of(context).size.height * 0.01,
-                            horizontal: MediaQuery.of(context).size.width * 0.05),
-                        decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 247, 246, 246),
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 7, 65, 79),
-                              width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.delete),
-                                      color:
-                                          const Color.fromARGB(255, 75, 75, 75),
-                                      iconSize: 28,
-                                    ),
-                                  ]),
-                              Row(
-                                children: [
-                                  Text(
-                                    username,
-                                    style: TextStyle(
-                                        color: headingColor,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.02,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                              const Divider(
-                                thickness: 1,
-                                color: Colors.black,
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.009,
-                              ),
-                              TextFormField(
-                                style: !editing
-                                    ? const TextStyle(color: Colors.grey)
-                                    : null,
-                                initialValue: username,
-                                onChanged: (un) {
-                                  setState(() {
-                                    username=un;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                    enabled: editing,
-                                    labelText: 'username',
-                                    contentPadding: const EdgeInsets.all(12),
-                                    border: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                            color: Colors.black, width: 2.0)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                      color: Colors.black,
-                                    ))),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.025,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    child: TextFormField(
-                                      // style: const TextStyle(color: Colors.grey),
-                                      initialValue: firstName,
-                                      onChanged: (name) {
-                                        setState(() {
-                                          firstName = name;
-                                        });
-                                      },
-                                      decoration: InputDecoration(
-                                          enabled: editing,
-                                          labelText: 'first name',
-                                          contentPadding:
-                                              const EdgeInsets.all(12),
-                                          border: const OutlineInputBorder(
-                                              // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                              borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                  width: 2.0)),
-                                          focusedBorder: const OutlineInputBorder(
-                                              // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                              borderSide: BorderSide(
-                                            color: Colors.black,
-                                          ))),
-                                    ),
-                                  ),
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    child: TextFormField(
-                                      initialValue: lastName,
-                                      // style: const TextStyle(color: Colors.grey),
-                                      onChanged: (name) {
-                                        setState(() {
-                                          lastName = name;
-                                        });
-                                      },
-                                      decoration: InputDecoration(
-                                          enabled: editing,
-                                          labelText: 'last name',
-                                          contentPadding:
-                                               const EdgeInsets.all(12),
-                                          border: const OutlineInputBorder(
-                                              // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                              borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                  width: 2.0)),
-                                          focusedBorder: const OutlineInputBorder(
-                                              // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                              borderSide: BorderSide(
-                                            color: Colors.black,
-                                          ))),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.025,
-                              ),
-                              TextFormField(
-                                // style: const TextStyle(color: Colors.grey),
-                                initialValue: email,
-                                onChanged: (mail) {
-                                  setState(() {
-                                    email = mail;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                    enabled: editing,
-                                    labelText: 'email',
-                                    contentPadding: const EdgeInsets.all(12),
-                                    border: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                            color: Colors.black, width: 2.0)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                      color: Colors.black,
-                                    ))),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.025,
-                              ),
-                              TextFormField(
-                                style: !editing
-                                    ? const TextStyle(color: Colors.grey)
-                                    : null,
-                                initialValue: mobileNo,
-                                onChanged: (mobile) {
-                                  setState(() {
-                                    mobileNo = mobile;
-                                  });
-                                },
-                                decoration: InputDecoration(
-                                    enabled: editing,
-                                    labelText: 'mobile no.',
-                                    contentPadding: const EdgeInsets.all(12),
-                                    border: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                            color: Colors.black, width: 2.0)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                      color: Colors.black,
-                                    ))),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.025,
-                              ),
-                              // DropdownButtonFormField(
-                              //   isExpanded: true,
-                              //   items: rolesList.map((value) {
-                              //     return DropdownMenuItem<String>(
-                              //       value: value,
-                              //       child: Text(
-                              //         value,
-                              //         overflow: TextOverflow.ellipsis,
-                              //         // style: const TextStyle(color: Colors.grey),
-                              //       ),
-                              //     );
-                              //   }).toList(),
-                              //   value: role,
-                              //   onChanged: editing
-                              //       ? (String? value) {
-                              //           setState(() {
-                              //             role = value!;
-                              //           });
-                              //           if (role == "Student") {
-                              //             setState(() {
-                              //               showYearBranch = true;
-                              //             });
-                              //           } else {
-                              //             setState(() {
-                              //               showYearBranch = false;
-                              //               year = "select year";
-                              //               department = "select department";
-                              //             });
-                              //           }
-                              //         }
-                              //       : null,
-                              //   decoration: const InputDecoration(
-                              //       enabled: false,
-                              //       labelText: 'select role',
-                              //       contentPadding: EdgeInsets.all(12),
-                              //       border: OutlineInputBorder(
-                              //           // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                              //           borderSide: BorderSide(
-                              //               color: Colors.black, width: 2.0)),
-                              //       focusedBorder: OutlineInputBorder(
-                              //           // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                              //           borderSide: BorderSide(
-                              //         color: Colors.black,
-                              //       ))),
-                              // ),
-                              // SizedBox(
-                              //   height:
-                              //       MediaQuery.of(context).size.height * 0.025,
-                              // ),
-                              DropdownButtonFormField(
-                                isExpanded: true,
-                                items: departmentsList.map((value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  );
-                                }).toList(),
-                                value: department,
-                                onChanged: editing
-                                    ? (String? value) {
-                                        setState(() {
-                                          department = value!;
-                                        });
-                                      }
-                                    : null,
-                                decoration: InputDecoration(
-                                    enabled: editing,
-                                    labelText: 'select department',
-                                    contentPadding: const EdgeInsets.all(12),
-                                    border: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                            color: Colors.black, width: 2.0)),
-                                    focusedBorder: const OutlineInputBorder(
-                                        // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                        borderSide: BorderSide(
-                                      color: Colors.black,
-                                    ))),
-                              ),
-                              SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.025,
-                              ),
-                              DropdownButtonFormField(
-                                      isExpanded: true,
-                                      items: yearsList.map((value) {
-                                        return DropdownMenuItem<String>(
-                                          value: value,
-                                          child: Text(
-                                            value,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        );
-                                      }).toList(),
-                                      value: year,
-                                      onChanged: editing
-                                          ? (String? value) {
-                                              setState(() {
-                                                year = value!;
-                                              });
-                                            }
-                                          : null,
-                                      decoration: InputDecoration(
-                                          enabled: editing,
-                                          labelText: 'select year',
-                                          contentPadding:
-                                              const EdgeInsets.all(12),
-                                          border: const OutlineInputBorder(
-                                              // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                              borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                  width: 2.0)),
-                                          focusedBorder: const OutlineInputBorder(
-                                              // borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                                              borderSide: BorderSide(
-                                            color: Colors.black,
-                                          ))),
-                                    ),
-                              SizedBox(
-                                      height: MediaQuery.of(context).size.height *
-                                          0.025),
-                              Row(
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                          // vertical: MediaQuery.of(context).size.height * 0.01,
+                          horizontal: MediaQuery.of(context).size.width * 0.03),
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.01,
+                          horizontal: MediaQuery.of(context).size.width * 0.05),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 247, 246, 246),
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 7, 65, 79),
+                            width: 1),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  ElevatedButton(
-                                    onPressed: editProfile,
-                                    style: buttonStyle,
-                                    child: Text(
-                                      "Save",
-                                      style: TextStyle(
-                                          fontSize:
-                                              MediaQuery.of(context).size.height *
-                                                  0.025),
-                                    ),
+                                  IconButton(
+                                    onPressed: deleteUser,
+                                    icon: const Icon(Icons.delete),
+                                    color:
+                                        const Color.fromARGB(255, 75, 75, 75),
+                                    iconSize: 28,
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                ]),
+                            Row(
+                              children: [
+                                Text(
+                                  username,
+                                  style: TextStyle(
+                                      color: headingColor,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.02,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              thickness: 1,
+                              color: Colors.black,
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.009,
+                            ),
+                            TextFormField(
+                              style: !editing
+                                  ? const TextStyle(color: Colors.grey)
+                                  : null,
+                              initialValue: username,
+                              onChanged: (un) {
+                                setState(() {
+                                  username = un;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                  enabled: editing,
+                                  labelText: 'username',
+                                  contentPadding: const EdgeInsets.all(12),
+                                  border: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.black, width: 2.0)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ))),
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  child: TextFormField(
+                                    // style: const TextStyle(color: Colors.grey),
+                                    initialValue: firstName,
+                                    onChanged: (name) {
+                                      setState(() {
+                                        firstName = name;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                        enabled: editing,
+                                        labelText: 'first name',
+                                        contentPadding:
+                                            const EdgeInsets.all(12),
+                                        border: const OutlineInputBorder(
+                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                            borderSide: BorderSide(
+                                                color: Colors.black,
+                                                width: 2.0)),
+                                        focusedBorder: const OutlineInputBorder(
+                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                            borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ))),
+                                  ),
+                                ),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.4,
+                                  child: TextFormField(
+                                    initialValue: lastName,
+                                    // style: const TextStyle(color: Colors.grey),
+                                    onChanged: (name) {
+                                      setState(() {
+                                        lastName = name;
+                                      });
+                                    },
+                                    decoration: InputDecoration(
+                                        enabled: editing,
+                                        labelText: 'last name',
+                                        contentPadding:
+                                            const EdgeInsets.all(12),
+                                        border: const OutlineInputBorder(
+                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                            borderSide: BorderSide(
+                                                color: Colors.black,
+                                                width: 2.0)),
+                                        focusedBorder: const OutlineInputBorder(
+                                            // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                            borderSide: BorderSide(
+                                          color: Colors.black,
+                                        ))),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
+                            ),
+                            TextFormField(
+                              // style: const TextStyle(color: Colors.grey),
+                              initialValue: email,
+                              onChanged: (mail) {
+                                setState(() {
+                                  email = mail;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                  enabled: editing,
+                                  labelText: 'email',
+                                  contentPadding: const EdgeInsets.all(12),
+                                  border: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.black, width: 2.0)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ))),
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
+                            ),
+                            TextFormField(
+                              style: !editing
+                                  ? const TextStyle(color: Colors.grey)
+                                  : null,
+                              initialValue: mobileNo,
+                              onChanged: (mobile) {
+                                setState(() {
+                                  mobileNo = mobile;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                  enabled: editing,
+                                  labelText: 'mobile no.',
+                                  contentPadding: const EdgeInsets.all(12),
+                                  border: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.black, width: 2.0)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ))),
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
+                            ),
+                            // DropdownButtonFormField(
+                            //   isExpanded: true,
+                            //   items: rolesList.map((value) {
+                            //     return DropdownMenuItem<String>(
+                            //       value: value,
+                            //       child: Text(
+                            //         value,
+                            //         overflow: TextOverflow.ellipsis,
+                            //         // style: const TextStyle(color: Colors.grey),
+                            //       ),
+                            //     );
+                            //   }).toList(),
+                            //   value: role,
+                            //   onChanged: editing
+                            //       ? (String? value) {
+                            //           setState(() {
+                            //             role = value!;
+                            //           });
+                            //           if (role == "Student") {
+                            //             setState(() {
+                            //               showYearBranch = true;
+                            //             });
+                            //           } else {
+                            //             setState(() {
+                            //               showYearBranch = false;
+                            //               year = "select year";
+                            //               department = "select department";
+                            //             });
+                            //           }
+                            //         }
+                            //       : null,
+                            //   decoration: const InputDecoration(
+                            //       enabled: false,
+                            //       labelText: 'select role',
+                            //       contentPadding: EdgeInsets.all(12),
+                            //       border: OutlineInputBorder(
+                            //           // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                            //           borderSide: BorderSide(
+                            //               color: Colors.black, width: 2.0)),
+                            //       focusedBorder: OutlineInputBorder(
+                            //           // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                            //           borderSide: BorderSide(
+                            //         color: Colors.black,
+                            //       ))),
+                            // ),
+                            // SizedBox(
+                            //   height:
+                            //       MediaQuery.of(context).size.height * 0.025,
+                            // ),
+                            DropdownButtonFormField(
+                              isExpanded: true,
+                              items: departmentsList.map((value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                );
+                              }).toList(),
+                              value: department,
+                              onChanged: editing
+                                  ? (String? value) {
+                                      setState(() {
+                                        department = value!;
+                                      });
+                                    }
+                                  : null,
+                              decoration: InputDecoration(
+                                  enabled: editing,
+                                  labelText: 'select department',
+                                  contentPadding: const EdgeInsets.all(12),
+                                  border: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.black, width: 2.0)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ))),
+                            ),
+                            SizedBox(
+                              height:
+                                  MediaQuery.of(context).size.height * 0.025,
+                            ),
+                            DropdownButtonFormField(
+                              isExpanded: true,
+                              items: yearsList.map((value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                );
+                              }).toList(),
+                              value: year,
+                              onChanged: editing
+                                  ? (String? value) {
+                                      setState(() {
+                                        year = value!;
+                                      });
+                                    }
+                                  : null,
+                              decoration: InputDecoration(
+                                  enabled: editing,
+                                  labelText: 'select year',
+                                  contentPadding: const EdgeInsets.all(12),
+                                  border: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                          color: Colors.black, width: 2.0)),
+                                  focusedBorder: const OutlineInputBorder(
+                                      // borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                                      borderSide: BorderSide(
+                                    color: Colors.black,
+                                  ))),
+                            ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.025),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: editProfile,
+                                  style: buttonStyle,
+                                  child: Text(
+                                    "Save",
+                                    style: TextStyle(
+                                        fontSize:
+                                            MediaQuery.of(context).size.height *
+                                                0.025),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.003,
-                      ),
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.003,
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ]),
+            ),
+          ],
+        ),
+      ]),
     );
   }
 }

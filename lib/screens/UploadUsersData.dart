@@ -34,17 +34,20 @@ class _UploadUsersDataState extends State<UploadUsersData> {
   String year = "select year";
   String mobileNo = "";
   bool showYearBranch = false;
-  String fileName="";
-  List users =[];
+  String fileName = "";
+  List users = [];
   List<String> rolesList = <String>["select role", "Student", "Management"];
   Future<void> pickfile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['csv']
+    );
     if (result == null) {
       return;
     }
     print(result.files.first.name);
     setState(() {
-      fileName=result.files.first.name;
+      fileName = result.files.first.name;
     });
     var filePath = result.files.first.path!;
     final input = File(filePath).openRead();
@@ -53,7 +56,7 @@ class _UploadUsersDataState extends State<UploadUsersData> {
         .transform(const CsvToListConverter())
         .toList();
     print(fields.length);
-     users =[];
+    users = [];
     for (int i = 1; i < fields.length; i++) {
       String firstName = fields[i][0];
       String lastName = fields[i][1];
@@ -66,15 +69,14 @@ class _UploadUsersDataState extends State<UploadUsersData> {
       String year = fields[i][8];
       print(firstName);
       final user = {
-        "firstName": firstName,
-        "lastName": lastName,
+        "firstname": firstName,
+        "lastname": lastName,
         "username": userName,
         "email": email,
         "password": password,
-        "role": role,
         "department": department,
-        "year": role == "Student" ? year : "other",
-        "mobileNo": mobileNo
+        "year": year,
+        "mobile": mobileNo
       };
       users.add(user);
       // try {
@@ -89,20 +91,19 @@ class _UploadUsersDataState extends State<UploadUsersData> {
     // print(users);
     // createAllUsers(users);
   }
-  
-  Future<void>createAllUsers()async
-  {
+
+  Future<void> createAllUsers() async {
     // print(users);
-    try{
-      dynamic user = Provider.of<Auth>(context,listen: false).user;
-    await Provider.of<Auth>(context,listen: false).storeAllUsers(users,user['_id']);
-        showCustomSnackbar(1, "All user created successfully!", context);
-    }
-    catch(error)
-    {
+    try {
+      dynamic user = Provider.of<Auth>(context, listen: false).user;
+      var reentry = await Provider.of<Auth>(context, listen: false)
+          .storeAllUsers(users, user['_id']);
+      print(reentry);
+      
+      showCustomSnackbar(1, "All user created successfully!", context);
+    } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
-
   }
 
   @override
@@ -111,132 +112,139 @@ class _UploadUsersDataState extends State<UploadUsersData> {
       appBar: const Appbar(),
       // resizeToAvoidBottomInset: false,
       body: Stack(children: [
-          Container(
-              width: double.infinity,
-              height: double.infinity,
-              color: backgroundColor),
-          Column(
-            children: [
-              Container(
-                margin: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.02),
-                padding: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.height * 0.0052,
-                    horizontal: MediaQuery.of(context).size.width * 0.05),
-                decoration: headingBoxDecoration,
-                child: Text(
-                  'Upload Users Data',
-                  style: headingTextStyle,
-                ),
+        Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: backgroundColor),
+        Column(
+          children: [
+            Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.02),
+              padding: EdgeInsets.symmetric(
+                  vertical: MediaQuery.of(context).size.height * 0.0052,
+                  horizontal: MediaQuery.of(context).size.width * 0.05),
+              decoration: headingBoxDecoration,
+              child: Text(
+                'Upload Users Data',
+                style: headingTextStyle,
               ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(
-                        // vertical: MediaQuery.of(context).size.height * 0.01,
-                        horizontal: MediaQuery.of(context).size.width * 0.03),
-                    padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height * 0.02,
-                        horizontal: MediaQuery.of(context).size.width * 0.05),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 247, 246, 246),
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 7, 65, 79), width: 1),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width*0.8,
-                                child: Text(
-                                  "Upload the CSV file of users' deatils to add new users",
-                                  style: TextStyle(
-                                      color: headingColor,
-                                      fontSize:
-                                          MediaQuery.of(context).size.height *
-                                              0.018),
-                                ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                      // vertical: MediaQuery.of(context).size.height * 0.01,
+                      horizontal: MediaQuery.of(context).size.width * 0.03),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.02,
+                      horizontal: MediaQuery.of(context).size.width * 0.05),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 247, 246, 246),
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 7, 65, 79), width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              child: Text(
+                                "Upload the CSV file of users' deatils to add new users",
+                                style: TextStyle(
+                                    color: headingColor,
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.018),
                               ),
-                            ],
-                          ),
-                          const Divider(
-                            thickness: 1,
-                            color: Colors.black,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.009,
-                          ),
-                          Row(
+                            ),
+                          ],
+                        ),
+                        const Divider(
+                          thickness: 1,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.009,
+                        ),
+                        Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                            ElevatedButton.icon(
-                                onPressed: pickfile,
-                                style: secondButtonStyle,
-                                icon: const Icon(Icons.upload_file_outlined),
-                                label: Text(
-                                  "Choose File",
-                                  style: TextStyle(
-                                      fontSize:
-                                          MediaQuery.of(context).size.width *
-                                              0.04),
-                                )),
-                          ]),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.01,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width*0.83,
-                                child:
-                                Center(
-                                  child: fileName!=""?Text(fileName,style: TextStyle(
-                                        color: headingColor,
-                                        fontSize:
-                                            MediaQuery.of(context).size.height *
-                                                0.018),):Text(
-                                    "Choose the CSV file with correct format.",
+                              ElevatedButton.icon(
+                                  onPressed: pickfile,
+                                  style: secondButtonStyle,
+                                  icon: const Icon(Icons.upload_file_outlined),
+                                  label: Text(
+                                    "Choose File",
                                     style: TextStyle(
-                                        color: headingColor,
                                         fontSize:
-                                            MediaQuery.of(context).size.height *
+                                            MediaQuery.of(context).size.width *
+                                                0.04),
+                                  )),
+                            ]),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.01,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.83,
+                              child: Center(
+                                child: fileName != ""
+                                    ? Text(
+                                        fileName,
+                                        style: TextStyle(
+                                            color: headingColor,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
                                                 0.018),
-                                  ),
-                                ), 
+                                      )
+                                    : Text(
+                                        "Choose the CSV file with correct format.",
+                                        style: TextStyle(
+                                            color: headingColor,
+                                            fontSize: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.018),
+                                      ),
                               ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.015,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ElevatedButton(
-                                onPressed: createAllUsers,
-                                style: buttonStyle,
-                                child: Text(
-                                  "Upload",
-                                  style: TextStyle(
-                                      fontSize: MediaQuery.of(context).size.height *
-                                          0.025),
-                                ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.015,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ElevatedButton(
+                              onPressed: createAllUsers,
+                              style: buttonStyle,
+                              child: Text(
+                                "Upload",
+                                style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.height *
+                                            0.025),
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
-        ]),
+            ),
+          ],
+        ),
+      ]),
     );
   }
 }
