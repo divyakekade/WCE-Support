@@ -27,6 +27,10 @@ class Griv with ChangeNotifier {
       });
       final extractedData = json.decode(response.body);
       // print(extractedData);
+      if (response.statusCode != 200) {
+        // print(HttpException(extractedData['message']));
+        throw HttpException(extractedData['message']);
+      }
     } catch (error) {
       rethrow;
     }
@@ -44,7 +48,10 @@ class Griv with ChangeNotifier {
       final extractedData = json.decode(response.body);
       grievance = extractedData['grievances'];
       ChangeNotifier();
-
+       if (response.statusCode != 200) {
+        // print(HttpException(extractedData['message']));
+        throw HttpException(extractedData['message']);
+      }
       // print(grievance);
     } catch (error) {
       print(error.toString());
