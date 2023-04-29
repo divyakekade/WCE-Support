@@ -23,7 +23,6 @@ class _EditProfileState extends State<EditProfile> {
   String username = "2020BTECS00038";
   String email = "divya.kekade@walchandsangli.ac.in";
   String password = "";
-  String role = "Student";
   String department = "Computer Science & Engineering";
   String year = "Third Year";
   String mobileNo = "8626061856";
@@ -87,7 +86,7 @@ class _EditProfileState extends State<EditProfile> {
     username = user['username'];
     email = user['email'];
     mobileNo = user['mobile'];
-    role = user['role'];
+   
     department = user['department'];
     year = user['year'];
   }

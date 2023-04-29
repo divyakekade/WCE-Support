@@ -9,7 +9,9 @@ class Auth with ChangeNotifier {
   String? token;
   String? user_id;
   dynamic user;
-  String? ip = "192.168.43.89";
+  static const  ip = "192.168.43.89";
+  static const url1 = "http://$ip:5000";
+  static const url2 = "https://expensive-train-ray.cyclic.app/";
   void setuser(String? token, String? user, String? user_id) {
     if (user == null || token == null) {
       return;
@@ -31,7 +33,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> login(String username, String password) async {
-    final url = Uri.parse("http://${ip}:5000/user/login");
+    final url = Uri.parse("$url2/user/login");
     print("Hello");
     try {
       var response = await http.post(url, headers: <String, String>{
@@ -66,7 +68,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> createUser(dynamic userdetails) async {
-    var url = Uri.parse("http://${ip}:5000/user/createuser");
+    var url = Uri.parse("$url2/user/createuser");
     // print(userdetails);
     try {
       var response = await http.post(url, headers: <String, String>{
@@ -93,7 +95,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<List> storeAllUsers(List<dynamic> users, String uid) async {
-    var url = Uri.parse("http://${ip}:5000/user/storeusers");
+    var url = Uri.parse("$url2/user/storeusers");
     print(users);
     try {
       var response = await http.post(url, headers: <String, String>{
@@ -120,7 +122,7 @@ class Auth with ChangeNotifier {
 
   // Future<void>createManagment(String )
   Future<void> changePassword(String oldpassword, String newpassword) async {
-    final url = Uri.parse("http://${ip}:5000/user/changepassword");
+    final url = Uri.parse("$url2/user/changepassword");
     try {
       final response = await http.post(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
@@ -140,7 +142,7 @@ class Auth with ChangeNotifier {
 
   Future<void> updateProfile(
       String mobile, String department, String year) async {
-    final url = Uri.parse("http://${ip}:5000/user/updateprofile");
+    final url = Uri.parse("$url2/user/updateprofile");
     try {
       final response = await http.post(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
@@ -162,7 +164,7 @@ class Auth with ChangeNotifier {
     }
   }
   Future<void>deleteUser(String uid ,String duid)async{
-    var url = Uri.parse("http://${ip}:5000/user/deleteuser/$duid");
+    var url = Uri.parse("$url2/user/deleteuser/$duid");
     try {
       final response = await http.get(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
@@ -190,7 +192,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<dynamic> getuser(String uid) async {
-    final url = Uri.parse("http://${ip}:5000/user/getuser/${uid}");
+    final url = Uri.parse("$url2/user/getuser/${uid}");
     try {
       final response = await http.get(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
@@ -207,7 +209,7 @@ class Auth with ChangeNotifier {
   }
 
   Future<dynamic> fetchUserByPrn(String username, String uid) async {
-    final url = Uri.parse("http://${ip}:5000/user/getuserbyprn/${username}");
+    final url = Uri.parse("$url2/user/getuserbyprn/${username}");
     try {
       final response = await http.get(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
