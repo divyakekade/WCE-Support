@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +5,7 @@ import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/ChangePassword.dart';
 import 'package:wce_support/screens/HomeScreen.dart';
-import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/widgets/ContainerWithBlueBorder.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -106,7 +104,6 @@ class _EditProfileState extends State<EditProfile> {
     //   });
     // }
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       body: WillPopScope(
         onWillPop: backNavigation,
         child: Stack(children: [
@@ -448,16 +445,16 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.003,
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
+                      ContainerWithBlueBorder(
+                          content: "Want to change password?",
+                          btnText: "Change",
+                          function: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const ChangePassword()));
-                          },
-                          style: buttonStyle,
-                          child: const Text("Change Password"))
+                          }),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.045,
+                      ),
                     ],
                   ),
                 ),

@@ -7,6 +7,7 @@ import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleUserPastProducts.dart';
+import 'package:wce_support/widgets/ContainerWithBlueBorder.dart';
 import 'package:wce_support/widgets/CustomSnackbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 import 'package:image_picker/image_picker.dart';
@@ -23,8 +24,8 @@ class SellProduct extends StatefulWidget {
 class _SellProductState extends State<SellProduct> {
   String productname = '';
   String description = "";
-  String quantity="";
-  String price="";
+  String quantity = "";
+  String price = "";
   String image = '';
   File posterImageFile = File('');
   bool isloading = false;
@@ -76,9 +77,10 @@ class _SellProductState extends State<SellProduct> {
       isloading = false;
     });
   }
+
   Future<bool> backNavigation() async {
-      Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
-       return false;
+    Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
+    return false;
   }
 
   @override
@@ -123,7 +125,8 @@ class _SellProductState extends State<SellProduct> {
                               horizontal:
                                   MediaQuery.of(context).size.width * 0.03),
                           padding: EdgeInsets.symmetric(
-                              vertical: MediaQuery.of(context).size.height * 0.02,
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.02,
                               horizontal:
                                   MediaQuery.of(context).size.width * 0.05),
                           decoration: BoxDecoration(
@@ -141,9 +144,10 @@ class _SellProductState extends State<SellProduct> {
                                     child: Text(
                                       "Enter your product details below",
                                       style: TextStyle(
-                                          fontSize:
-                                              MediaQuery.of(context).size.height *
-                                                  0.018),
+                                          fontSize: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.018),
                                     )),
                                 // const Divider(height: 1, thickness: 2, color: Colors.grey),
                                 const Divider(
@@ -174,8 +178,8 @@ class _SellProductState extends State<SellProduct> {
                                       ))),
                                 ),
                                 SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.025,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.025,
                                 ),
                                 TextFormField(
                                   initialValue: description,
@@ -200,8 +204,8 @@ class _SellProductState extends State<SellProduct> {
                                       ))),
                                 ),
                                 SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.025,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.025,
                                 ),
                                 //password
                                 TextFormField(
@@ -226,8 +230,8 @@ class _SellProductState extends State<SellProduct> {
                                       ))),
                                 ),
                                 SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.025,
+                                  height: MediaQuery.of(context).size.height *
+                                      0.025,
                                 ),
                                 //password
                                 TextFormField(
@@ -259,7 +263,8 @@ class _SellProductState extends State<SellProduct> {
                                   ElevatedButton.icon(
                                       onPressed: pickImage,
                                       style: secondButtonStyle,
-                                      icon: const Icon(Icons.add_a_photo_outlined),
+                                      icon: const Icon(
+                                          Icons.add_a_photo_outlined),
                                       label: Text(
                                         "Add Image",
                                         style: TextStyle(
@@ -272,31 +277,36 @@ class _SellProductState extends State<SellProduct> {
                                 SizedBox(
                                   height: width10 * 2,
                                 ),
-                                posterImageFile.path!="" ? 
-                                Center(
-                                  child: Container(
-                                    width: 250,
-                                    // height: 250,
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: headingColor,
-                                          width: 1),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.file(
-                                        posterImageFile,
-                                        alignment: Alignment.center,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ):const SizedBox(),
-                                image!=""?SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.025,
-                                ):const SizedBox(),
+                                posterImageFile.path != ""
+                                    ? Center(
+                                        child: Container(
+                                          width: 250,
+                                          // height: 250,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                color: headingColor, width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: Image.file(
+                                              posterImageFile,
+                                              alignment: Alignment.center,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : const SizedBox(),
+                                image != ""
+                                    ? SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.025,
+                                      )
+                                    : const SizedBox(),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -319,29 +329,40 @@ class _SellProductState extends State<SellProduct> {
                           ),
                         ),
                         // )),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                        ),
-                        const Divider(
-                            height: 1, thickness: 3, color: Colors.grey),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.012,
-                        ),
-                        ElevatedButton(
-                            onPressed: () {
+                        // SizedBox(
+                        //   height: MediaQuery.of(context).size.height * 0.1,
+                        // ),
+                        // const Divider(
+                        //     height: 1, thickness: 3, color: Colors.grey),
+                        // SizedBox(
+                        //   height: MediaQuery.of(context).size.height * 0.012,
+                        // ),
+                        // ElevatedButton(
+                        //     onPressed: () {
+                        //       Navigator.of(context).push(MaterialPageRoute(
+                        //           builder: (context) =>
+                        //               const SingleUserPastProducts()));
+                        //     },
+                        //     style: buttonStyle,
+                        //     child: Text(
+                        //       "View Your Products",
+                        //       style: TextStyle(
+                        //           fontSize:
+                        //               MediaQuery.of(context).size.height * 0.021),
+                        //     )),
+                        // SizedBox(
+                        //   height: MediaQuery.of(context).size.height * 0.02,
+                        // ),
+                        ContainerWithBlueBorder(
+                            content: "View Your Products",
+                            btnText: "View",
+                            function: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       const SingleUserPastProducts()));
-                            },
-                            style: buttonStyle,
-                            child: Text(
-                              "View Your Products",
-                              style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.of(context).size.height * 0.021),
-                            )),
+                            }),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02,
+                          height: MediaQuery.of(context).size.height * 0.045,
                         ),
                       ],
                     ),

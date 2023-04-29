@@ -86,15 +86,17 @@ class _UploadUsersDataState extends State<UploadUsersData> {
     // print(users);
     // createAllUsers(users);
   }
-
+  var list=[];
   Future<void> createAllUsers() async {
     // print(users);
     try {
       dynamic user = Provider.of<Auth>(context, listen: false).user;
       var reentry = await Provider.of<Auth>(context, listen: false)
           .storeAllUsers(users, user['_id']);
-      print(reentry);
-      showCustomSnackbar(1, "Users added successfully!", context);
+      setState(() {
+        list=reentry;
+      });
+      if(reentry.isEmpty) {showCustomSnackbar(1, "Users added successfully!", context);}
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -106,7 +108,7 @@ class _UploadUsersDataState extends State<UploadUsersData> {
         builder: (BuildContext context) {
           return AlertDialog(
             content: Container(
-              height: MediaQuery.of(context).size.height*0.3,
+              height: MediaQuery.of(context).size.height*0.45,
               child: Column(
                 children: <Widget>[
                   Row(
@@ -132,11 +134,31 @@ class _UploadUsersDataState extends State<UploadUsersData> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height*0.03,
                   ),
-                  const Text("How to upload CSV file?", style: TextStyle(fontWeight: FontWeight.w500),),
+                  Text("How to upload CSV file?", style: TextStyle(fontWeight: FontWeight.w500,fontSize: MediaQuery.of(context).size.height*0.021),),
                   SizedBox(
                     height: MediaQuery.of(context).size.height*0.02,
                   ),
-                  const Text("Instructions to upload CSV file.")
+                  Text("Sequence of fields to upload users deatils using CSV file:", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.019,color: headingColor)),
+                  // SizedBox(
+                  //   height: MediaQuery.of(context).size.height*0.01,
+                  // ),
+                  const Divider(thickness: 0.5,color: imagebutton,),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                        Text("First Name", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.018),),
+                      Text("Last Name", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.018),),
+                      Text("Username(PRN)", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.018),),
+                      Text("Email Id", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.018),),
+                      Text("Mobile No.", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.018),),
+                      Text("Password", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.018),),
+                      Text("Department", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.018),),
+                      Text("Year", style: TextStyle(fontSize: MediaQuery.of(context).size.height*0.018),)
+                      ],),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -240,7 +262,7 @@ class _UploadUsersDataState extends State<UploadUsersData> {
                           children: [
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.83,
-                              child: Center(
+                              // child: Center(
                                 child: fileName != ""
                                     ? Text(
                                         fileName,
@@ -260,7 +282,7 @@ class _UploadUsersDataState extends State<UploadUsersData> {
                                                     .height *
                                                 0.018),
                                       ),
-                              ),
+                              // ),
                             ),
                           ],
                         ),
@@ -289,6 +311,54 @@ class _UploadUsersDataState extends State<UploadUsersData> {
                 ),
               ),
             ),
+            list.isNotEmpty ?
+            Expanded(
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                      // vertical: MediaQuery.of(context).size.height * 0.01,
+                      horizontal: MediaQuery.of(context).size.width * 0.03),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.02,
+                      horizontal: MediaQuery.of(context).size.width * 0.05),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 247, 246, 246),
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 7, 65, 79), width: 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: const [
+                            Text("Already existing user profiles:",style: TextStyle(fontWeight: FontWeight.w500),),
+                          ],
+                        ),
+                        SizedBox(height: MediaQuery.of(context).size.height*0.015,),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: list.length,
+                          itemBuilder: (context, index) {
+                            dynamic l = list[index];
+                            return (
+                              Column(children: [
+                                Row(
+                                  children: [
+                                    Text(users[l]['username']),
+                                  ],
+                                ),
+                                const Divider(color: primaryColor,)
+                              ],)
+                            );
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ):const SizedBox(),
           ],
         ),
       ]),

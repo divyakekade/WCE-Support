@@ -180,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             horizontal:
                                 MediaQuery.of(context).size.width * 0.05),
                         child: Column(
-                          children: user['admintype'] == 'studentAdmin'
+                          children: user['admintype'] == 'studentadmin'
                               ? [
                                   ContainerWithBlueBorder(
                                       content:
@@ -188,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       btnText: "Manage",
                                       function: manageUsers)
                                 ]
-                              : user['admintpe']=="NO" ? [
+                              : user['admintype']=="NO" ? [
                                   ContainerWithBlueBorder(
                                     content: "View Your Grievances",
                                     btnText: "View",

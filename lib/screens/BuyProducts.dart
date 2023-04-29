@@ -39,14 +39,15 @@ class _BuyproductState extends State<BuyProducts> {
     _isInit = false;
     super.didChangeDependencies();
   }
+
   Future<bool> backNavigation() async {
-        Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
-       return false;
+    Navigator.of(context).popAndPushNamed(HomeScreen.routeUrl);
+    return false;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Color.fromARGB(255, 238, 245, 248),
       body: WillPopScope(
         onWillPop: backNavigation,
         child: isLoading
@@ -67,17 +68,6 @@ class _BuyproductState extends State<BuyProducts> {
                         style: headingTextStyle,
                       ),
                     ),
-                    // Expanded(
-                    //   child: ListView(
-                    //     children: [
-                    //       ProductCard(imagename: "mas", productname: "Product Name"),
-                    //       ProductCard(imagename: "mas", productname: "Product Name"),
-                    //       ProductCard(imagename: "mas", productname: "Product Name"),
-                    //       ProductCard(imagename: "mas", productname: "Product Name"),
-                    //       ProductCard(imagename: "mas", productname: "Product Name"),
-                    //     ],
-                    //   ),
-                    // )
                     const Divider(height: 1, thickness: 2, color: Colors.grey),
                     Expanded(
                         child: Container(
@@ -120,119 +110,140 @@ class _GridBState extends State<GridB> {
         Provider.of<Prod>(context, listen: false).products;
     print(gridMap);
     return SingleChildScrollView(
-      child: gridMap.isEmpty? ContainerWithBlueBorder(content: "No products here.", btnText: "Add Product", function: (){
-         Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) =>
-            SideMenuNavigation(loadedPage: 'sell_products')));
-      }): GridView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          // crossAxisSpacing: MediaQuery.of(context).size.width * 0.02 ,
-          mainAxisSpacing: MediaQuery.of(context).size.height * 0.015,
-          mainAxisExtent: MediaQuery.of(context).size.height * 0.30,
-        ),
-        itemCount: gridMap.length,
-        itemBuilder: (_, index) {
-          return InkWell(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SingleProductPage(product:gridMap[index])));
-              // Navigator.of(context).push(MaterialPageRoute(
-              //     builder: (context) => DetailPage(
-              //           productname: "${gridMap.elementAt(index)['title']}",
-              //           price: "${gridMap.elementAt(index)['price']}",
-              //           quantity: "${gridMap.elementAt(index)['quantity']}",
-              //           imageaddress: "${gridMap.elementAt(index)['images']}",
-              //         )));
-            },
-            child: Container(
-              margin: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.02,
-                  vertical: MediaQuery.of(context).size.height * 0.001),
-              padding: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.033,
-                vertical: MediaQuery.of(context).size.height * 0.015,
+      child: gridMap.isEmpty
+          ? ContainerWithBlueBorder(
+              content: "No products here.",
+              btnText: "Add Product",
+              function: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        SideMenuNavigation(loadedPage: 'sell_products')));
+              })
+          : GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                // crossAxisSpacing: MediaQuery.of(context).size.width * 0.02 ,
+                mainAxisSpacing: MediaQuery.of(context).size.height * 0.015,
+                mainAxisExtent: MediaQuery.of(context).size.height * 0.30,
               ),
-              decoration: BoxDecoration(
-                //  border: Border.all(width: 0, color: const Color(0x7960c5e1)),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Color.fromARGB(255, 198, 198, 198),
-                      blurRadius: 4,
-                      offset: Offset(3.5, 4.5))
-                ],
-                borderRadius: BorderRadius.circular(
-                  12.0,
-                ),
-                color: const Color(0x7960c5e1),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Image.network(
-                        gridMap[index]['image'],
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height * 0.18,
-                        width: MediaQuery.of(context).size.height * 0.20,
-                        fit: BoxFit.fill,
-                      ),
+              itemCount: gridMap.length,
+              itemBuilder: (_, index) {
+                return InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            SingleProductPage(product: gridMap[index])));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.02,
+                        vertical: MediaQuery.of(context).size.height * 0.001),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: MediaQuery.of(context).size.width * 0.033,
+                      vertical: MediaQuery.of(context).size.height * 0.015,
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.01,
-                    ),
-                    Center(
-                      child: Text(
-                        gridMap[index]['name'],
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize:
-                                MediaQuery.of(context).size.height * 0.018),
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 0.5, color: headingColor),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Color.fromARGB(255, 198, 198, 198),
+                            blurRadius: 4,
+                            offset: Offset(3, 4))
+                      ],
+                      borderRadius: BorderRadius.circular(
+                        12.0,
                       ),
+                      // color: const Color.fromARGB(255, 219, 220, 220),
+                      color: const Color.fromARGB(255, 228, 229, 230),
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.008,
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.height*0.001,
-                      ),
-                      decoration: BoxDecoration(
-                        border: Border.all(width: 0.5, color: headingColor),
-                        borderRadius: BorderRadius.circular(4),
-                        color: greyColor,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Rs. ",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.018),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(
+                                6.0,
+                              ),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Color.fromARGB(255, 198, 198, 198),
+                                    blurRadius: 4,
+                                    offset: Offset(3, 4))
+                              ],
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(6),
+                              child: Image.network(
+                                gridMap[index]['image'],
+                                alignment: Alignment.center,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.18,
+                                width:
+                                    MediaQuery.of(context).size.height * 0.20,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
                           ),
-                          Text(
-                            gridMap[index]['price'].toString(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize:
-                                    MediaQuery.of(context).size.height * 0.018),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          Center(
+                            child: Text(
+                              gridMap[index]['name'],
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: MediaQuery.of(context).size.height *
+                                      0.018),
+                            ),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                              vertical:
+                                  MediaQuery.of(context).size.height * 0.001,
+                            ),
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 0.5, color: headingColor),
+                              borderRadius: BorderRadius.circular(50),
+                              color: imagebutton,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Rs. ",
+                                  style: TextStyle(
+                                      color: headingColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.018),
+                                ),
+                                Text(
+                                  gridMap[index]['price'].toString(),
+                                  style: TextStyle(
+                                      color: headingColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize:
+                                          MediaQuery.of(context).size.height *
+                                              0.018),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

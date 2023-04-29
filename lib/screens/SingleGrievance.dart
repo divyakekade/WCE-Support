@@ -22,7 +22,7 @@ class SingleGrievance extends StatefulWidget {
 class _SingleGrievanceState extends State<SingleGrievance> {
   bool sameuser = false;
   String? id;
-  String role = "Student";
+  String role = "NO";
   bool takeFeedback = false;
   bool openFeedbackForm = false;
   String feedback = "";
@@ -33,7 +33,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     id = Provider.of<Auth>(context, listen: false).user_id;
     if (id != null) {
       dynamic user = Provider.of<Auth>(context, listen: false).user;
-      role = user['role'];
+      role = user['admintype'];
     }
     if (id == widget.grievance['userID']) {
       sameuser = true;
@@ -240,7 +240,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.03),
-                            role == 'Management'
+                            role == 'grievanceadmin'
                                 ? Row(children: [
                                     ElevatedButton(
                                       onPressed: viewGrievantDetails,
@@ -249,7 +249,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                     )
                                   ])
                                 : const SizedBox(),
-                            role == "Management"
+                            role == "grievanceadmin"
                                 ? SizedBox(
                                     height: MediaQuery.of(context).size.width *
                                         0.03)
@@ -339,7 +339,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                       ),
                       SizedBox(
                           height: MediaQuery.of(context).size.width * 0.02),
-                      role == "Management"
+                      role == "grievanceadmin"
                           ? widget.grievance['status'] == "Sent"
                               ? ElevatedButton(
                                   onPressed: markAknowledge,

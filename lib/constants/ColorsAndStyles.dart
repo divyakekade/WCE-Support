@@ -71,14 +71,12 @@ final buttonStyle = ButtonStyle(
         borderRadius: BorderRadius.circular(15.0),
       ),
     ),
-    minimumSize: MaterialStateProperty.all(ui.Size(130, 40)),
+    minimumSize: MaterialStateProperty.all(const ui.Size(130, 40)),
     backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
     foregroundColor: MaterialStateProperty.all<Color>(Colors.white));
 
 final secondButtonStyle = ButtonStyle(
-    elevation: MaterialStatePropertyAll(5),
-    minimumSize: MaterialStateProperty.all(ui.Size(150, 45)),
+    elevation: const MaterialStatePropertyAll(5),
+    minimumSize: MaterialStateProperty.all(const ui.Size(150, 45)),
     backgroundColor: MaterialStateProperty.all<Color>(imagebutton),
     foregroundColor: MaterialStateProperty.all<Color>(Colors.black));
-//constanly repeated styles for the widgets here
-//like add style for button used commonly here 

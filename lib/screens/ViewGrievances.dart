@@ -21,7 +21,7 @@ class ViewGrievances extends StatefulWidget {
 class _ViewGrievancesState extends State<ViewGrievances> {
   bool _isInit = true;
   bool isLoading = false;
-  String role = "Student";
+  String role = "NO";
   bool myassignment = false;
   dynamic user;
   @override
@@ -30,16 +30,16 @@ class _ViewGrievancesState extends State<ViewGrievances> {
     user = Provider.of<Auth>(context, listen: false).user;
 
     if (user != null) {
-      role = user['role'];
+      role = user['admintype'];
       print(role);
     }
   }
 
-  void viewMyAssignment() {
-    setState(() {
-      myassignment = (myassignment == false);
-    });
-  }
+  // void viewMyAssignment() {
+  //   setState(() {
+  //     myassignment = (myassignment == false);
+  //   });
+  // }
 
   @override
   void didChangeDependencies() {
@@ -92,25 +92,25 @@ class _ViewGrievancesState extends State<ViewGrievances> {
                         style: headingTextStyle,
                       ),
                     ),
-                    role == "Management"
-                        ? Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal:
-                                    MediaQuery.of(context).size.width * 0.035),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                ElevatedButton(
-                                  onPressed: viewMyAssignment,
-                                  style: buttonStyle,
-                                  child: myassignment
-                                      ? const Text("All Grievance")
-                                      : const Text("My Grievances"),
-                                ),
-                              ],
-                            ),
-                          )
-                        : Container(),
+                    // role == "grievanceadmin"
+                    //     ? Padding(
+                    //         padding: EdgeInsets.symmetric(
+                    //             horizontal:
+                    //                 MediaQuery.of(context).size.width * 0.035),
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.end,
+                    //           children: [
+                    //             ElevatedButton(
+                    //               onPressed: viewMyAssignment,
+                    //               style: buttonStyle,
+                    //               child: myassignment
+                    //                   ? const Text("All Grievance")
+                    //                   : const Text("My Grievances"),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //       )
+                    //     : Container(),
                     Expanded(
                         // child: SingleChildScrollView(
                         // child: Container(
