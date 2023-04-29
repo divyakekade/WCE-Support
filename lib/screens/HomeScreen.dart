@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
@@ -68,7 +69,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: const Text('No'),
               ),
               TextButton(
-                onPressed: () => Navigator.of(context).pop(true),
+                // onPressed: () => Navigator.of(context).pop(true),
+                onPressed: ()=>SystemNavigator.pop(),
                 child: const Text('Yes'),
               ),
             ],
