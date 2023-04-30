@@ -349,7 +349,7 @@ class _EditProfileState extends State<EditProfile> {
                               //   height:
                               //       MediaQuery.of(context).size.height * 0.025,
                               // ),
-                              DropdownButtonFormField(
+                              user['admintype']=='NO'?DropdownButtonFormField(
                                 isExpanded: true,
                                 items: departmentsList.map((value) {
                                   return DropdownMenuItem<String>(
@@ -381,12 +381,12 @@ class _EditProfileState extends State<EditProfile> {
                                         borderSide: BorderSide(
                                       color: Colors.black,
                                     ))),
-                              ),
-                              SizedBox(
+                              ):const SizedBox(),
+                              user['admintype']=='NO'?SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.025,
-                              ),
-                              DropdownButtonFormField(
+                              ):const SizedBox(),
+                              user['admintype']=='NO'?DropdownButtonFormField(
                                       isExpanded: true,
                                       items: yearsList.map((value) {
                                         return DropdownMenuItem<String>(
@@ -420,10 +420,10 @@ class _EditProfileState extends State<EditProfile> {
                                               borderSide: BorderSide(
                                             color: Colors.black,
                                           ))),
-                                    ),
-                              SizedBox(
+                                    ):const SizedBox(),
+                              user['admintype']=='NO'?SizedBox(
                                       height: MediaQuery.of(context).size.height *
-                                          0.025),
+                                          0.025):const SizedBox(),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [

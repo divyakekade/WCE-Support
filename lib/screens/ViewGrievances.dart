@@ -7,6 +7,7 @@ import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleGrievance.dart';
+import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/ContainerWithBlueBorder.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
@@ -69,6 +70,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
   Widget build(BuildContext context) {
     List list = Provider.of<Griv>(context).sendGrievanceList();
     return Scaffold(
+      appBar: const Appbar(),
       body: WillPopScope(
         onWillPop: backNavigation,
         child: isLoading

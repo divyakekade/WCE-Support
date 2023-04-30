@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
 import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
 import 'package:wce_support/screens/SingleUserPastProducts.dart';
+import 'package:wce_support/screens/UsersManagement.dart';
+import 'package:wce_support/screens/ViewGrievances.dart';
 import 'package:wce_support/widgets/ContainerWithBlueBorder.dart';
 import '../Provider/Auth provider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
@@ -47,14 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   manageUsers() {
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) =>
-            SideMenuNavigation(loadedPage: 'users_management')));
+        builder: (context) => const UsersManagement()));
   }
 
   viewManagementGrievances(){
     Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) =>
-            SideMenuNavigation(loadedPage: 'view_grievances')));
+        builder: (context) => const ViewGrievances()));
   }
 
   Future<bool> backNavigation() async {
@@ -200,9 +200,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                       content: "View Your Products",
                                       btnText: "View",
                                       function: viewYourProducts),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height*0.01,
+                                  )
                                 ]:[
                                   ContainerWithBlueBorder(
-                                    content: "View Your Grievances",
+                                    content: "View Grievances",
                                     btnText: "View",
                                     function: viewManagementGrievances,
                                   ),

@@ -7,6 +7,7 @@ import 'package:wce_support/screens/CreateUser.dart';
 import 'package:wce_support/screens/EditProfileManagement.dart';
 import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/UploadUsersData.dart';
+import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/errorDialogBox.dart';
 
 class UsersManagement extends StatefulWidget {
@@ -44,6 +45,7 @@ class _UsersManagementState extends State<UsersManagement> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const Appbar(),
       body: WillPopScope(
         onWillPop: backNavigation,
         child: Stack(children: [

@@ -7,8 +7,8 @@ import 'package:wce_support/screens/HomeScreen.dart';
 import 'package:wce_support/screens/LogoutPage.dart';
 import 'package:wce_support/screens/PutGrievance.dart';
 import 'package:wce_support/screens/SellProducts.dart';
-import 'package:wce_support/screens/UsersManagement.dart';
-import 'package:wce_support/screens/ViewGrievances.dart';
+// import 'package:wce_support/screens/UsersManagement.dart';
+// import 'package:wce_support/screens/ViewGrievances.dart';
 import 'package:wce_support/widgets/SidebarHeader.dart';
 import '../Provider/Auth provider.dart';
 import '../widgets/Appbar.dart';
@@ -41,7 +41,7 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
     user = Provider.of<Auth>(context, listen: false).user;
     currentPage = widget.loadedPage;
   }
-
+  dynamic page = HomeScreen();
   @override
   Widget build(BuildContext context) {
     dynamic container;
@@ -54,29 +54,84 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
       container = const SellProduct();
     } else if (currentPage == "favourite_products") {
       container = const FavouriteProducts();
-    } else if (currentPage == "view_grievances") {
-      container = const ViewGrievances();
-    } else if (currentPage == "put_grievance") {
+    } 
+    // else if (currentPage == "view_grievances") {
+    //   container = const ViewGrievances();
+    // } 
+    else if (currentPage == "put_grievance") {
       container = const PutGrievance();
     } else if (currentPage == "view_profile") {
       container = const EditProfile();
-    } else if (currentPage == "users_management") {
-      container = const UsersManagement();
-    } else if (currentPage == "logout") {
+    } 
+    // else if (currentPage == "users_management") {
+    //   container = const UsersManagement();
+    // } 
+    else if (currentPage == "logout") {
       container = const LogoutPage();
       // QuickAlert.show(context: context, type: QuickAlertType.success);
     }
 
-    return Scaffold(
-        appBar: const Appbar(),
-        drawer: Drawer(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [const SidebarHeader(), SidebarList()],
+    return user['admintype'] == 'NO'
+        ? Scaffold(
+            appBar: const Appbar(),
+            drawer: Drawer(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [const SidebarHeader(), SidebarList()],
+                ),
+              ),
             ),
-          ),
-        ),
-        body: container);
+            body: container)
+        : Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: const Text(
+                "WCE Support",
+                style: TextStyle(fontSize: 18),
+              ),
+              centerTitle: true,
+                actions: [
+                  PopupMenuButton(itemBuilder: (context) {
+                    return [
+                      PopupMenuItem<int>(
+                        value: 0,
+                        child: Row(
+                          children: const [
+                            Icon(Icons.settings_outlined, color: Colors.black,),
+                            SizedBox(width: 12,),
+                            Text("Profile Settings"),
+                          ],
+                        ),
+                      ),
+                      PopupMenuItem<int>(
+                        value: 1,
+                        child: Row(
+                          children: const [
+                            Icon(Icons.logout, color: Colors.black,),
+                            SizedBox(width: 12,),
+                            Text("Logout"),
+                          ],
+                        ),
+                      ),
+                    ];
+                  },
+                  onSelected:(value){
+                    if(value==0){
+                      setState(() {
+                        page=const EditProfile();
+                      });
+                    }
+                    else if(value==1){
+                      setState(() {
+                        page=const LogoutPage();
+                      });
+                    }
+                  }
+                  )
+                ],
+            ),
+            body: page,
+          );
   }
 
   // ignore: non_constant_identifier_names
@@ -94,16 +149,16 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
               currentPage == "sell_products"),
           menuItem(4, "Favourite Products", Icons.favorite_border_outlined,
               currentPage == "favourite_products"),
-          menuItem(5, "View Grievances", Icons.notes,
-              currentPage == "view_grievances"),
+          // menuItem(5, "View Grievances", Icons.notes,
+          //     currentPage == "view_grievances"),
           menuItem(6, "Put Grievance", Icons.feedback_outlined,
               currentPage == "put_grievance"),
           menuItem(7, "Profile Settings", Icons.settings_outlined,
               currentPage == "view_profile"),
-          user['isadmin']==true
-              ? menuItem(8, "Users Management", Icons.person_add_outlined,
-                  currentPage == "users_management")
-              : const SizedBox(),
+          // user['isadmin'] == true
+          //     ? menuItem(8, "Users Management", Icons.person_add_outlined,
+          //         currentPage == "users_management")
+          //     : const SizedBox(),
           menuItem(9, "Logout", Icons.logout, currentPage == "logout"),
         ],
       ),
@@ -126,9 +181,11 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
               currentPage = "sell_products";
             } else if (id == 4) {
               currentPage = "favourite_products";
-            } else if (id == 5) {
-              currentPage = "view_grievances";
-            } else if (id == 6) {
+            } 
+            // else if (id == 5) {
+            //   currentPage = "view_grievances";
+            // } 
+            else if (id == 6) {
               if (authtoken == null) {
                 currentPage = "home";
               } else {
@@ -136,9 +193,11 @@ class SideMenuNavigationState extends State<SideMenuNavigation> {
               }
             } else if (id == 7) {
               currentPage = "view_profile";
-            } else if (id == 8) {
-              currentPage = "users_management";
-            } else if (id == 9) {
+            } 
+            // else if (id == 8) {
+            //   currentPage = "users_management";
+            // } 
+            else if (id == 9) {
               currentPage = "logout";
             }
           });
