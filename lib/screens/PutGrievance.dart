@@ -30,6 +30,7 @@ class _PutGrievanceState extends State<PutGrievance> {
   // final network = NetworkHandler();
   List<String> sectionList = <String>["Hostel", "Exam Cell", "My Department"];
   List list = [];
+  bool isfeedback = false; 
   @override
   void initState() {
     super.initState();
@@ -38,6 +39,7 @@ class _PutGrievanceState extends State<PutGrievance> {
     if (authtoken == null) {
       // Navigator.of(context).popAndPushNamed(SideMenuNavigation.routeurl);
     }
+    
   }
 
   Future<void> pickImage() async {
@@ -83,8 +85,7 @@ class _PutGrievanceState extends State<PutGrievance> {
           .putGrievance(subject, description, selectedOption, image, id);
       showCustomSnackbar(1, "Grievance added successfully!", context);
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>
-              SideMenuNavigation(loadedPage: 'view_grievances')));
+          builder: (context) => const SingleUserPastGrievances()));
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }

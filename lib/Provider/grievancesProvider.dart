@@ -8,9 +8,9 @@ class Griv with ChangeNotifier {
   static const ip = "192.168.43.89";
   static const url1 = "http://$ip:5000";
   // static const url2 = "https://expensive-train-ray.cyclic.app/";
-  var grievance = [];
+  List<dynamic> grievance = [];
   Future<void> putGrievance(String subject, String description,
-      String selectedOption,String image, String? id) async {
+      String selectedOption, String image, String? id) async {
     final url = Uri.parse("$url1/grievances/putgrievances");
     try {
       if (id == null) {
@@ -23,7 +23,7 @@ class Griv with ChangeNotifier {
         'subject': subject,
         'description': description,
         'section': selectedOption,
-        'image':image
+        'image': image
       });
       final extractedData = json.decode(response.body);
       // print(extractedData);
@@ -48,7 +48,7 @@ class Griv with ChangeNotifier {
       final extractedData = json.decode(response.body);
       grievance = extractedData['grievances'];
       ChangeNotifier();
-       if (response.statusCode != 200) {
+      if (response.statusCode != 200) {
         // print(HttpException(extractedData['message']));
         throw HttpException(extractedData['message']);
       }
@@ -106,24 +106,36 @@ class Griv with ChangeNotifier {
   Future<void> putfeedback(
       String? id, String gid, String review, String comment) async {
     final url = Uri.parse("$url1/grievances/putfeedback");
+    var currengriv = grievance.firstWhere((griv) => griv["_id"] == gid);
+    print(currengriv);
     try {
-      if(id==null)
-      {
-        throw HttpException("You are not authenticated"); 
+      if (id == null) {
+        throw HttpException("You are not authenticated");
       }
       final response = await http.post(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
         'id': id
       }, body: <String, String>{
-        
         'gid': gid,
-        'review':review, 
-        'comment':comment, 
+        'review': review,
+        'comment': comment,
       });
       final extractedData = json.decode(response.body);
       if (response.statusCode != 200) {
-        throw HttpException(extractedData['message']); 
+        throw HttpException(extractedData['message']);
       }
+      // print(extractedData['grievance']);
+      var newgrievance = extractedData['grievance'];
+      List<dynamic> newgrievanceList =
+          grievance.where((griv) => griv['_id'] != gid).toList();
+      print(newgrievanceList);
+      newgrievanceList.add(newgrievance);
+      grievance = newgrievanceList;
+
+      // grievance.add(newgrievance);
+      notifyListeners();
+      // print(currengriv);
+      // print(newgrievance);
     } catch (error) {
       rethrow;
     }

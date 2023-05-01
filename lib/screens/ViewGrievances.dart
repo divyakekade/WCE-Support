@@ -25,6 +25,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
   String role = "NO";
   bool myassignment = false;
   dynamic user;
+  
   @override
   void initState() {
     super.initState();
@@ -34,6 +35,7 @@ class _ViewGrievancesState extends State<ViewGrievances> {
       role = user['admintype'];
       print(role);
     }
+    
   }
 
   // void viewMyAssignment() {

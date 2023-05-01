@@ -5,6 +5,8 @@ import 'package:wce_support/Provider/Auth%20provider.dart';
 import 'package:wce_support/Provider/grievancesProvider.dart';
 import 'package:wce_support/constants/ColorsAndStyles.dart';
 import 'package:wce_support/screens/SideMenuNavigation.dart';
+import 'package:wce_support/screens/SingleUserPastGrievnaces.dart';
+import 'package:wce_support/screens/ViewGrievances.dart';
 import 'package:wce_support/screens/ViewProfile.dart';
 import 'package:wce_support/widgets/Appbar.dart';
 import 'package:wce_support/widgets/ConfirmationDialogBox.dart';
@@ -27,6 +29,8 @@ class _SingleGrievanceState extends State<SingleGrievance> {
   bool openFeedbackForm = false;
   String feedback = "";
   String comment = "";
+  var  showcomment ;
+  bool isfeedbacked = false;
   @override
   void initState() {
     print(widget.grievance);
@@ -41,6 +45,11 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     if (sameuser && widget.grievance['status'] == 'Completed') {
       takeFeedback = true;
     }
+    if (widget.grievance['feedback'] != null) {
+      isfeedbacked = true;
+      feedback = widget.grievance['feedback']['review'];
+      showcomment = widget.grievance['feedback']['comment'];
+    }
   }
 
   Future<void> markAknowledge() async {
@@ -49,9 +58,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
       await Provider.of<Griv>(context, listen: false)
           .changeStatus(id, widget.grievance['_id'], "Acknowledged");
 
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>
-              SideMenuNavigation(loadedPage: "view_grievances")));
+      Navigator.of(context).popAndPushNamed(ViewGrievances.routeUrl);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -63,9 +70,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
 
       await Provider.of<Griv>(context, listen: false)
           .changeStatus(id, widget.grievance['_id'], "Completed");
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>
-              SideMenuNavigation(loadedPage: "view_grievances")));
+     Navigator.of(context).popAndPushNamed(ViewGrievances.routeUrl);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -77,9 +82,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
 
       await Provider.of<Griv>(context, listen: false)
           .changeStatus(id, widget.grievance['_id'], "Closed");
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>
-              SideMenuNavigation(loadedPage: "view_grievances")));
+      Navigator.of(context).popAndPushNamed(ViewGrievances.routeUrl);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -91,8 +94,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
           .deleteGrievance(widget.grievance['userID'], widget.grievance['_id']);
       showCustomSnackbar(1, "Grievance deleted successfully!", context);
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>
-              SideMenuNavigation(loadedPage: "view_grievances")));
+          builder: (context) => const SingleUserPastGrievances()));
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
     }
@@ -102,14 +104,17 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     try {
       await Provider.of<Griv>(context, listen: false)
           .putfeedback(id, widget.grievance['_id'], feedback, comment);
-          showCustomSnackbar(1, "Feedback posted successfully!", context);
+      showCustomSnackbar(1, "Feedback posted successfully!", context);
       setState(() {
         openFeedbackForm = false;
-        comment = '';
+        // comment = '';
+      });
+      setState(() {
+        isfeedbacked = true;
+        showcomment = comment;
       });
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
-     
     }
   }
 
@@ -124,10 +129,9 @@ class _SingleGrievanceState extends State<SingleGrievance> {
     }
   }
 
-  showImageFullScreen(){
+  showImageFullScreen() {
     final imageProvider = Image.network(widget.grievance['image']).image;
-    showImageViewer(context, imageProvider, onViewerDismissed: () {
-    });
+    showImageViewer(context, imageProvider, onViewerDismissed: () {});
   }
 
   @override
@@ -259,7 +263,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                 field: (widget.grievance['status'] !=
                                         "Completed")
                                     ? "${widget.grievance['status']}"
-                                    : (widget.grievance['feedback'] == null)
+                                    : (!isfeedbacked)
                                         ? "${widget.grievance['status']} and  not Feedbacked"
                                         : "${widget.grievance['status']} and  Feedbacked"),
                             SizedBox(
@@ -268,42 +272,42 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                             widget.grievance['image'] != null
                                 ? Center(
                                     child: InkWell(
-                                        onTap: showImageFullScreen,
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(10),
-                                          child: Image.network(
-                                            widget.grievance['image'],
-                                            alignment: Alignment.center,
-                                            fit: BoxFit.cover,
-                                            loadingBuilder: (BuildContext context,
-                                                Widget child,
-                                                ImageChunkEvent?
-                                                    loadingProgress) {
-                                              if (loadingProgress == null) {
-                                                return child;
-                                              }
-                                              return Center(
-                                                child: CircularProgressIndicator(
-                                                  value: loadingProgress
-                                                              .expectedTotalBytes !=
-                                                          null
-                                                      ? loadingProgress
-                                                              .cumulativeBytesLoaded /
-                                                          loadingProgress
-                                                              .expectedTotalBytes!
-                                                      : null,
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                      onTap: showImageFullScreen,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          widget.grievance['image'],
+                                          alignment: Alignment.center,
+                                          fit: BoxFit.cover,
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
+                                    ),
                                   )
                                 : const SizedBox(),
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.05),
-                            widget.grievance['feedback'] != null
+                            isfeedbacked
                                 ? Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -322,17 +326,14 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                             SizedBox(
                                 height:
                                     MediaQuery.of(context).size.width * 0.02),
-                            widget.grievance['feedback'] != null
+                            isfeedbacked
                                 ? HeadingAndField(
                                     heading: "Is issue resolved?",
-                                    field: widget.grievance['feedback']
-                                        ['review'])
+                                    field: feedback)
                                 : const SizedBox(),
-                            widget.grievance['feedback'] != null
+                            isfeedbacked
                                 ? HeadingAndField(
-                                    heading: "Comment:",
-                                    field: widget.grievance['feedback']
-                                        ['comment'])
+                                    heading: "Comment:", field: showcomment)
                                 : const SizedBox(),
                           ],
                         ),
@@ -361,7 +362,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                       : const SizedBox()
                           : takeFeedback &&
                                   !openFeedbackForm &&
-                                  widget.grievance['feedback'] == null
+                                  isfeedbacked == false
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -375,7 +376,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
                                   ],
                                 )
                               : const SizedBox(),
-                      openFeedbackForm && widget.grievance['feedback'] == null
+                      openFeedbackForm && !isfeedbacked
                           ? Container(
                               margin: EdgeInsets.symmetric(
                                   vertical:

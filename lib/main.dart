@@ -72,12 +72,12 @@ class MyApp extends StatelessWidget {
             HomeScreen.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'home',),
             SellProduct.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'sell_products',),
             FavouriteProducts.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'favourite_products',),
-            ViewGrievances.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'view_grievances',),
+            ViewGrievances.routeUrl: (ctx) => ViewGrievances(),
             PutGrievance.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'put_grievance',),
             LogoutPage.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'logout',),
             EditProfile.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'view_profile',),
             LoginPage.routeUrl: (ctx) => const LoginPage(),
-            UsersManagement.routeUrl: (ctx) => SideMenuNavigation(loadedPage: 'users_management'),
+            UsersManagement.routeUrl: (ctx) => UsersManagement()
           }),
     );
   }
