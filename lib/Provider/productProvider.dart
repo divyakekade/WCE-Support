@@ -8,12 +8,12 @@ import 'package:http/http.dart' as http;
 class Prod with ChangeNotifier {
   static const ip = "192.168.43.89";
   static const url1="http://$ip:5000";
-  // static const url2="https://expensive-train-ray.cyclic.app/";
+  static const url2="https://expensive-train-ray.cyclic.app/";
   var products = [];
   var favproducts = [];
   Future<void> addProduct(String name, String description, String quantity,
       String price,String image, String? id) async {
-    final url = Uri.parse("$url1/product/add");
+    final url = Uri.parse("$url2/product/add");
     try {
       if (id == null) {
         throw HttpException("You are not authenticated");
@@ -39,7 +39,7 @@ class Prod with ChangeNotifier {
   }
 
   Future<void> getProducts() async {
-    final url = Uri.parse("$url1/product/send");
+    final url = Uri.parse("$url2/product/send");
     print("hello");
 
     try {
@@ -59,7 +59,7 @@ class Prod with ChangeNotifier {
   }
 
   Future<void> deleteProduct(String uid, String? gid) async {
-    final url = Uri.parse("$url1/product/delete/$gid");
+    final url = Uri.parse("$url2/product/delete/$gid");
 
     try {
       final response = await http.get(url, headers: <String, String>{
@@ -77,7 +77,7 @@ class Prod with ChangeNotifier {
 
   Future<void> updateProduct(String name, String description, String quantity,
       String price, String uid,String image, String pid) async {
-    final url = Uri.parse("$url1/product/update");
+    final url = Uri.parse("$url2/product/update");
     try {
       final response = await http.post(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
@@ -103,7 +103,7 @@ class Prod with ChangeNotifier {
   }
 
   Future<dynamic> addBookmark(String uid, String pid) async {
-    final url = Uri.parse("$url1/user/addbookmark");
+    final url = Uri.parse("$url2/user/addbookmark");
     try {
       final response = await http.post(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
@@ -124,7 +124,7 @@ class Prod with ChangeNotifier {
   }
 
   Future<dynamic> removeBookmark(String uid, String pid) async {
-    final url = Uri.parse("$url1/user/removebookmark");
+    final url = Uri.parse("$url2/user/removebookmark");
     try {
       final response = await http.post(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
@@ -148,7 +148,7 @@ class Prod with ChangeNotifier {
   Future<void> getfavouriteList(String uid) async {
     try {
       
-      final url = Uri.parse("$url1/user/favourite");
+      final url = Uri.parse("$url2/user/favourite");
       final response = await http.get(url, headers: <String, String>{
         'Context-Type': 'application/json;charSet=UTF-8',
         'id': uid

@@ -57,7 +57,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
       String? id = Provider.of<Auth>(context, listen: false).user_id;
       await Provider.of<Griv>(context, listen: false)
           .changeStatus(id, widget.grievance['_id'], "Acknowledged");
-
+      showCustomSnackbar(1, "Grievance acknowledged successfully!", context);
       Navigator.of(context).popAndPushNamed(ViewGrievances.routeUrl);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
@@ -70,6 +70,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
 
       await Provider.of<Griv>(context, listen: false)
           .changeStatus(id, widget.grievance['_id'], "Completed");
+     showCustomSnackbar(1, "Grievance marked completed!", context);
      Navigator.of(context).popAndPushNamed(ViewGrievances.routeUrl);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);
@@ -82,6 +83,7 @@ class _SingleGrievanceState extends State<SingleGrievance> {
 
       await Provider.of<Griv>(context, listen: false)
           .changeStatus(id, widget.grievance['_id'], "Closed");
+      showCustomSnackbar(1, "Grievance closed successfully!", context);
       Navigator.of(context).popAndPushNamed(ViewGrievances.routeUrl);
     } catch (error) {
       showErrorDialogBox2(error.toString(), context);

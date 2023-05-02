@@ -7,11 +7,11 @@ import 'package:wce_support/Exceptions/httpexception.dart';
 class Griv with ChangeNotifier {
   static const ip = "192.168.43.89";
   static const url1 = "http://$ip:5000";
-  // static const url2 = "https://expensive-train-ray.cyclic.app/";
+  static const url2 = "https://expensive-train-ray.cyclic.app/";
   List<dynamic> grievance = [];
   Future<void> putGrievance(String subject, String description,
       String selectedOption, String image, String? id) async {
-    final url = Uri.parse("$url1/grievances/putgrievances");
+    final url = Uri.parse("$url2/grievances/putgrievances");
     try {
       if (id == null) {
         throw HttpException("You are not authenticated");
@@ -37,7 +37,7 @@ class Griv with ChangeNotifier {
   }
 
   Future<void> viewGrievances() async {
-    final url = Uri.parse("$url1/grievances/viewgrievances");
+    final url = Uri.parse("$url2/grievances/viewgrievances");
     print("hello");
 
     try {
@@ -64,7 +64,7 @@ class Griv with ChangeNotifier {
   }
 
   Future<void> deleteGrievance(String uid, String gid) async {
-    final url = Uri.parse("$url1/grievances/delete/$gid");
+    final url = Uri.parse("$url2/grievances/delete/$gid");
 
     try {
       final response = await http.delete(url, headers: <String, String>{
@@ -81,7 +81,7 @@ class Griv with ChangeNotifier {
   }
 
   Future<void> changeStatus(String? id, String gid, String status) async {
-    final url = Uri.parse("$url1/grievances/changestatus");
+    final url = Uri.parse("$url2/grievances/changestatus");
     try {
       if (id == null) {
         throw HttpException("You are not authenticated");
@@ -105,7 +105,7 @@ class Griv with ChangeNotifier {
 
   Future<void> putfeedback(
       String? id, String gid, String review, String comment) async {
-    final url = Uri.parse("$url1/grievances/putfeedback");
+    final url = Uri.parse("$url2/grievances/putfeedback");
     var currengriv = grievance.firstWhere((griv) => griv["_id"] == gid);
     print(currengriv);
     try {
